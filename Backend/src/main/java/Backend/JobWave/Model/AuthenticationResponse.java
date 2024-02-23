@@ -1,4 +1,4 @@
-package Backend.JobWave.Auth;
+package Backend.JobWave.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,26 +1,17 @@
-package Backend.JobWave.Auth;
+package Backend.JobWave.Service;
 
-import java.util.List;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 import Backend.JobWave.Exception.EmailAlreadyExistsException;
-// import Backend.JobWave.Model.Doctor;
-// import Backend.JobWave.Model.Patient;
-import Backend.JobWave.Model.Role;
-import Backend.JobWave.Model.Token;
-import Backend.JobWave.Model.TokenType;
+import Backend.JobWave.Model.AuthenticationRequest;
+import Backend.JobWave.Model.AuthenticationResponse;
+import Backend.JobWave.Model.RegisterRequest;
 import Backend.JobWave.Model.User;
-// import Backend.JobWave.Repository.DoctorRepo;
-// import Backend.JobWave.Repository.PatientRepo;
-import Backend.JobWave.Repository.TokenRepository;
 import Backend.JobWave.Repository.UserRepository;
-import Backend.JobWave.Service.JwtService;
-import Backend.JobWave.Service.RoleService;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -28,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 public class AuthenticationService {
 
         private final UserRepository userRepository;
-        private final TokenRepository tokenRepository;
         private final PasswordEncoder passwordEncoder;
         private final AuthenticationManager authenticationManager;
         private final JwtService jwtService;
@@ -44,10 +34,11 @@ public class AuthenticationService {
                                 .build();
 
                 System.out.println(request.getRole());
+
                 if (userRepository.existsByEmail(user.getEmail())) {
                         throw new EmailAlreadyExistsException("Email already exists");
                 }
-                User savedUser = userRepository.save(user);
+                 userRepository.save(user);
                 if (request.getRole() == "PATIENT") {
                         // Patient patient = new Patient(user);
                         // patientRepo.save(patient);
@@ -62,42 +53,17 @@ public class AuthenticationService {
                 }
 
                 var jwt = jwtService.generateToken(user);
-                saveUserToken(savedUser, jwt);
                 return AuthenticationResponse.builder()
                                 .token(jwt)
                                 .build();
         }
 
-        // private void revokeAllUserTokens(User user) {
-        //         List<Token> validUserTokens = tokenRepository.findActiveTokensByUser_id(user.get_id());
-
-        //         if (validUserTokens.isEmpty()) {
-        //                 return;
-        //         }
-
-        //         validUserTokens.forEach(
-        //                         t -> {
-        //                                 t.setExpired(true);
-        //                                 t.setRevoked(true);
-        //                         });
-        //         tokenRepository.saveAll(validUserTokens);
-        // }
-
-        private void saveUserToken(User user, String token) {
-                var usertoken = Token.builder()
-                                .user(user)
-                                .token(token)
-                                .tokenType("BEARER")
-                                .build();
-                tokenRepository.save(usertoken);
-        }
 
         public AuthenticationResponse authenticate(AuthenticationRequest request) {
                 authenticationManager.authenticate(
                                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
                 User user =  userRepository.findByEmail(request.getEmail());
                 var jwtToken = jwtService.generateToken(user);
-                saveUserToken(user, jwtToken);
                 return AuthenticationResponse.builder()
                                 .token(jwtToken)
                                 .build();

@@ -1,8 +1,12 @@
-package Backend.JobWave.Auth;
+package Backend.JobWave.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import Backend.JobWave.Model.AuthenticationRequest;
+import Backend.JobWave.Model.AuthenticationResponse;
+import Backend.JobWave.Model.RegisterRequest;
+import Backend.JobWave.Service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
