@@ -1,0 +1,25 @@
+<div class="router">
+<div class="search" id="search">
+    <!-- <img src="../../assets/image/search.png" class="image"> -->
+    <input type="text" placeholder="Job title, keywords, or company" class="input"><span class="symbol">|</span>
+    <input type="text" placeholder="City" class="input">
+    <button mat-raised-button color="primary" (click)="search()" class="button">Find jobs</button>
+</div>
+<div class="text">
+    <b>Your new jobs</b>
+</div>
+<div class="container">
+<div class="left">
+    <div *ngFor="let post of jobPosts" class="post">
+    <h2>{{post.role}}</h2>
+    <p>{{post.location}}</p>
+    <span class="label" >{{post.salary}}</span >
+    <span class="label">{{post.jobType}}</span >
+    <span class="label">{{post.schedule}}</span>
+    <p>{{post.content}}</p>
+    <p>{{post.date}}</p>
+    </div>
+</div>
+<div class="right" id="right">right container</div>
+</div>
+</div>

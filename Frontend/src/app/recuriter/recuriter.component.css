@@ -1,0 +1,46 @@
+.header{
+    border-bottom: 2px solid black;
+    display: grid;
+    grid-template-columns: 0.3fr 1.5fr 2fr;
+    align-items: center;
+    height: max-content;
+    cursor: pointer;
+}
+.head1{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+}
+.head2{
+    margin-left: 85%;
+    align-items: center;
+}
+
+.buttons {
+    width: 30%;
+    height: 60px;
+    margin-left: 170px;
+    border: 0px;
+    margin-top: 50px;
+    font-size: 25px;
+    padding: 10px;
+    width: fit-content;
+}
+
+img{
+    border-radius: 50%;
+    height: 13vh;
+}
+
+.buttons:hover {
+    color: black;
+    background-color: aliceblue;
+    cursor: pointer;
+}
+
+
+.buttons:hover {
+    color: black;
+    background-color: aliceblue;
+    cursor: pointer;
+}

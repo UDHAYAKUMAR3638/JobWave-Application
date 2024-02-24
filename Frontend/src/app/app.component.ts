@@ -1,10 +1,14 @@
+import { OnInit, inject } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-select',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Frontend';
+  // constructor(private route: RouterModule) { }
 }
