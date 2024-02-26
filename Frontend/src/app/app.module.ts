@@ -11,9 +11,12 @@ import { JobPageComponent } from './job-page/job-page.component';
 import { CompanyPageComponent } from './company-page/company-page.component';
 import { PostPageComponent } from './post-page/post-page.component';
 import { RecuriterComponent } from './recuriter/recuriter.component';
+import { ProfileCompletionComponent } from './profile-completion/profile-completion.component';
+import { TypeLoginComponent } from './type-login/type-login.component';
+import { RecuriterProfileCompletionComponent } from './recuriter-profile-completion/recuriter-profile-completion.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, JobPageComponent, CompanyPageComponent, PostPageComponent, RecuriterComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

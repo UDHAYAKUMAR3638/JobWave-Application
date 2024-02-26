@@ -2,6 +2,7 @@
     height: 9vh;
     width: 42%;
     border: 0px;
+    padding: 10px;
     font-size: medium;
     color: rgb(9, 9, 9);
 }
@@ -15,6 +16,26 @@
     margin-left: 3%;
     font-size: medium;
     color: white;
+    cursor: pointer;
+}
+
+.button1{
+    height: 7vh;
+    margin: 10px;
+    width: fit-content;
+    border: 0px;
+    background-color: #2557A7;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: medium;
+    color: white;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.button1:hover{
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-3px);
 }
 
 .text{
@@ -32,11 +53,17 @@
     display: grid;
     padding: 25px;
     grid-row: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    row-gap: 10px;
+    row-gap: 5px;
     border-radius: 10px;
     border: 1px solid rgb(12, 12, 12);
     cursor: pointer;
     margin-bottom: 20px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.post:hover{
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-10px);
 }
 
 .left{
@@ -56,32 +83,38 @@
 .right{
     width: 40%;
     position:absolute;
-    height: 95vh;
-    margin-top: 30px;
-    margin-left: 50%;
-    padding: 10px;
+    height: 85%;
+    margin:2% 0% 0% 50%;
     display: flex;
     flex-direction: column;
-    background-color: #6583dd;
-    align-items: center;
-    border-radius: 20px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 12px;
     justify-content: space-around;
 }
 
 .right-fixed{
   position: fixed;
   top: 0;
-  width: 40%;
-  height: 95vh;
-  margin-top: 30px;
-  margin-left: 50%;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  background-color: #6583dd;
-  align-items: center;
-  border-radius: 20px;
-  justify-content: space-around;
+}
+
+.fix-box{
+    display: grid;
+    row-gap: 10px;
+    height: fit-content;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-10px);
+}
+.change-box{
+    display: grid;
+    row-gap: 10px;
+    padding: 15px;
+    background-color: white;
+    overflow-y: auto;
+    transform: translateY(10px);
 }
 
 .image{
@@ -95,6 +128,12 @@
     border: 1px solid black;
     width: 70%;
     border-radius: 5px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.search:hover{
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-1px);
 }
 
 .symbol{
@@ -113,4 +152,8 @@
     grid-row: 1fr;
     align-items: center;
     justify-items: center;
+}
+
+.role:hover{
+    text-decoration: underline;
 }

@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { ProfileService } from './profile.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 interface data {
@@ -23,7 +22,7 @@ interface data {
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent {
-  constructor(private profileService: ProfileService, private cookieSevice: CookieService, private router: Router,
+  constructor(private profileService: ProfileService, private router: Router,
     @Inject(MAT_DIALOG_DATA) public details: data,
     public dialogRef: MatDialogRef<ProfileComponent>
   ) { }
@@ -68,7 +67,6 @@ export class ProfileComponent {
   }
   logout() {
     this.dialogRef.close();
-    this.cookieSevice.delete('isLogged');
     localStorage.clear();
     sessionStorage.clear();
     this.router.navigate(['login']);

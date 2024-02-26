@@ -1,14 +1,15 @@
 <div class="header">
 
-    <img src="../../assets/image/download (1).jpg">
+    <img src="../../assets/image/images.png">
     <div class="head1">
         <span routerLink="home/job">Home</span>
         <span routerLink="home/company">Company</span>
     </div>
-<div class="head2">
-    <span (click)="login()">Sign in |</span>
-    <span (click)="recuriter()">Post Job</span>
-</div>
+    <div class="head2">
+        <span appLoginHide (click)="login()">Sign in |</span>
+        <span appLoginHide (click)="recuriter()"> Post Job</span>
+        <span appLoginShow routerLink="home/profile">Profile</span>
+    </div>
 </div>
 
 <router-outlet></router-outlet>

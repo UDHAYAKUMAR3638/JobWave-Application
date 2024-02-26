@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { JobPageComponent } from './job-page.component';
 import { Routes, RouterModule } from '@angular/router';
 import { MatCard, MatCardModule } from '@angular/material/card';
+import { datePipe } from "../pipe/date.pipe";
 
 const appRoute: Routes = [
   {
@@ -11,11 +12,12 @@ const appRoute: Routes = [
 ]
 
 @NgModule({
-  declarations: [],
+  declarations: [JobPageComponent],
   imports: [
     RouterModule.forChild(appRoute),
     MatCardModule,
-    CommonModule
+    CommonModule,
+    datePipe
   ]
 })
 export class JobModule { }

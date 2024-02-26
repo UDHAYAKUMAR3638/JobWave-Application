@@ -1,0 +1,71 @@
+<div class="container">
+    <img class="image" src="../../assets/image/jobSeek.png">
+
+    <div class="registerBox">
+        <h1 class="head"> Create an jobseeker account</h1>
+        <form class="form" [formGroup]="registerForm">
+            <label class="labels">Your name</label><input class="inputs" placeholder="Enter name"
+                formControlName="name">
+            <mat-error *ngIf="registerForm.get('name')?.invalid &&
+    (registerForm.get('name')?.dirty ||
+    registerForm.get('name')?.touched)">
+                Name is Required!</mat-error>
+
+            <label class="labels">Your email :</label><input matInput class="inputs" placeholder="Enter email"
+                formControlName="email">
+            <mat-error *ngIf="registerForm.get('email')?.invalid &&
+    (registerForm.get('email')?.dirty ||
+     registerForm.get('email')?.touched)">
+                Email is Required!</mat-error>
+
+            <label class="labels">Your phoneno :</label><input class="inputs" placeholder="Enter phoneno"
+                formControlName="phoneno">
+            <mat-error *ngIf="registerForm.get('phoneno')?.invalid &&
+    (registerForm.get('phoneno')?.dirty ||
+     registerForm.get('phoneno')?.touched)">
+                Phoneno is Required!</mat-error>
+
+            <label class="labels">Date of Birth:</label>
+            <div class="date">
+                <input class="input" [matDatepicker]="picker" formControlName="dob">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </div>
+
+            <label class="labels">Your password: </label><input type="password" class="inputs"
+                placeholder="Enter password" formControlName="password">
+            <mat-error *ngIf="registerForm.get('password')?.invalid &&
+    (registerForm.get('password')?.dirty ||
+     registerForm.get('password')?.touched)">
+                Password is Required!
+            </mat-error>
+
+            <label class="labels">Your headline: </label><input type="text" class="inputs" placeholder="Enter headline"
+                formControlName="headline">
+            <mat-error *ngIf="registerForm.get('password')?.invalid &&
+            (registerForm.get('password')?.dirty ||
+             registerForm.get('password')?.touched)">
+                Password is Required!
+            </mat-error>
+
+            <label class="labels">Your school name: </label><input type="text" class="inputs"
+                placeholder="Enter school name" formControlName="schoolName">
+            <label class="labels">Your school passed out year: </label><input type="text" class="inputs"
+                placeholder="Enter school passed out year" formControlName="schlPassedOutYear">
+
+            <label class="labels">Your college name: </label><input type="text" class="inputs"
+                placeholder="Enter college name" formControlName="collegeName">
+
+            <label class="labels">Your college passed out year: </label><input type="text" class="inputs"
+                placeholder="Enter college passed out year" formControlName="clgPassedOutYear">
+
+            <label class="labels">Your currentPosition: </label><input type="text" class="inputs"
+                placeholder="Enter current position" formControlName="currentPosition">
+
+            <label class="labels">Your location: </label><input type="text" class="inputs" placeholder="Enter location"
+                formControlName="location">
+            <button mat-raised-button color="primary" (click)="register()" class="buttons">submit<i
+                    class="pi pi-check-circle"></i></button>
+        </form>
+    </div>
+</div>

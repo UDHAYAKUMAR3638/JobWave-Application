@@ -10,7 +10,7 @@ const appRoute: Routes = [
 ]
 
 @NgModule({
-    declarations: [],
+    declarations: [RecuriterComponent],
     imports: [
         RouterModule.forChild(appRoute),
         CommonModule

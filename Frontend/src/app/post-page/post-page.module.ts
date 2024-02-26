@@ -10,7 +10,7 @@ const appRoute: Routes = [
 ]
 
 @NgModule({
-    declarations: [],
+    declarations: [PostPageComponent],
     imports: [
         RouterModule.forChild(appRoute),
         CommonModule

@@ -1,25 +1,52 @@
 <div class="router">
-<div class="search" id="search">
-    <!-- <img src="../../assets/image/search.png" class="image"> -->
-    <input type="text" placeholder="Job title, keywords, or company" class="input"><span class="symbol">|</span>
-    <input type="text" placeholder="City" class="input">
-    <button mat-raised-button color="primary" (click)="search()" class="button">Find jobs</button>
-</div>
-<div class="text">
-    <b>Your new jobs</b>
-</div>
-<div class="container">
-<div class="left">
-    <div *ngFor="let post of jobPosts" class="post">
-    <h2>{{post.role}}</h2>
-    <p>{{post.location}}</p>
-    <span class="label" >{{post.salary}}</span >
-    <span class="label">{{post.jobType}}</span >
-    <span class="label">{{post.schedule}}</span>
-    <p>{{post.content}}</p>
-    <p>{{post.date}}</p>
+    <div class="search" id="search">
+        <!-- <img src="../../assets/image/search.png" class="image"> -->
+        <input type="text" placeholder="Job title, keywords, or company" class="input"><span class="symbol">|</span>
+        <input type="text" placeholder="City" class="input">
+        <button (click)="search()" class="button"><b>Find jobs</b></button>
     </div>
-</div>
-<div class="right" id="right">right container</div>
-</div>
+    <div class="text">
+        <b>Your new jobs</b>
+    </div>
+    <div class="container">
+        <div class="left">
+            <div *ngFor="let post of jobPosts" class="post" (click)="rightBox(post)">
+                <h2 class="role">{{post.role}}</h2>
+                <p>{{post.location}}</p>
+                <span class="label">{{post.salary}}</span>
+                <span class="label">{{post.jobType}}</span>
+                <span class="label">{{post.schedule}}</span>
+                <p>{{post.content.substring(0,100)+"..."}}</p>
+                <p>{{(post.date | toDate| date: 'medium')}}</p>
+            </div>
+        </div>
+        <div class="right" id="right">
+            <div class="fix-box">
+                <h3 class="role">{{selectedPost.role}}</h3>
+                <span>{{selectedPost.location}}</span>
+                <span>{{selectedPost.jobType}}</span>
+                <span>{{selectedPost.salary}}</span>
+                <button class="button1" (click)="form()"><b>Apply now</b></button>
+            </div>
+            <div class="change-box">
+                <h2>Job details</h2>
+                <span><b>Pay</b></span>
+                <span>{{selectedPost.salary}}</span>
+                <span><b>Shift and schedule</b></span>
+                <span>{{selectedPost.schedule}}</span>
+                <span><b>Job type</b></span>
+                <span>{{selectedPost.jobType}}</span>
+                <span><b>Benifits</b></span>
+                <span>{{selectedPost.benifits}}</span>
+                <span><b>Full job description</b></span>
+                <span>{{selectedPost.content}}</span>
+                <span><b>Education</b></span>
+                <span>{{selectedPost.education}}</span>
+                <span><b>Language</b></span>
+                <span>{{selectedPost.language}}</span>
+                <span><b>Posted date</b></span>
+                <span>{{selectedPost.date}}</span>
+            </div>
+        </div>
+    </div>
 </div>

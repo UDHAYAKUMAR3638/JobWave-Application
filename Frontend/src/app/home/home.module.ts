@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
+import { LoginShowDirective } from '../custom-directives/loginshow.directive';
+import { LoginHideDirective } from '../custom-directives/loginhide.directive';
 
 const appRoute: Routes = [
     {
@@ -23,7 +25,12 @@ const appRoute: Routes = [
                 path: 'home/company',
                 loadChildren: () =>
                     import('../company-page/company-page.module').then((d) => d.CompanyModule)
-            }
+            },
+            {
+                path: 'home/profile',
+                loadChildren: () =>
+                    import('../profile/profile.module').then((d) => d.ProfileModule)
+            },
         ]
     },
     {
@@ -36,11 +43,26 @@ const appRoute: Routes = [
         loadChildren: () =>
             import('../recuriter/recuriter.module').then((d) => d.RecuriterModule)
     },
+    {
+        path: 'typeLogin',
+        loadChildren: () =>
+            import('../type-login/type-login.module').then((d) => d.TypeLoginModule),
+    },
+    {
+        path: 'recuriterRegister',
+        loadChildren: () =>
+            import('../recuriter-profile-completion/recuriter-profile-completion.module').then((d) => d.RecuriterProfileCompletionModule),
+    },
+    {
+        path: 'jobseekerRegister',
+        loadChildren: () =>
+            import('../profile-completion/profile-completion.module').then((d) => d.ProfileCompletionModule),
+    },
 
 ]
 
 @NgModule({
-    declarations: [],
+    declarations: [HomeComponent, LoginShowDirective, LoginHideDirective],
     imports: [
         CommonModule,
         RouterModule.forChild(appRoute),

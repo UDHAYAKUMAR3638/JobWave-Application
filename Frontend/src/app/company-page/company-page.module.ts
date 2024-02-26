@@ -10,7 +10,7 @@ const appRoute: Routes = [
 ]
 
 @NgModule({
-  declarations: [],
+  declarations: [CompanyPageComponent],
   imports: [
     RouterModule.forChild(appRoute),
     CommonModule
