@@ -8,7 +8,6 @@ import Backend.JobWave.Model.User;
 public interface UserRepository extends MongoRepository<User, Long> {
 
     User findByEmail(String email);
-    // Add custom query methods if needed
 
     boolean existsByEmail(String email);
 }

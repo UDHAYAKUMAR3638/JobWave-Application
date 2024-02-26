@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,8 +13,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection="candidate")
-public class Candidate {
+@Document(collection="jobseeker")
+public class Jobseeker {
     @Id
     private String _id;
     private String name;
@@ -29,7 +28,6 @@ public class Candidate {
     private String collegeName;
     private Integer clgPassedOutYear;
     private String currentPosition;
-    @DocumentReference(collection ="candidateIndustry")
-    private List<CandidateIndustry> indusrties;
+    private List<JobseekerIndustry> indusrties;
     private String location;
 }

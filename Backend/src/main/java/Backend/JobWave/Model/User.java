@@ -59,4 +59,15 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public User(Jobseeker jobseeker) {
+        this.setEmail(jobseeker.getEmail());
+        this.setName(jobseeker.getName());
+        this.setPassword(jobseeker.getPassword());
+    }
+    public User(Recuriter recuriter) {
+        this.setEmail(recuriter.getEmail());
+        this.setName(recuriter.getName());
+        this.setPassword(recuriter.getPassword());
+    }
 }

@@ -10,12 +10,14 @@ import Backend.JobWave.Service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping(path = "/api/auth")
 @RequiredArgsConstructor
+@CrossOrigin
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
