@@ -11,8 +11,8 @@ export class TypeLoginComponent {
   registerSeeker() {
     this.route.navigate(['jobseekerRegister']);
   }
-  registerRecuriter() {
-    this.route.navigate(['recuriterRegister']);
+  registerRecruiter() {
+    this.route.navigate(['recruiterRegister']);
   }
 
 }

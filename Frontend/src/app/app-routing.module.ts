@@ -14,11 +14,6 @@ const appRoute: Routes = [
   },
 
   {
-    path: 'register', loadChildren: () =>
-      import('./register/register.module').then((d) => d.RegisterModule)
-  },
-
-  {
     path: 'login', loadChildren: () =>
       import('./login/login.module').then((d) => d.LoginModule),
   },

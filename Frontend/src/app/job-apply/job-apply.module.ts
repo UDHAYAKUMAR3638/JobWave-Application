@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { JobApplyComponent } from './job-apply.component';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { RecuriterProfileCompletionComponent } from './recuriter-profile-completion.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 const appRoute: Routes = [
     {
-        path: "", component: RecuriterProfileCompletionComponent
+        path: "", component: JobApplyComponent
     },
 ]
 
 @NgModule({
-    declarations: [RecuriterProfileCompletionComponent],
+    declarations: [JobApplyComponent],
     imports: [
         RouterModule.forChild(appRoute),
         CommonModule,
@@ -27,4 +27,4 @@ const appRoute: Routes = [
         MatNativeDateModule,
     ]
 })
-export class RecuriterProfileCompletionModule { }
+export class JobApplyModule { }

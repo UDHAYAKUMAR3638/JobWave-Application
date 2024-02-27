@@ -13,6 +13,6 @@ export class JobPageService {
     }
 
     getAllPosts() {
-        return this.http.get<any>(environment.recuriterUrl + "/getAllPost");
+        return this.http.get<any>(environment.recruiterUrl + "/getAllPost");
     }
 }

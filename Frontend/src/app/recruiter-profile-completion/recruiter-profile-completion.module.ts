@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { PostPageComponent } from './post-page.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { RecruiterProfileCompletionComponent } from './recruiter-profile-completion.component';
+
 
 const appRoute: Routes = [
     {
-        path: "", component: PostPageComponent
+        path: "", component: RecruiterProfileCompletionComponent
     },
 ]
 
 @NgModule({
-    declarations: [PostPageComponent],
+    declarations: [RecruiterProfileCompletionComponent],
     imports: [
         RouterModule.forChild(appRoute),
         CommonModule,
@@ -22,4 +23,6 @@ const appRoute: Routes = [
         MatFormFieldModule,
     ]
 })
-export class PostModule { }
+export class RecruiterProfileCompletionModule {
+
+}

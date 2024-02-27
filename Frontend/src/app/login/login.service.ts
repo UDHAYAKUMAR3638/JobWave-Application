@@ -23,7 +23,7 @@ export class LoginService {
     if (sessionStorage.getItem('role') === 'CANDIDATE')
       return this.http.get<any>(
         environment.patUrl + `/getEmail/${sessionStorage.getItem('email')}`);
-    else if (sessionStorage.getItem('role') === 'RECURITER')
+    else if (sessionStorage.getItem('role') === 'RECRUITER')
       return this.http.get<any>(
         environment.docUrl + `/getEmail/${sessionStorage.getItem('email')}`);
     else

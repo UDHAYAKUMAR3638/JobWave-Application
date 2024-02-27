@@ -42,14 +42,23 @@
 
             <label class="labels">Your headline: </label><input type="text" class="inputs" placeholder="Enter headline"
                 formControlName="headline">
-            <mat-error *ngIf="registerForm.get('password')?.invalid &&
+            <!-- <mat-error *ngIf="registerForm.get('password')?.invalid &&
             (registerForm.get('password')?.dirty ||
              registerForm.get('password')?.touched)">
-                Password is Required!
-            </mat-error>
+                headline is Required!
+            </mat-error> -->
+
+            <label class="labels">Your skills: </label><input type="text" class="inputs" placeholder="Enter skills"
+                formControlName="skills">
+            <!-- <mat-error *ngIf="registerForm.get('skills')?.invalid &&
+            (registerForm.get('skills')?.dirty ||
+             registerForm.get('skills')?.touched)">
+                skills is Required!
+            </mat-error> -->
 
             <label class="labels">Your school name: </label><input type="text" class="inputs"
                 placeholder="Enter school name" formControlName="schoolName">
+
             <label class="labels">Your school passed out year: </label><input type="text" class="inputs"
                 placeholder="Enter school passed out year" formControlName="schlPassedOutYear">
 

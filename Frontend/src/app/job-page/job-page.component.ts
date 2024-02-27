@@ -1,5 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { JobPageService } from './job-page.service';
+import { post } from '../post-page/post-page.service';
+import { List } from 'lodash';
 
 @Component({
   selector: 'app-job-page',
@@ -7,13 +9,38 @@ import { JobPageService } from './job-page.service';
   styleUrls: ['./job-page.component.scss']
 })
 export class JobPageComponent {
+  inp1!: string;
+  inp2!: string;
+
   constructor(private jobPageService: JobPageService) {
+
   }
+  jobPosts!: Array<post>;
+  jobPostsB!: Array<post>;
+  selectedPost: post = {
+    "_id": "",
+    "role": "Staff Software Engineer",
+    "location": "Remote",
+    "salary": "₹53,60,000 - ₹80,40,000 a year",
+    "jobType": "Full-time",
+    "schedule": "Monday to Friday",
+    "content": "Are comfortable working cross-functionally to drive impact across the Software Development Lifecycle (SDLC), including working with product managers to clarify requirements and break down work,…",
+    "education": "Master's (Preferred)",
+    "benifits": "Internet reimbursement",
+    "language": "English (Preferred)",
+    "date": new Date(),
+    skills: '',
+    recruiterId: {
+      _id: '65dd6d9751aaae72f34241fc'
+    }
+  };
 
   ngOnInit() {
     this.jobPageService.getAllPosts().subscribe({
       next: (data) => {
         this.jobPosts = data;
+        this.jobPostsB = data;
+        this.selectedPost = this.jobPosts[0];
         console.log(data);
       },
       error: (error) => {
@@ -22,21 +49,25 @@ export class JobPageComponent {
     })
   }
 
-  jobPosts: any = [
-    { role: "Staff Software Engineer", location: "Remote", salary: "₹53,60,000 - ₹80,40,000 a year", jobType: "Full-time", schedule: "Monday to Friday", content: "Are comfortable working cross-functionally to drive impact across the Software Development Lifecycle (SDLC), including working with product managers to clarify requirements and break down work,…", education: "Master's (Preferred)", benifits: "Internet reimbursement", language: "English (Preferred)", date: "22/02/2024" },
-    { role: "Senior Software Engineer", location: "Remote", salary: "₹53,60,000 - ₹80,40,000 a year", jobType: "Full-time", schedule: "Monday to Friday", content: "Are comfortable working cross-functionally to drive impact across the Software Development Lifecycle (SDLC), including working with product managers to clarify requirements and break down work,…", education: "Master's (Preferred)", benifits: "Internet reimbursement", language: "English (Preferred)", date: "22/02/2024" },
-    { role: "Junior Software Engineer", location: "Remote", salary: "₹53,60,000 - ₹80,40,000 a year", jobType: "Full-time", schedule: "Monday to Friday", content: "Are comfortable working cross-functionally to drive impact across the Software Development Lifecycle (SDLC), including working with product managers to clarify requirements and break down work,…", education: "Master's (Preferred)", benifits: "Internet reimbursement", language: "English (Preferred)", date: "22/02/2024" },
-    { role: "Business Team", location: "Remote", salary: "₹53,60,000 - ₹80,40,000 a year", jobType: "Full-time", schedule: "Monday to Friday", content: "Are comfortable working cross-functionally to drive impact across the Software Development Lifecycle (SDLC), including working with product managers to clarify requirements and break down work,…", education: "Master's (Preferred)", benifits: "Internet reimbursement", language: "English (Preferred)", date: "22/02/2024" },
-  ];
-  selectedPost: any =
-    { role: "Staff Software Engineer", location: "Remote", salary: "₹53,60,000 - ₹80,40,000 a year", jobType: "Full-time", schedule: "Monday to Friday", content: "Are comfortable working cross-functionally to drive impact across the Software Development Lifecycle (SDLC), including working with product managers to clarify requirements and break down work,…", education: "Master's (Preferred)", benifits: "Internet reimbursement", language: "English (Preferred)", date: "22/02/2024" };
-
-  rightBox(currPost: any) {
+  rightBox(currPost: post) {
     this.selectedPost = currPost;
   }
 
   search() {
-    // this.searchService.search(text);
+    if ((this.inp1 !== '' && this.inp1 !== undefined) || (this.inp2 !== '' && this.inp2 !== undefined)) {
+      this.jobPosts = this.jobPostsB.filter((data) => {
+        if (this.inp2 !== '' && this.inp2 !== undefined)
+          return (data.role.includes(this.inp1) || data.jobType.includes(this.inp1)) && data.location.includes(this.inp2);
+        else
+          return data.role.includes(this.inp1) || data.jobType.includes(this.inp1) || data.location.includes(this.inp2);
+
+      });
+      if (this.jobPosts.length > 0)
+        this.selectedPost = this.jobPosts[0];
+    }
+    else {
+      this.jobPosts = this.jobPostsB;
+    }
   }
 
   @HostListener('window:scroll', [])
@@ -51,8 +82,6 @@ export class JobPageComponent {
       rightbox.classList.remove('right-fixed');
     }
   }
-  form() {
 
-  }
 
 }

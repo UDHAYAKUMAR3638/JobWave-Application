@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RegisterService, register } from '../register/register.service';
 import Swal from 'sweetalert2';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -16,7 +15,7 @@ export class UserComponent {
   email: string = '';
   password: string = '';
   role: string = '';
-  constructor(private registerService: RegisterService,
+  constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<UserComponent>
   ) { }
@@ -39,23 +38,23 @@ export class UserComponent {
 
   register() {
     if (!this.addUserForm.invalid) {
-      this.registerService.register(<register>this.addUserForm.value).subscribe({
-        next: (content) => {
-          Swal.fire({
-            title: 'New User Added',
-            text: " Successful!",
-            icon: 'success'
-          })
-        },
-        error: (error) => {
-          console.log("error1:", error);
-          Swal.fire({
-            title: "Enter Valid User Details!",
-            text: "Try again",
-            icon: "error",
-          });
-        },
-      });
+      // this.registerService.register(<register>this.addUserForm.value).subscribe({
+      //   next: (content) => {
+      //     Swal.fire({
+      //       title: 'New User Added',
+      //       text: " Successful!",
+      //       icon: 'success'
+      //     })
+      //   },
+      //   error: (error) => {
+      //     console.log("error1:", error);
+      //     Swal.fire({
+      //       title: "Enter Valid User Details!",
+      //       text: "Try again",
+      //       icon: "error",
+      //     });
+      //   },
+      // });
     }
   }
 

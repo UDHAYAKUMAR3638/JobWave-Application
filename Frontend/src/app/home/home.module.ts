@@ -17,41 +17,50 @@ const appRoute: Routes = [
                     import('../job-page/job-page.module').then((d) => d.JobModule)
             },
             {
-                path: 'home/job',
+                path: 'job',
                 loadChildren: () =>
                     import('../job-page/job-page.module').then((d) => d.JobModule)
             },
             {
-                path: 'home/company',
-                loadChildren: () =>
-                    import('../company-page/company-page.module').then((d) => d.CompanyModule)
-            },
-            {
-                path: 'home/profile',
+                path: 'profile',
                 loadChildren: () =>
                     import('../profile/profile.module').then((d) => d.ProfileModule)
             },
+            {
+                path: "postPage",
+                loadChildren: () =>
+                    import('../post-page/post-page.module').then((d) => d.PostModule),
+            },
+            {
+                path: 'jobApply',
+                loadChildren: () =>
+                    import('../job-apply/job-apply.module').then((d) => d.JobApplyModule)
+            },
+            {
+                path: 'myPost',
+                loadChildren: () =>
+                    import('../my-post/my-post.module').then((d) => d.MyPostModule)
+            },
+
         ]
     },
+
+
     {
         path: 'login',
         loadChildren: () =>
             import('../login/login.module').then((d) => d.LoginModule)
     },
-    {
-        path: 'recuriter',
-        loadChildren: () =>
-            import('../recuriter/recuriter.module').then((d) => d.RecuriterModule)
-    },
+
     {
         path: 'typeLogin',
         loadChildren: () =>
             import('../type-login/type-login.module').then((d) => d.TypeLoginModule),
     },
     {
-        path: 'recuriterRegister',
+        path: 'recruiterRegister',
         loadChildren: () =>
-            import('../recuriter-profile-completion/recuriter-profile-completion.module').then((d) => d.RecuriterProfileCompletionModule),
+            import('../recruiter-profile-completion/recruiter-profile-completion.module').then((d) => d.RecruiterProfileCompletionModule),
     },
     {
         path: 'jobseekerRegister',

@@ -7,5 +7,5 @@ export const environment = {
     recepUrl: "http://localhost:8080/receptionist",
     permUrl: "http://localhost:8080/permission",
     jobseekerUrl: "http://localhost:8080/jobseeker",
-    recuriterUrl: "http://localhost:8080/recuriter"
+    recruiterUrl: "http://localhost:8080/recruiter"
 };

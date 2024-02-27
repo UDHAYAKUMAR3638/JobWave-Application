@@ -1,16 +1,10 @@
 <div class="router">
-    <div class="search" id="search">
-        <input type="text" [(ngModel)]="inp1" placeholder="Job title, Job Type" class="input">
-        <span class="symbol">|</span>
-        <input type="text" [(ngModel)]="inp2" placeholder="Location" class="input">
-        <button (click)="search()" class="button"><b>Find jobs</b></button>
-    </div>
     <div class="text">
-        <b>Your new jobs</b>
+        <b>Your job posts</b>
     </div>
     <div class="container">
         <div class="left">
-            <div *ngFor="let post of jobPosts" class="post" (click)="rightBox(post)">
+            <div *ngFor="let post of myPost" class="post" (click)="rightBox(post._id)">
                 <h2 class="role">{{post.role}}</h2>
                 <p>{{post.location}}</p>
                 <span class="label">{{post.salary}}</span>
@@ -22,14 +16,14 @@
         </div>
         <div class="right" id="right">
             <div class="fix-box">
-                <h3 class="role">{{selectedPost.role}}</h3>
+                <!-- <h3 class="role">{{selectedPost.role}}</h3>
                 <span>{{selectedPost.location}}</span>
                 <span>{{selectedPost.jobType}}</span>
                 <span>{{selectedPost.salary}}</span>
-                <button class="button1" routerLink="jobApply"><b>Apply now</b></button>
+                <button class="button1" routerLink="jobApply"><b>Apply now</b></button> -->
             </div>
             <div class="change-box">
-                <h2>Job details</h2>
+                <!-- <h2>Job details</h2>
                 <span><b>Pay</b></span>
                 <span>{{selectedPost.salary}}</span>
                 <span><b>Shift and schedule</b></span>
@@ -45,7 +39,7 @@
                 <span><b>Language</b></span>
                 <span>{{selectedPost.language}}</span>
                 <span><b>Posted date</b></span>
-                <span>{{selectedPost.date | toDate | date:'medium'}}</span>
+                <span>{{selectedPost.date}}</span> -->
             </div>
         </div>
     </div>

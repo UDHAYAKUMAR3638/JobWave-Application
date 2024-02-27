@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ProfileCompletionService, registerCandidate } from './profile-completion.service';
+import { ProfileCompletionService, registerJobseeker } from './profile-completion.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
@@ -19,6 +19,7 @@ export class ProfileCompletionComponent {
     dob: "2002/10/12",
     password: ['', Validators.required],
     headline: ['',],
+    skills: ['',],
     schoolName: ['',],
     schlPassedOutYear: 2024,
     collegeName: ['',],
@@ -26,12 +27,11 @@ export class ProfileCompletionComponent {
     currentPosition: ['',],
     location: ['',],
     indusrties: [[],],
-    role: ['CADNDIATE']
   });
 
   register() {
     if (!this.registerForm.invalid) {
-      this.profileService.register(<registerCandidate>this.registerForm.value).subscribe({
+      this.profileService.register(<registerJobseeker>this.registerForm.value).subscribe({
         next: (data) => {
           console.log(data);
           Swal.fire({

@@ -21,8 +21,5 @@ export class HomeComponent {
   login() {
     this.router.navigate(['login']);
   }
-  recuriter() {
-    this.router.navigate(['recuriter']);
-  }
 
 }

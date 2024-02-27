@@ -1,0 +1,40 @@
+<div class="container">
+    <img class="image" src="../../assets/image/applyjob.png">
+
+    <div class="registerBox">
+        <h1 class="head"> Apply for Job</h1>
+        <form class="form" [formGroup]="jobApplicationForm">
+            <label class="labels">Your name</label><input class="inputs" placeholder="Enter name"
+                formControlName="name">
+            <mat-error *ngIf="jobApplicationForm.get('name')?.invalid &&
+    (jobApplicationForm.get('name')?.dirty ||
+    jobApplicationForm.get('name')?.touched)">
+                Name is Required!</mat-error>
+
+            <label class="labels">Your email :</label><input matInput class="inputs" placeholder="Enter email"
+                formControlName="email">
+            <mat-error *ngIf="jobApplicationForm.get('email')?.invalid &&
+    (jobApplicationForm.get('email')?.dirty ||
+     jobApplicationForm.get('email')?.touched)">
+                Email is Required!</mat-error>
+
+            <label class="labels">Your phoneno :</label><input class="inputs" placeholder="Enter phoneno"
+                formControlName="phoneno">
+            <mat-error *ngIf="jobApplicationForm.get('phoneno')?.invalid &&
+    (jobApplicationForm.get('phoneno')?.dirty ||
+     jobApplicationForm.get('phoneno')?.touched)">
+                Phoneno is Required!</mat-error>
+
+            <label class="labels">Your skills: </label><input type="text" class="inputs" placeholder="Enter skills"
+                formControlName="skills">
+
+            <label class="labels">Your resume: </label><input type="text" class="inputs" placeholder="Enter resume"
+                formControlName="resume">
+            <label class="labels">Your experience: </label><input type="text" class="inputs"
+                placeholder="Enter experience" formControlName="experience">
+
+            <button mat-raised-button color="primary" (click)="apply()" class="buttons">Apply<i
+                    class="pi pi-check-circle"></i></button>
+        </form>
+    </div>
+</div>

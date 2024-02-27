@@ -52,13 +52,6 @@ const appRoute: Routes = [
       },
 
       {
-        path: 'patient',
-        canActivate: [AuthGuard],
-        loadChildren: () =>
-          import('../patient/patient.module').then((d) => d.PatientModule),
-      },
-
-      {
         path: 'viewUser',
         canActivate: [AuthGuard],
         loadChildren: () =>
