@@ -3,12 +3,12 @@ package Backend.JobWave.Repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import Backend.JobWave.Model.Recuriter;
+import Backend.JobWave.Model.Recruiter;
 
 @Repository
-public interface RecuriterRepository extends MongoRepository<Recuriter,String> {
+public interface RecruiterRepository extends MongoRepository<Recruiter,String> {
 
-    Recuriter findByEmail(String email);
+    Recruiter findByEmail(String email);
 
     
 }

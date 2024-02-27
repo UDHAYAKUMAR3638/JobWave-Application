@@ -1,16 +1,14 @@
 package Backend.JobWave.Repository;
 
-
 import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import Backend.JobWave.Model.Post;
+import Backend.JobWave.Model.JobApplication;
 @Repository
-public interface PostRepository extends MongoRepository<Post,String> {
+public interface JobApplicationRepository extends MongoRepository<JobApplication,String> {
 
-    List<Post> findByRecruiterId(ObjectId objectId);
-    
+        List<JobApplication> findByPostId(ObjectId objectId);
 }

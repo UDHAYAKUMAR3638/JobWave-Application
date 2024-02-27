@@ -24,10 +24,10 @@ public class Post {
     private String schedule;
     private String content;
     private String education;
-    private String collegeName;
+    private String skills;
     private String benifits;
     private String language;
     private Date date;
-    @DocumentReference(collection = "recuriter")
-    private Recuriter recuriterId;
+    @DocumentReference(collection = "recruiter")
+    private Recruiter recruiterId;
 }

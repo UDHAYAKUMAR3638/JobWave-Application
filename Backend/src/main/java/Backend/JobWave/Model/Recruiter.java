@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection="recuriter")
-public class Recuriter {
+@Document(collection="recruiter")
+public class Recruiter {
     @Id
     private String _id;
     private String companyName;

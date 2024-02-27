@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import Backend.JobWave.Model.JobApplication;
 import Backend.JobWave.Model.Jobseeker;
 import Backend.JobWave.Service.JobseekerService;
 
@@ -31,6 +32,11 @@ public class JobseekerController {
     @PostMapping("/register")
     public ResponseEntity<Jobseeker> registerJobseeker(@RequestBody Jobseeker jobseeker) {
         return ResponseEntity.ok(jobseekerService.registerJobseeker(jobseeker));
+    }
+
+    @PostMapping("/apply")
+    public ResponseEntity<JobApplication> jobApply(@RequestBody JobApplication jobApplication) {
+        return ResponseEntity.ok(jobseekerService.jobApply(jobApplication));
     }
 
     @PutMapping("/update")

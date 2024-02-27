@@ -1,11 +1,15 @@
 package Backend.JobWave.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import Backend.JobWave.Model.JobApplication;
 import Backend.JobWave.Model.Jobseeker;
 import Backend.JobWave.Model.User;
+import Backend.JobWave.Repository.JobApplicationRepository;
 import Backend.JobWave.Repository.JobseekerRepository;
+import Backend.JobWave.Repository.RoleRepository;
 import Backend.JobWave.Repository.UserRepository;
 
 @Service
@@ -15,13 +19,18 @@ public class JobseekerService {
     JobseekerRepository jobseekerRepo;
     @Autowired
     UserRepository userRepository;
-
+    @Autowired
+    RoleRepository roleRepository;
+     @Autowired
+   PasswordEncoder passwordEncoder;
+   @Autowired
+   JobApplicationRepository jobApplicationRepository;
     public Jobseeker getCandidateDetails(String id) {
         return jobseekerRepo.findById(id).get();
     }
 
     public Jobseeker registerJobseeker(Jobseeker Jobseeker) {
-        userRepository.save(new User(Jobseeker));
+        userRepository.save(new User(Jobseeker,roleRepository.findByRole("JOBSEEKER"),passwordEncoder.encode(Jobseeker.getPassword())));
         return jobseekerRepo.save(Jobseeker);
     }
 
@@ -71,10 +80,18 @@ public class JobseekerService {
         {
             oldJobseeker.setSchlPassedOutYear(Jobseeker.getSchlPassedOutYear());
         }
+        if(!Jobseeker.getSkills().equals(oldJobseeker.getSkills()))
+        {
+            oldJobseeker.setSkills(Jobseeker.getSkills());
+        }
         if(!Jobseeker.getCurrentPosition().equals(oldJobseeker.getCurrentPosition()))
         {
             oldJobseeker.setCurrentPosition(Jobseeker.getCurrentPosition());
         }
         return jobseekerRepo.save(oldJobseeker);
+    }
+
+    public JobApplication jobApply(JobApplication jobApplication) {
+        return jobApplicationRepository.save(jobApplication);
     }
 }

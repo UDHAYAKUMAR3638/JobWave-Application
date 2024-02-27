@@ -13,14 +13,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Document(collection="user")
 public class User implements UserDetails {
+
+    User(){}
     @Id
     private String _id;
     private String name;
@@ -29,7 +29,7 @@ public class User implements UserDetails {
 
     @DocumentReference(collection ="role")
     private Role role;
-
+    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.getRole()));
@@ -60,14 +60,17 @@ public class User implements UserDetails {
         return true;
     }
 
-    public User(Jobseeker jobseeker) {
+    public User(Jobseeker jobseeker,Role role,String password) {
         this.setEmail(jobseeker.getEmail());
         this.setName(jobseeker.getName());
-        this.setPassword(jobseeker.getPassword());
+        this.setPassword(password);
+        this.setRole(role);
     }
-    public User(Recuriter recuriter) {
-        this.setEmail(recuriter.getEmail());
-        this.setName(recuriter.getName());
-        this.setPassword(recuriter.getPassword());
+
+    public User(Recruiter recruiter,Role role,String password) {
+        this.setEmail(recruiter.getEmail());
+        this.setName(recruiter.getName());
+        this.setPassword(password);
+        this.setRole(role);
     }
 }

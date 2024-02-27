@@ -28,6 +28,7 @@ public class Jobseeker {
     private String collegeName;
     private Integer clgPassedOutYear;
     private String currentPosition;
+    private String skills;
     private List<JobseekerIndustry> indusrties;
     private String location;
 }
