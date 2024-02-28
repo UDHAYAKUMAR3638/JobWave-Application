@@ -2,6 +2,8 @@ import { Component, HostListener } from '@angular/core';
 import { JobPageService } from './job-page.service';
 import { post } from '../post-page/post-page.service';
 import { List } from 'lodash';
+import { DataService } from '../service/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-job-page',
@@ -12,7 +14,7 @@ export class JobPageComponent {
   inp1!: string;
   inp2!: string;
 
-  constructor(private jobPageService: JobPageService) {
+  constructor(private jobPageService: JobPageService, private dataService: DataService, private router: Router) {
 
   }
   jobPosts!: Array<post>;
@@ -41,7 +43,6 @@ export class JobPageComponent {
         this.jobPosts = data;
         this.jobPostsB = data;
         this.selectedPost = this.jobPosts[0];
-        console.log(data);
       },
       error: (error) => {
         console.log(error);
@@ -81,6 +82,11 @@ export class JobPageComponent {
     } else if (searchHeight.top > -150) {
       rightbox.classList.remove('right-fixed');
     }
+  }
+
+  apply(postId: string) {
+    this.dataService.messageSource.next(postId);
+    this.router.navigate(['jobApply']);
   }
 
 

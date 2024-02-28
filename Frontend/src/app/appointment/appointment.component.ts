@@ -24,7 +24,7 @@ export class AppointmentComponent {
   ) {
   }
   ngOnInit() {
-    this.data.currentMessage.subscribe((message) => {
+    this.data.messageSource.subscribe((message) => {
       this.details = message;
     });
     if (this.details.patient) {

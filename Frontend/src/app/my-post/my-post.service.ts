@@ -4,6 +4,20 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { post } from '../post-page/post-page.service';
 
+
+export interface applicant {
+    _id: string,
+    email: string,
+    name: string,
+    phoneno: string,
+    resume: string,
+    skills: string,
+    experience: string,
+    postId: {
+        _id: string,
+    }
+}
+
 @Injectable({
     providedIn: 'root'
 })

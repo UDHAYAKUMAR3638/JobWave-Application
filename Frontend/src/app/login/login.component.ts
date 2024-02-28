@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { LoginService, login } from './login.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { DashboardComponent } from '../dashboard/dashboard.component';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({

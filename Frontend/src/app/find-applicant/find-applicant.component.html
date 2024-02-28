@@ -1,0 +1,48 @@
+<div class="router">
+    <div class="search" id="search">
+        <input type="text" [(ngModel)]="inp1" placeholder="Headline, Skills" class="input">
+        <span class="symbol">|</span>
+        <input type="text" [(ngModel)]="inp2" placeholder="Location" class="input">
+        <button (click)="search()" class="button"><b>Find</b></button>
+    </div>
+    <div class="text">
+        <h2>Applicants</h2>
+    </div>
+    <div class="container">
+        <div class="left">
+            <div *ngFor="let applicant of applicants" class="post" (click)="rightBox(applicant)">
+                <h2 class="role">{{applicant.name}}</h2>
+                <p>{{applicant.headline}}</p>
+                <span class="label">{{applicant.skills}}</span>
+                <span class="label">{{applicant.currentPosition}}</span>
+                <span class="label">{{applicant.email}}</span>
+            </div>
+        </div>
+        <div class="right" id="right">
+            <div class="fix-box">
+                <h3 class="role">{{selectedApplicant.name}}</h3>
+                <span>{{selectedApplicant.headline}}</span>
+                <span>{{selectedApplicant.email}}</span>
+            </div>
+            <div class="change-box">
+                <span><b>Education</b></span>
+                <span><b>School name</b></span>
+                <span>{{selectedApplicant.schoolName}}</span>
+                <span><b>School passed out year</b></span>
+                <span>{{selectedApplicant.schlPassedOutYear}}</span>
+                <span><b>College name</b></span>
+                <span>{{selectedApplicant.collegeName}}</span>
+                <span><b>College passed out year</b></span>
+                <span>{{selectedApplicant.clgPassedOutYear}}</span>
+                <span><b>Current position</b></span>
+                <span>{{selectedApplicant.currentPosition}}</span>
+                <span><b>Skills</b></span>
+                <span>{{selectedApplicant.skills}}</span>
+                <span><b>Industries</b></span>
+                <span>{{selectedApplicant.indusrties}}</span>
+                <span><b>Location</b></span>
+                <span>{{selectedApplicant.location}}</span>
+            </div>
+        </div>
+    </div>
+</div>

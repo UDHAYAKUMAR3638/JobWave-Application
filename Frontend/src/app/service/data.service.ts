@@ -5,8 +5,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataService {
   messageSource = new BehaviorSubject('default message');
-  currentMessage = this.messageSource.asObservable();
-
   constructor() { }
 
   changeMessage(data: any) {

@@ -7,36 +7,19 @@
     color: rgb(9, 9, 9);
 }
 
-.button{
-    height: 7vh;
-    width: 10%;
-    border: 0px;
-    background-color: #2557A7;
-    border-radius: 10px;
-    margin-left: 3%;
-    font-size: medium;
-    color: white;
-    cursor: pointer;
-}
 
-.button1{
+.button{
     height: 7vh;
     margin: 10px;
     width: fit-content;
     border: 0px;
-    background-color: #2557A7;
     padding: 10px;
     border-radius: 10px;
     font-size: medium;
     color: white;
     cursor: pointer;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.button1:hover{
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
-    transform: translateY(-3px);
-}
 
 .text{
     margin-top: 5%;
@@ -51,6 +34,7 @@
 
 .post{
     display: grid;
+    width: 500px;
     padding: 25px;
     grid-row: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     row-gap: 5px;
@@ -80,19 +64,24 @@
     justify-content: space-around;
 }
 
+.head{
+    color:#3F51B5;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
 .right{
     width: 40%;
     position:absolute;
-    height: 90%;
+    height: 80%;
     margin:2% 0% 0% 50%;
     display: flex;
+    align-items: center;
     flex-direction: column;
     background-color: white;
-    border: 1px solid black;
     border-radius: 12px;
     justify-content: space-around;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 15px;
 }
 
 .right-fixed{
@@ -100,26 +89,39 @@
   top: 0;
 }
 
-.fix-box{
-    display: grid;
-    row-gap: 10px;
-    height: fit-content;
+.applicant{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 5px;
+    border-radius: 10px;
+    height: 100%;
     width: 100%;
-    padding: 10px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
-    transform: translateY(-10px);
+    padding: 20px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
+
+.applicant:hover{
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-3px);
+}
+
 .change-box{
-    display: grid;
-    row-gap: 10px;
-    padding: 10px;
+    width:100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    row-gap: 20px;
+    column-gap: 10%;
+    padding: 20px;
     background-color: white;
     overflow-y: auto;
 }
 
 .image{
-    width:10%;
-    height:7vh;
+    width:200px;
+    height:40vh;
 }
 
 

@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { MatCard, MatCardModule } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { datePipe } from "../pipe/date.pipe";
 import { FormsModule } from '@angular/forms';
-import { MyPostComponent } from './my-post.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MyJobComponent } from './my-job.component';
 
 const appRoute: Routes = [
     {
-        path: "", component: MyPostComponent
+        path: "", component: MyJobComponent
     },
 ]
 
 @NgModule({
-    declarations: [MyPostComponent],
+    declarations: [MyJobComponent],
     imports: [
         RouterModule.forChild(appRoute),
         MatCardModule,
@@ -24,4 +24,4 @@ const appRoute: Routes = [
         MatButtonModule
     ]
 })
-export class MyPostModule { }
+export class MyJobModule { }

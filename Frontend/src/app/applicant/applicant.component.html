@@ -1,0 +1,17 @@
+<div class="container">
+
+    <div class="box">
+        <span>Name: {{applicantData.name}}</span>
+        <span>Email: {{applicantData.email}}</span>
+        <span>Phone no: {{applicantData.phoneno}}</span>
+        <span>Experience: {{applicantData.experience}}</span>
+        <span>Skills: {{applicantData.skills}}</span>
+        <span>Resume: {{applicantData.resume}}</span>
+    </div>
+    <div class="buttons">
+        <button mat-raised-button color="primary" class="button">Accept</button>
+        <button mat-raised-button color="primary" class="button">Reject</button>
+        <button mat-raised-button color="primary" class="button" (click)="close()">Back</button>
+    </div>
+
+</div>

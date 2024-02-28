@@ -3,6 +3,7 @@ import { JobApplyService, jobApplication } from './job-apply.service';
 import Swal from 'sweetalert2';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataService } from '../service/data.service';
 
 @Component({
   selector: 'app-job-apply',
@@ -11,7 +12,15 @@ import { Router } from '@angular/router';
 })
 export class JobApplyComponent {
 
-  constructor(private fb: FormBuilder, private jobService: JobApplyService, private route: Router) { }
+  constructor(private fb: FormBuilder, private jobService: JobApplyService, private route: Router, private dataService: DataService) { }
+
+  ngOnInit() {
+    this.dataService.messageSource.subscribe({
+      next: (id) => {
+        this.postId = id;
+      }
+    })
+  }
 
   jobApplicationForm = this.fb.group({
     name: ['', Validators.required],
@@ -21,15 +30,19 @@ export class JobApplyComponent {
     resume: '',
     experience: '',
     postId: {
-      _id: "65dcd2714f1e0bf6f5bb6992"
+      _id: ""
     }
   });
 
+  postId!: string;
+
+
   apply() {
+    this.jobApplicationForm.get('postId')?.setValue({ _id: this.postId });
+    console.log(this.jobApplicationForm.value);
     if (!this.jobApplicationForm.invalid) {
       this.jobService.apply(<jobApplication>this.jobApplicationForm.value).subscribe({
         next: (data) => {
-          console.log(data);
           Swal.fire({
             title: 'Application sent successful!',
             icon: 'success'

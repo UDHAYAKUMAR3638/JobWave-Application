@@ -41,6 +41,21 @@ const appRoute: Routes = [
                 loadChildren: () =>
                     import('../my-post/my-post.module').then((d) => d.MyPostModule)
             },
+            {
+                path: 'myJob',
+                loadChildren: () =>
+                    import('../my-job/my-job.module').then((d) => d.MyJobModule)
+            },
+            {
+                path: 'findApplicant',
+                loadChildren: () =>
+                    import('../find-applicant/find-applicant.module').then((d) => d.FindApplicantModule)
+            },
+            {
+                path: 'bills',
+                loadChildren: () =>
+                    import('../bills-page/bills-page.module').then((d) => d.BillsPageModule)
+            },
 
         ]
     },

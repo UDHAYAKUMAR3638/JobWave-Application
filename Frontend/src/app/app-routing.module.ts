@@ -17,36 +17,6 @@ const appRoute: Routes = [
     path: 'login', loadChildren: () =>
       import('./login/login.module').then((d) => d.LoginModule),
   },
-
-  {
-    path: 'dashboard', canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./dashboard/dashboard.module').then((d) => d.DashboardModule)
-  },
-
-  {
-    path: 'dashboard/appointment', canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./dashboard/dashboard.module').then((d) => d.DashboardModule)
-  },
-
-  {
-    path: 'dashboard/profile', canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./dashboard/dashboard.module').then((d) => d.DashboardModule)
-  },
-
-  {
-    path: 'dashboard/setting', canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./dashboard/dashboard.module').then((d) => d.DashboardModule)
-  },
-  {
-    path: 'dashboard/about', canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./dashboard/dashboard.module').then((d) => d.DashboardModule)
-  },
-
 ]
 
 @NgModule({

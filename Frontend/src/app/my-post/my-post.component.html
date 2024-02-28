@@ -1,6 +1,6 @@
 <div class="router">
-    <div class="text">
-        <b>Your job posts</b>
+    <div class="text" id="text">
+        <h2>Your job posts</h2>
     </div>
     <div class="container">
         <div class="left">
@@ -15,31 +15,15 @@
             </div>
         </div>
         <div class="right" id="right">
-            <div class="fix-box">
-                <!-- <h3 class="role">{{selectedPost.role}}</h3>
-                <span>{{selectedPost.location}}</span>
-                <span>{{selectedPost.jobType}}</span>
-                <span>{{selectedPost.salary}}</span>
-                <button class="button1" routerLink="jobApply"><b>Apply now</b></button> -->
-            </div>
+            <h2 class="head">Candidates applied for post</h2>
             <div class="change-box">
-                <!-- <h2>Job details</h2>
-                <span><b>Pay</b></span>
-                <span>{{selectedPost.salary}}</span>
-                <span><b>Shift and schedule</b></span>
-                <span>{{selectedPost.schedule}}</span>
-                <span><b>Job type</b></span>
-                <span>{{selectedPost.jobType}}</span>
-                <span><b>Benifits</b></span>
-                <span>{{selectedPost.benifits}}</span>
-                <span><b>Full job description</b></span>
-                <span>{{selectedPost.content}}</span>
-                <span><b>Education</b></span>
-                <span>{{selectedPost.education}}</span>
-                <span><b>Language</b></span>
-                <span>{{selectedPost.language}}</span>
-                <span><b>Posted date</b></span>
-                <span>{{selectedPost.date}}</span> -->
+                <div *ngFor="let applicant of myPostApplicants" class="applicant">
+                    <img src="../../assets/image/profile.jpg" class="image">
+                    <span><b>{{applicant.name}}</b></span>
+                    <span>{{applicant.email}}</span>
+                    <button mat-raised-button color="primary" class="button"
+                        (click)="openDialog(applicant)">View</button>
+                </div>
             </div>
         </div>
     </div>
