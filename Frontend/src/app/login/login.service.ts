@@ -11,7 +11,6 @@ export interface login {
 })
 
 export class LoginService {
-  loggedStatus = false;
   constructor(private http: HttpClient) { }
 
   authenticate(data: login): Observable<any> {
@@ -20,19 +19,18 @@ export class LoginService {
   }
 
   getUser() {
-    if (sessionStorage.getItem('role') === 'CANDIDATE')
+    if (sessionStorage.getItem('role') === 'JOBSEEKER')
       return this.http.get<any>(
-        environment.patUrl + `/getEmail/${sessionStorage.getItem('email')}`);
+        environment.jobseekerUrl + `/getEmail/${sessionStorage.getItem('email')}`);
     else if (sessionStorage.getItem('role') === 'RECRUITER')
       return this.http.get<any>(
-        environment.docUrl + `/getEmail/${sessionStorage.getItem('email')}`);
+        environment.recruiterUrl + `/getEmail/${sessionStorage.getItem('email')}`);
     else
       return this.http.get<any>(
         environment.userUrl + `/getEmail/${sessionStorage.getItem('email')}`);
   }
 
   isAuthencticate(): boolean {
-    this.loggedStatus = sessionStorage.getItem('isLogged') === 'true';
-    return this.loggedStatus;
+    return sessionStorage.getItem('isLogged') === 'true';
   }
 }

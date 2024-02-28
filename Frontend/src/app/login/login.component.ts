@@ -7,7 +7,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
 })
 
 export class LoginComponent {
@@ -33,8 +33,17 @@ export class LoginComponent {
           if (token.status == 200) {
             sessionStorage.setItem('isLogged', 'true');
             sessionStorage.setItem('token', token.body.token);
-            sessionStorage.setItem('email', (<login>this.loginForm.value).email);
+            sessionStorage.setItem('email', token.body.user.email);
+            sessionStorage.setItem('role', token.body.user.role);
           }
+          this.loginService.getUser().subscribe({
+            next: (data) => {
+              sessionStorage.setItem('user', JSON.stringify(data));
+            },
+            error: (error) => {
+              console.log(error);
+            }
+          })
         },
         error: (error) => {
           console.log('error:', error);

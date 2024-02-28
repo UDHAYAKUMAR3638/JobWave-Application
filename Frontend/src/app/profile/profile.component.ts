@@ -19,64 +19,64 @@ interface data {
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent {
-  constructor(private profileService: ProfileService, private router: Router,
-    @Inject(MAT_DIALOG_DATA) public details: data,
-    public dialogRef: MatDialogRef<ProfileComponent>
-  ) { }
+  // constructor(private profileService: ProfileService, private router: Router,
+  //   @Inject(MAT_DIALOG_DATA) public details: data,
+  //   public dialogRef: MatDialogRef<ProfileComponent>
+  // ) { }
 
-  receptionist = true;
-  parentData!: data;
-  ngOnInit() {
-    // this.data.currentMessage.subscribe((message) => (this.parentData = message));
-    this.parentData = this.details;
-    this.receptionist = this.parentData.role === 'RECEPTIONIST';
-  }
+  // receptionist = true;
+  // parentData!: data;
+  // ngOnInit() {
+  //   // this.data.currentMessage.subscribe((message) => (this.parentData = message));
+  //   this.parentData = this.details;
+  //   this.receptionist = this.parentData.role === 'RECEPTIONIST';
+  // }
 
-  updateUser() {
-    this.profileService.save({
-      id: this.parentData.id,
-      firstname: this.parentData.firstname,
-      lastname: this.parentData.lastname,
-      email: this.parentData.email,
-      specialization: this.parentData.specialization,
-      inTime: this.parentData.inTime,
-      outTime: this.parentData.outTime,
-      phoneno: this.parentData.phoneno,
-    })
-      .subscribe({
-        next: (response) => {
-          // console.log(response);
-          Swal.fire({
-            title: 'Profile Updated',
-            text: 'Successfully',
-            icon: 'success',
-          });
-        },
-        error: (error) => {
-          console.log(error);
-          Swal.fire({
-            title: 'Profile Updation',
-            text: 'Failed',
-            icon: 'error',
-          });
-        },
-      });
-  }
-  logout() {
-    this.dialogRef.close();
-    localStorage.clear();
-    sessionStorage.clear();
-    this.router.navigate(['login']);
-  }
+  // updateUser() {
+  //   this.profileService.save({
+  //     id: this.parentData.id,
+  //     firstname: this.parentData.firstname,
+  //     lastname: this.parentData.lastname,
+  //     email: this.parentData.email,
+  //     specialization: this.parentData.specialization,
+  //     inTime: this.parentData.inTime,
+  //     outTime: this.parentData.outTime,
+  //     phoneno: this.parentData.phoneno,
+  //   })
+  //     .subscribe({
+  //       next: (response) => {
+  //         // console.log(response);
+  //         Swal.fire({
+  //           title: 'Profile Updated',
+  //           text: 'Successfully',
+  //           icon: 'success',
+  //         });
+  //       },
+  //       error: (error) => {
+  //         console.log(error);
+  //         Swal.fire({
+  //           title: 'Profile Updation',
+  //           text: 'Failed',
+  //           icon: 'error',
+  //         });
+  //       },
+  //     });
+  // }
+  // logout() {
+  //   this.dialogRef.close();
+  //   localStorage.clear();
+  //   sessionStorage.clear();
+  //   this.router.navigate(['login']);
+  // }
 
-  close(): void {
-    this.dialogRef.close();
-  }
-  cancel() {
-    window.history.go(-1);
-  }
+  // close(): void {
+  //   this.dialogRef.close();
+  // }
+  // cancel() {
+  //   window.history.go(-1);
+  // }
 
 }

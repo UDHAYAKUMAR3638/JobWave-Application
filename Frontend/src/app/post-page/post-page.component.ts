@@ -15,6 +15,7 @@ export class PostPageComponent {
   constructor(private fb: FormBuilder, private postService: PostPageService, private route: Router) { }
 
   postForm = this.fb.group({
+    companyName: '',
     role: ['', Validators.required],
     location: [, Validators.required],
     salary: ['', Validators.required],
@@ -31,7 +32,7 @@ export class PostPageComponent {
 
   register() {
     if (!this.postForm.invalid) {
-      this.postService.post(<post><unknown>this.postForm.value).subscribe({
+      this.postService.post(this.postForm.value).subscribe({
         next: (data) => {
           console.log(data);
           Swal.fire({

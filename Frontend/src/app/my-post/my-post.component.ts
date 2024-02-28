@@ -24,6 +24,7 @@ export class MyPostComponent {
     this.myPostService.MyPosts('65dc91b5a291de217207d3e8').subscribe({
       next: (data) => {
         this.myPost = data;
+        this.rightBox(data[0]._id);
       },
       error: (error) => {
         console.log(error);
@@ -55,9 +56,9 @@ export class MyPostComponent {
     const rightbox: any = document.getElementById('right');
     const text: any = document.getElementById('text');
     const textHeight = text.getBoundingClientRect();
-    if (textHeight.top < -97) {
+    if (textHeight.top < -67) {
       rightbox.classList.add('right-fixed');
-    } else if (textHeight.top > -95) {
+    } else if (textHeight.top > -71) {
       rightbox.classList.remove('right-fixed');
     }
   }

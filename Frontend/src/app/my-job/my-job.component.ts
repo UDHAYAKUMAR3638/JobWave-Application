@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { MyJobService } from './my-job.service';
+import { post } from '../post-page/post-page.service';
 
 @Component({
   selector: 'app-my-job',
@@ -6,5 +8,40 @@ import { Component } from '@angular/core';
   styleUrls: ['./my-job.component.scss']
 })
 export class MyJobComponent {
+
+  constructor(private myJobService: MyJobService) {
+  }
+  posts!: Array<post>;
+  status: string = "pending";
+  ngOnInit() {
+
+    this.myJobService.getJobs('udhaya12@gmail.com').subscribe({
+      next: (data) => {
+        this.posts = data;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+
+  }
+
+  rightBox(status: string) {
+    this.status = status;
+  }
+
+  @HostListener('window:scroll', [])
+  OnWindowScroll() {
+    const rightbox: any = document.getElementById('right');
+    const text: any = document.getElementById('text');
+    const textHeight = text.getBoundingClientRect();
+    console.log(textHeight.top);
+
+    if (textHeight.top < -67) {
+      rightbox.classList.add('right-fixed');
+    } else if (textHeight.top > -71) {
+      rightbox.classList.remove('right-fixed');
+    }
+  }
 
 }

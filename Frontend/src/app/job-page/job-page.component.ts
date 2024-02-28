@@ -20,17 +20,18 @@ export class JobPageComponent {
   jobPosts!: Array<post>;
   jobPostsB!: Array<post>;
   selectedPost: post = {
-    "_id": "",
-    "role": "Staff Software Engineer",
-    "location": "Remote",
-    "salary": "₹53,60,000 - ₹80,40,000 a year",
-    "jobType": "Full-time",
-    "schedule": "Monday to Friday",
-    "content": "Are comfortable working cross-functionally to drive impact across the Software Development Lifecycle (SDLC), including working with product managers to clarify requirements and break down work,…",
-    "education": "Master's (Preferred)",
-    "benifits": "Internet reimbursement",
-    "language": "English (Preferred)",
-    "date": new Date(),
+    companyName: '',
+    _id: '',
+    role: 'Staff Software Engineer',
+    location: 'Remote',
+    salary: '₹53,60,000 - ₹80,40,000 a year',
+    jobType: 'Full-time',
+    schedule: 'Monday to Friday',
+    content: 'Are comfortable working cross-functionally to drive impact across the Software Development Lifecycle (SDLC), including working with product managers to clarify requirements and break down work,…',
+    education: 'Masters (Preferred)',
+    benifits: 'Internet reimbursement',
+    language: 'English (Preferred)',
+    date: new Date(),
     skills: '',
     recruiterId: {
       _id: '65dd6d9751aaae72f34241fc'

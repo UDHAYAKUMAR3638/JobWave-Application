@@ -15,6 +15,7 @@ export interface post {
     benifits: string,
     language: any,
     date: Date,
+    companyName: string,
     recruiterId: { _id: string }
 }
 @Injectable({
@@ -24,7 +25,7 @@ export class PostPageService {
     constructor(private http: HttpClient) {
     }
 
-    post(data: post): Observable<any> {
+    post(data: any): Observable<any> {
         console.log(data);
 
         return this.http.post<any>(environment.recruiterUrl + "/post", data);
