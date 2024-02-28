@@ -1,5 +1,7 @@
 package Backend.JobWave.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -93,5 +95,9 @@ public class JobseekerService {
 
     public JobApplication jobApply(JobApplication jobApplication) {
         return jobApplicationRepository.save(jobApplication);
+    }
+
+    public List<Jobseeker>getAll() {
+        return jobseekerRepo.findAll();
     }
 }

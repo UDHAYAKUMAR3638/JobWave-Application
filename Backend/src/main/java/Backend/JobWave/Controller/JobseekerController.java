@@ -1,5 +1,7 @@
 package Backend.JobWave.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +27,12 @@ public class JobseekerController {
 
     @GetMapping("/view")
     public ResponseEntity<String> getJobseeker() {
-        System.out.println(new ResponseEntity<>("jobseeker",HttpStatus.OK));
         return new ResponseEntity<>("jobseeker",HttpStatus.OK);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Jobseeker>> getAll() {
+        return ResponseEntity.ok(jobseekerService.getAll());
     }
 
     @PostMapping("/register")
