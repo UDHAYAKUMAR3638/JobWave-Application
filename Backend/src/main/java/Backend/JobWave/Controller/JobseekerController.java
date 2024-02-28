@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import Backend.JobWave.Model.JobApplication;
 import Backend.JobWave.Model.Jobseeker;
+import Backend.JobWave.Model.Post;
 import Backend.JobWave.Service.JobseekerService;
 
 @RestController
@@ -43,6 +45,11 @@ public class JobseekerController {
     @PostMapping("/apply")
     public ResponseEntity<JobApplication> jobApply(@RequestBody JobApplication jobApplication) {
         return ResponseEntity.ok(jobseekerService.jobApply(jobApplication));
+    }
+
+    @GetMapping("/myJobs/{email}")
+    public ResponseEntity<List<Post>> myJobs(@PathVariable String email) {
+        return ResponseEntity.ok(jobseekerService.myJobs(email));
     }
 
     @PutMapping("/update")

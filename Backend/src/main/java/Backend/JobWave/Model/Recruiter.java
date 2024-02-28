@@ -4,6 +4,7 @@ package Backend.JobWave.Model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import Backend.JobWave.Dto.RecruiterDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,4 +24,18 @@ public class Recruiter {
     private String email;
     private String companyType;
     private String location;
+    private String image;
+    
+    public Recruiter(RecruiterDto recruiterDto,String image){
+     this.setCompanyName(recruiterDto.getCompanyName());
+     this.setEmpCount(recruiterDto.getEmpCount());
+     this.setName(recruiterDto.getName());
+     this.setPhoneno(recruiterDto.getPhoneno());
+     this.setPassword(recruiterDto.getPassword());
+     this.setEmail(recruiterDto.getEmail());
+     this.setCompanyType(recruiterDto.getCompanyType());
+     this.setLocation(recruiterDto.getLocation());
+     this.setImage(image);
+    }
+    
 }

@@ -22,7 +22,6 @@ public class AuthenticationService {
         private final PasswordEncoder passwordEncoder;
         private final AuthenticationManager authenticationManager;
         private final JwtService jwtService;
-        private final RoleService roleService;
 
  
         public AuthenticationResponse register(RegisterRequest request) {
@@ -30,7 +29,7 @@ public class AuthenticationService {
                                 .name(request.getName())
                                 .email(request.getEmail())
                                 .password(passwordEncoder.encode(request.getPassword()))
-                                .role(roleService.getRole(request.getRole()))
+                                .role(request.getRole())
                                 .build();
 
                 System.out.println(request.getRole());
@@ -39,19 +38,6 @@ public class AuthenticationService {
                         throw new EmailAlreadyExistsException("Email already exists");
                 }
                  userRepository.save(user);
-                if (request.getRole() == "PATIENT") {
-                        // Patient patient = new Patient(user);
-                        // patientRepo.save(patient);
-                }
-                if (request.getRole() == "DOCTOR") {
-                        // Doctor doctor = new Doctor(user);
-                        // doctorRepo.save(doctor);
-                }
-                if (request.getRole() == "RECEPTIONIST") {
-                        // Doctor doctor = new Doctor(user);
-                        // doctorRepo.save(doctor);
-                }
-
                 var jwt = jwtService.generateToken(user);
                 return AuthenticationResponse.builder()
                                 .token(jwt)
@@ -66,6 +52,7 @@ public class AuthenticationService {
                 var jwtToken = jwtService.generateToken(user);
                 return AuthenticationResponse.builder()
                                 .token(jwtToken)
+                                .user(user)
                                 .build();
 
         }

@@ -1,5 +1,6 @@
 package Backend.JobWave.Controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import Backend.JobWave.Dto.RecruiterDto;
 import Backend.JobWave.Model.JobApplication;
 import Backend.JobWave.Model.Post;
 import Backend.JobWave.Model.Recruiter;
@@ -32,16 +34,17 @@ public class RecruiterController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Recruiter> registerRecruiter(@RequestBody Recruiter recruiter) {
+    public ResponseEntity<Recruiter> registerRecruiter(@RequestBody RecruiterDto recruiter) throws IOException {
+        System.out.println(recruiter);
         return ResponseEntity.ok(recruiterService.registerRecruiter(recruiter));
     }
 
     @PutMapping("/update")
     public ResponseEntity<Recruiter> updateRecruiter(@RequestBody Recruiter recruiter) {
-        return ResponseEntity.ok(recruiterService.registerRecruiter(recruiter));
+        return ResponseEntity.ok(recruiterService.updateRecruiter(recruiter));
     }
 
-    @PostMapping("/post")
+    @PostMapping("/post") 
     public ResponseEntity<Post> postJob(@RequestBody Post post) {
         return ResponseEntity.ok(recruiterService.postJob(post));
     }

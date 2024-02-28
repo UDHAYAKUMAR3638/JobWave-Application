@@ -11,4 +11,6 @@ import Backend.JobWave.Model.JobApplication;
 public interface JobApplicationRepository extends MongoRepository<JobApplication,String> {
 
         List<JobApplication> findByPostId(ObjectId objectId);
+
+        List<JobApplication> findByEmail(String email);
 }
