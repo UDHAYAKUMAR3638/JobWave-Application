@@ -22,10 +22,10 @@ interface data {
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent {
-  // constructor(private profileService: ProfileService, private router: Router,
-  //   @Inject(MAT_DIALOG_DATA) public details: data,
-  //   public dialogRef: MatDialogRef<ProfileComponent>
-  // ) { }
+  constructor(private profileService: ProfileService, private router: Router,
+    // @Inject(MAT_DIALOG_DATA) public details: data,
+    // public dialogRef: MatDialogRef<ProfileComponent>
+  ) { }
 
   // receptionist = true;
   // parentData!: data;
@@ -65,12 +65,12 @@ export class ProfileComponent {
   //       },
   //     });
   // }
-  // logout() {
-  //   this.dialogRef.close();
-  //   localStorage.clear();
-  //   sessionStorage.clear();
-  //   this.router.navigate(['login']);
-  // }
+  logout() {
+    // this.dialogRef.close();
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigate(['login']);
+  }
 
   // close(): void {
   //   this.dialogRef.close();

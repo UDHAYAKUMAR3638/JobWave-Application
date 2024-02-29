@@ -39,8 +39,13 @@
 }
 
 .text{
-    margin-top: 5%;
+    margin-top: 2%;
     font-size:large;
+}
+
+.head{
+    color:#3F51B5;
+    padding: 10px;
 }
 
 .container{
@@ -65,6 +70,12 @@
 .post:hover{
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
     transform: translateY(-10px);
+}
+
+.boxHead{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .left{
@@ -103,24 +114,24 @@
 
 .fix-box{
     display: grid;
-    row-gap: 10px;
+    row-gap: 2px;
     height: fit-content;
     width: 100%;
-    padding: 10px;
+    padding: 20px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
     transform: translateY(-10px);
 }
 .change-box{
     display: grid;
     row-gap: 10px;
-    padding: 10px;
+    padding: 20px;
     background-color: white;
     overflow-y: auto;
 }
 
 .image{
     width:10%;
-    height:7vh;
+    height:10vh;
 }
 
 .search{
@@ -133,8 +144,11 @@
 }
 
 .logo{
-    height: 10vh;
+    height: 15vh;
+    width: 90px;
     border-radius: 50%;
+    margin-right: 5%;
+
 }
 .search:hover{
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 

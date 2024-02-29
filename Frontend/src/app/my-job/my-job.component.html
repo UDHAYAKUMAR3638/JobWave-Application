@@ -1,10 +1,14 @@
 <div class="router">
     <div class="text" id="text">
-        <h2>Your job posts</h2>
+        <h2 class="head">Your job applications</h2>
     </div>
     <div class="container">
         <div class="left">
             <div *ngFor="let post of posts" class="post" (click)="rightBox('pending')">
+                <div class="boxHead">
+                    <img [src]="post.recruiterId.image" class="logo">
+                    <strong>{{post.recruiterId.companyName}}</strong>
+                </div>
                 <h2 class="role">{{post.role}}</h2>
                 <p>{{post.location}}</p>
                 <span class="label">{{post.salary}}</span>
@@ -16,9 +20,8 @@
         </div>
     </div>
     <div class="right" id="right">
-        <h2 class="head">Your job application</h2>
         <div class="applicant">
-            <img src="../../assets/image/profile.jpg" class="image">
+            <img [src]="userDetails.image" class="image">
             <span><b>Application status</b></span>
             <span>{{'Application submited: Status '+status}}</span>
         </div>

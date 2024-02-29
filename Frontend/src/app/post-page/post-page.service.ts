@@ -15,7 +15,6 @@ export interface post {
     benifits: string,
     language: any,
     date: Date,
-    companyName: string,
     recruiterId: any
 }
 @Injectable({

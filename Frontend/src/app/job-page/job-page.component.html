@@ -6,12 +6,15 @@
         <button (click)="search()" class="button"><b>Find jobs</b></button>
     </div>
     <div class="text" id="text">
-        <h2>Your new jobs</h2>
+        <h2 class="head">Your new jobs</h2>
     </div>
     <div class="container">
         <div class="left">
             <div *ngFor="let post of jobPosts" class="post" (click)="rightBox(post)">
-                <img [src]=post.recruiterId.image class="logo">
+                <div class="boxHead">
+                    <img [src]=post.recruiterId.image class="logo">
+                    <strong>{{post.recruiterId.companyName}}</strong>
+                </div>
                 <h2 class="role">{{post.role}}</h2>
                 <p>{{post.location}}</p>
                 <span class="label">{{post.salary}}</span>
@@ -23,7 +26,10 @@
         </div>
         <div class="right" id="right">
             <div class="fix-box">
-                <img [src]=selectedPost.recruiterId.image class="logo">
+                <div class="boxHead">
+                    <img [src]=selectedPost.recruiterId.image class="logo">
+                    <strong>{{selectedPost.recruiterId.companyName}}</strong>
+                </div>
                 <h3 class="role">{{selectedPost.role}}</h3>
                 <span>{{selectedPost.location}}</span>
                 <span>{{selectedPost.jobType}}</span>

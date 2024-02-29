@@ -1,18 +1,16 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[appLoginHide]',
+  selector: '[jobseekerShow]',
   standalone: true
 })
-export class LoginHideDirective {
+export class JobseekerShowDirective {
 
   constructor(private el: ElementRef) {
   }
   ngOnInit() {
-    if (sessionStorage.getItem('isLogged'))
+    if (!(sessionStorage.getItem('role') === "JOBSEEKER"))
       this.el.nativeElement.hidden = true;
   }
-
-
 
 }

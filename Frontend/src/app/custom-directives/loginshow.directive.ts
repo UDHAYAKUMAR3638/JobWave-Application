@@ -1,7 +1,8 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-    selector: '[appLoginShow]'
+    selector: '[appLoginShow]',
+    standalone: true
 })
 export class LoginShowDirective {
 
@@ -11,7 +12,4 @@ export class LoginShowDirective {
         if (!sessionStorage.getItem('isLogged'))
             this.el.nativeElement.hidden = true;
     }
-
-
-
 }

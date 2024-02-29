@@ -1,4 +1,4 @@
-<div class="head">
+<!-- <div class="head">
   <div>
     <h2 *ngIf="isdoctor; then doctor; else patinet"></h2>
     <ng-template #patinet>
@@ -24,8 +24,8 @@
     <label class="name">Status: <span [ngClass]="x.appointmentStatus ==='Not Visited'? 'wrong': 'correct'">{{
         x.appointmentStatus }}</span></label>
     <br />
-    <br>
-    <!-- <button mat-raised-button color="primary"
+    <br> -->
+<!-- <button mat-raised-button color="primary"
       class="buttons"
       routerLink='/dashboard/appointmentComp' (click)="sendDetails({
           appointmentId: x.appointmentId,
@@ -38,7 +38,7 @@
     >
       Edit
     </button> -->
-    <button mat-raised-button color="primary" appCanEdit class="buttons" (click)="openDialog({
+<!-- <button mat-raised-button color="primary" appCanEdit class="buttons" (click)="openDialog({
           appointmentId: x.appointmentId,
           from: 'update',
           doctorId: x.doctor.doctorId,
@@ -54,4 +54,4 @@
     <button mat-raised-button color="primary" (click)="previousPage()" [disabled]="currentPage === 0">Previous</button>
     <button mat-raised-button color="primary" (click)="nextPage()" [disabled]=lastpage>Next</button>
   </div>
-</div>
+</div> -->

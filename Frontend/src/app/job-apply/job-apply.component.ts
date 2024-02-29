@@ -14,11 +14,12 @@ import { DataService } from '../service/data.service';
 
 export class JobApplyComponent {
 
-
+  userDetails!: any;
 
   constructor(private fb: FormBuilder, private jobService: JobApplyService, private route: Router, private dataService: DataService) { }
 
   ngOnInit() {
+    this.userDetails = JSON.parse(sessionStorage.getItem('user')!);
     this.dataService.messageSource.subscribe({
       next: (id) => {
         this.postId = id;
@@ -34,8 +35,9 @@ export class JobApplyComponent {
     resume: '',
     experience: '',
     postId: {
-      _id: ""
-    }
+      _id: ''
+    },
+    userId: {}
   });
 
   postId!: string;
@@ -43,6 +45,7 @@ export class JobApplyComponent {
 
   apply() {
     this.jobApplicationForm.get('postId')?.setValue({ _id: this.postId });
+    this.jobApplicationForm.get('userId')?.setValue({ _id: this.userDetails._id });
     console.log(this.jobApplicationForm.value);
     if (!this.jobApplicationForm.invalid) {
       this.jobService.apply(<jobApplication>this.jobApplicationForm.value).subscribe({

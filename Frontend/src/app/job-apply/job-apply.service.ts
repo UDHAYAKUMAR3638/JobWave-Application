@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { jobseeker } from '../find-applicant/find-applicant.service';
+import { post } from '../post-page/post-page.service';
 export interface jobApplication {
     name: string,
     email: string,
@@ -9,7 +11,8 @@ export interface jobApplication {
     skills: string,
     resume: string,
     experience: string,
-    postId: { _id: "" }
+    postId: post,
+    userId: jobseeker
 }
 @Injectable({
     providedIn: 'root'

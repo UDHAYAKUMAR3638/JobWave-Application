@@ -1,10 +1,14 @@
 <div class="router">
     <div class="text" id="text">
-        <h2>Your job posts</h2>
+        <h2 class="head">Your job posts</h2>
     </div>
     <div class="container">
         <div class="left">
             <div *ngFor="let post of myPost" class="post" (click)="rightBox(post._id)">
+                <div class="boxHead">
+                    <img [src]=post.recruiterId.image class="logo">
+                    <strong>{{post.recruiterId.companyName}}</strong>
+                </div>
                 <h2 class="role">{{post.role}}</h2>
                 <p>{{post.location}}</p>
                 <span class="label">{{post.salary}}</span>
@@ -18,7 +22,7 @@
             <h2 class="head">Candidates applied for post</h2>
             <div class="change-box">
                 <div *ngFor="let applicant of myPostApplicants" class="applicant">
-                    <img src="../../assets/image/profile.jpg" class="image">
+                    <img [src]="applicant.userId.image" class="image">
                     <span><b>{{applicant.name}}</b></span>
                     <span>{{applicant.email}}</span>
                     <button mat-raised-button color="primary" class="button"

@@ -26,5 +26,4 @@ export class BillsPageService {
   getBills() {
     return this.http.get(`${environment.paymentUrl}/bills/${sessionStorage.getItem('email')}`);
   }
-
 }

@@ -10,6 +10,7 @@
 
 .logo{
     height: 10vh;
+    margin-right: 5%;
 }
 
 .button{
@@ -43,9 +44,15 @@
     transform: translateY(-3px);
 }
 
+
 .text{
-    margin-top: 5%;
+    margin-top: 2%;
     font-size:large;
+}
+
+.head{
+    color:#3F51B5;
+    padding: 10px;
 }
 
 .container{
@@ -106,19 +113,25 @@
   top: 0;
 }
 
+.boxHead{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .fix-box{
     display: grid;
-    row-gap: 10px;
+    row-gap: 2px;
     height: fit-content;
     width: 100%;
-    padding: 10px;
+    padding: 20px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
     transform: translateY(-10px);
 }
 .change-box{
     display: grid;
     row-gap: 10px;
-    padding: 10px;
+    padding: 20px;
     background-color: white;
     overflow-y: auto;
 }

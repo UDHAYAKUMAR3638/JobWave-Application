@@ -8,6 +8,8 @@ import { AuthInterceptor } from './interceptors/interceptors.interceptor';
 import { ApplicantComponent } from './applicant/applicant.component';
 import { MatButtonModule } from '@angular/material/button';
 import { BillsPageComponent } from './bills-page/bills-page.component';
+import { RecruiterShowDirective } from './custom-directives/recruiter-show.directive';
+import { JobseekerShowDirective } from './custom-directives/jobseeker-show.directive';
 
 @NgModule({
   declarations: [AppComponent, ApplicantComponent],

@@ -49,8 +49,8 @@ export class PostPageComponent {
       description: 'Payment of job post',
       image: 'https://img.freepik.com/free-vector/mobile-bank-users-transferring-money-currency-conversion-tiny-people-online-payment-cartoon-illustration_74855-14454.jpg',
       prefill: {
-        name: this.userDetails.name,
-        email: this.userDetails.email,
+        name: "udhaya" || this.userDetails.name,
+        email: "udhaya@gmail.com" || this.userDetails.email,
       },
       handler: (response: any) => {
         if (response != null && response.razorpay_payment_id != null)
@@ -109,7 +109,7 @@ export class PostPageComponent {
     benifits: '',
     language: '',
     date: new Date(),
-    recruiterId: { _id: "65e08d9a63caba328f2205d5" }
+    recruiterId: { _id: this.userDetails._id }
   });
 
 

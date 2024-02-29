@@ -7,7 +7,16 @@
     color: rgb(9, 9, 9);
 }
 
+.logo{
+    height: 10vh;
+    margin-right: 5%;
+}
 
+.boxHead{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 .button{
     height: 7vh;
     margin: 10px;
@@ -22,8 +31,14 @@
 
 
 .text{
-    margin-top: 5%;
+    margin-top: 2%;
     font-size:large;
+}
+
+
+.head{
+    color:#3F51B5;
+    padding: 10px;
 }
 
 .container{
@@ -119,12 +134,12 @@
     overflow-y: auto;
 }
 
+
 .image{
-    width:200px;
+    width:215px;
     height:40vh;
+    border-radius: 50%;
 }
-
-
 .label{
     background-color: #F3F2F1;
     width: fit-content;

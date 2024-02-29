@@ -6,13 +6,17 @@
         <button (click)="search()" class="button"><b>Find</b></button>
     </div>
     <div class="text" id="text">
-        <h2>Applicants</h2>
+        <h2 class="head">Applicants</h2>
     </div>
     <div class="container">
         <div class="left">
             <div *ngFor="let applicant of applicants" class="post" (click)="rightBox(applicant)">
-                <h2 class="role">{{applicant.name}}</h2>
+                <div class="boxHead">
+                    <img [src]="applicant.image" class="logo">
+                    <h2 class="role">{{applicant.name}}</h2>
+                </div>
                 <p>{{applicant.headline}}</p>
+                <p>{{applicant.email}}</p>
                 <span class="label">{{applicant.skills}}</span>
                 <span class="label">{{applicant.currentPosition}}</span>
                 <span class="label">{{applicant.location}}</span>
@@ -20,13 +24,20 @@
         </div>
         <div class="right" id="right">
             <div class="fix-box">
-                <img [src]="image" class="logo">
-                <h3 class="role">{{selectedApplicant.name}}</h3>
+                <div class="boxHead">
+                    <img [src]="selectedApplicant.image" class="logo">
+                    <h2 class="role">{{selectedApplicant.name}}</h2>
+                </div>
                 <span>{{selectedApplicant.headline}}</span>
                 <span>{{selectedApplicant.email}}</span>
+                <span>{{selectedApplicant.phoneno}}</span>
+                <span>{{selectedApplicant.location}}</span>
+
             </div>
             <div class="change-box">
-                <span><b>Education</b></span>
+                <span>
+                    <h3>Education</h3>
+                </span>
                 <span><b>School name</b></span>
                 <span>{{selectedApplicant.schoolName}}</span>
                 <span><b>School passed out year</b></span>
@@ -43,6 +54,8 @@
                 <span>{{selectedApplicant.indusrties}}</span>
                 <span><b>Location</b></span>
                 <span>{{selectedApplicant.location}}</span>
+                <span><b>Date of birth</b></span>
+                <span>{{selectedApplicant.dob| toDate | date:'medium'}}</span>
             </div>
         </div>
     </div>

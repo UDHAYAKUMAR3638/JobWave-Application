@@ -20,7 +20,6 @@ export class JobPageComponent {
   jobPosts!: Array<post>;
   jobPostsB!: Array<post>;
   selectedPost: post = {
-    companyName: '',
     _id: '',
     role: 'Staff Software Engineer',
     location: 'Remote',

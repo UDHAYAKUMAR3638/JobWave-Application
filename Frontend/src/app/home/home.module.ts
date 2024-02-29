@@ -7,6 +7,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { LoginShowDirective } from '../custom-directives/loginshow.directive';
 import { LoginHideDirective } from '../custom-directives/loginhide.directive';
+import { RecruiterShowDirective } from '../custom-directives/recruiter-show.directive';
+import { JobseekerShowDirective } from '../custom-directives/jobseeker-show.directive';
 
 const appRoute: Routes = [
     {
@@ -60,7 +62,6 @@ const appRoute: Routes = [
         ]
     },
 
-
     {
         path: 'login',
         loadChildren: () =>
@@ -86,13 +87,17 @@ const appRoute: Routes = [
 ]
 
 @NgModule({
-    declarations: [HomeComponent, LoginShowDirective, LoginHideDirective],
+    declarations: [HomeComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(appRoute),
         FormsModule,
         MatDialogModule,
         MatCardModule,
+        LoginHideDirective,
+        LoginShowDirective,
+        JobseekerShowDirective,
+        RecruiterShowDirective
     ],
     exports: [RouterModule]
 })

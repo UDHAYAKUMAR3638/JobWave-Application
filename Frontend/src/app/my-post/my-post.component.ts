@@ -19,9 +19,10 @@ export class MyPostComponent {
   }
 
   myPostApplicants!: Array<applicant>;
-
+  userDetails!: any;
   ngOnInit() {
-    this.myPostService.MyPosts('65dc91b5a291de217207d3e8').subscribe({
+    this.userDetails = JSON.parse(sessionStorage.getItem('user')!);
+    this.myPostService.MyPosts(this.userDetails._id).subscribe({
       next: (data) => {
         this.myPost = data;
         this.rightBox(data[0]._id);
@@ -36,6 +37,8 @@ export class MyPostComponent {
     this.myPostService.MyPostSeekers(postId).subscribe({
       next: (data) => {
         this.myPostApplicants = data;
+        console.log(data);
+
       },
       error: (error) => {
         console.log(error);

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { post } from '../post-page/post-page.service';
+import { jobseeker } from '../find-applicant/find-applicant.service';
 
 
 export interface applicant {
@@ -13,9 +14,8 @@ export interface applicant {
     resume: string,
     skills: string,
     experience: string,
-    postId: {
-        _id: string,
-    }
+    postId: post,
+    userId: jobseeker
 }
 
 @Injectable({

@@ -51,10 +51,10 @@
 }
 
 .left{
-    width: 78%;
+    width: 70%;
     height: fit-content;
     margin-top: 30px;
-    margin-left: 13%;
+    margin-left: 16%;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -107,10 +107,21 @@
 }
 
 .image{
-    width:200px;
+    width:220px;
     height:40vh;
+    border-radius: 50%;
 }
 
+.logo{
+    height: 10vh;
+    margin-right: 5%;
+}
+
+.boxHead{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
 .label{
     background-color: #F3F2F1;
