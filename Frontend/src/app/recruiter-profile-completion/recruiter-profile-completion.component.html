@@ -10,7 +10,8 @@
     registerForm.get('companyName')?.touched)">
                 Company name is required!</mat-error>
 
-            <label class="labels">Your company logo</label><input type="file" formControlName="image" id="upload">
+            <label class="labels">Your company logo</label><input type="file" formControlName="image" id="upload"
+                (change)="upload($event)">
             <br>
             <br>
             <label class="labels">No of employees in your company</label><input class="inputs"

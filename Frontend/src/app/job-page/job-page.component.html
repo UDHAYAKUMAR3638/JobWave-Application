@@ -11,6 +11,7 @@
     <div class="container">
         <div class="left">
             <div *ngFor="let post of jobPosts" class="post" (click)="rightBox(post)">
+                <img [src]=post.recruiterId.image class="logo">
                 <h2 class="role">{{post.role}}</h2>
                 <p>{{post.location}}</p>
                 <span class="label">{{post.salary}}</span>
@@ -22,6 +23,7 @@
         </div>
         <div class="right" id="right">
             <div class="fix-box">
+                <img [src]=selectedPost.recruiterId.image class="logo">
                 <h3 class="role">{{selectedPost.role}}</h3>
                 <span>{{selectedPost.location}}</span>
                 <span>{{selectedPost.jobType}}</span>

@@ -25,7 +25,7 @@
      registerForm.get('phoneno')?.touched)">
                 Phoneno is Required!</mat-error>
 
-            <label class="labels">Your profile photo</label><input type="file" id="upload">
+            <label class="labels">Your profile photo</label><input type="file" id="upload" (change)="upload($event)">
             <br>
             <br>
 

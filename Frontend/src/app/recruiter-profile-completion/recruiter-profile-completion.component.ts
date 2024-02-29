@@ -11,6 +11,7 @@ import { RecruiterProfileCompletionService, registerRecruiter } from './recruite
 })
 
 export class RecruiterProfileCompletionComponent {
+
   constructor(private fb: FormBuilder, private profileService: RecruiterProfileCompletionService, private route: Router) { }
   private file: File | null = null;
   registerForm = this.fb.group({
@@ -26,11 +27,9 @@ export class RecruiterProfileCompletionComponent {
     image: this.file,
   });
 
-  @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
-    const file = event && event.item(0);
-    this.file = file;
+  upload(event: any) {
+    this.file = event.target.files[0];
   }
-
 
   register() {
 

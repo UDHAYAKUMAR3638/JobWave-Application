@@ -30,9 +30,9 @@ export class ProfileCompletionComponent {
     indusrties: [[],],
   });
 
-  @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
-    const file = event && event.item(0);
-    this.file = file;
+
+  upload(event: any) {
+    this.file = event.target.files[0];
   }
 
   register() {
@@ -53,6 +53,7 @@ export class ProfileCompletionComponent {
     formData.append('location', this.registerForm.get('location')?.value || "");
     formData.append('indusrties', this.registerForm.get('indusrties')?.value || "");
     formData.append('image', this.file || "");
+
     if (!this.registerForm.invalid) {
       this.profileService.register(formData).subscribe({
         next: (data) => {

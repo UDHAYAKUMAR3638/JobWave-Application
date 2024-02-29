@@ -34,7 +34,6 @@ export class JobPageComponent {
     date: new Date(),
     skills: '',
     recruiterId: {
-      _id: '65dd6d9751aaae72f34241fc'
     }
   };
 
