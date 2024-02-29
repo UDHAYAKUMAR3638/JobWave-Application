@@ -91,4 +91,8 @@ public class RecruiterService {
     public List<JobApplication> getPostSeekers(String id) {
         return jobApplicationRepository.findByPostId(new ObjectId(id));
     }
+
+    public Recruiter getEmail(String email) {
+        return RecruiterRepo.findByEmail(email);
+    }
 }

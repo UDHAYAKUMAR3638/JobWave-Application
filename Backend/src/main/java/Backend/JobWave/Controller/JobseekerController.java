@@ -55,6 +55,11 @@ public class JobseekerController {
         return ResponseEntity.ok(jobseekerService.myJobs(email));
     }
 
+      @GetMapping("/getEmail/{email}")
+    public ResponseEntity<Jobseeker> getEmail(@PathVariable String email) {
+        return ResponseEntity.ok(jobseekerService.getEmail(email));
+    }
+
     @PutMapping("/update")
     public ResponseEntity<Jobseeker> updateJobseeker(@RequestBody Jobseeker jobseeker) {
         return ResponseEntity.ok(jobseekerService.updateJobseeker(jobseeker));

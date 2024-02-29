@@ -24,5 +24,6 @@ public class JobApplication {
     private String experience;
     @DocumentReference(collection="post")
     private Post postId;
-    
+    @DocumentReference(collection="jobseeker")
+    private Jobseeker userId;
 }

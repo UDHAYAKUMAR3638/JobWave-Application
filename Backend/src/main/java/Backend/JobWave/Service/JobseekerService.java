@@ -109,4 +109,8 @@ public class JobseekerService {
     public List<Jobseeker> getAll() {
         return jobseekerRepo.findAll();
     }
+
+    public Jobseeker getEmail(String email) {
+        return jobseekerRepo.findByEmail(email);
+    }
 }

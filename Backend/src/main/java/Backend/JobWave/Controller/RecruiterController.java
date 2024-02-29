@@ -60,6 +60,11 @@ public class RecruiterController {
         return ResponseEntity.ok(recruiterService.getPost(id));
     }
 
+    @GetMapping("/getEmail/{email}")
+    public ResponseEntity<Recruiter> getEmail(@PathVariable String email) {
+        return ResponseEntity.ok(recruiterService.getEmail(email));
+    }
+
     @GetMapping("/getPostSeekers/{id}")
     public ResponseEntity<List<JobApplication>> getPostSeekers(@PathVariable String id) {
         return ResponseEntity.ok(recruiterService.getPostSeekers(id));
