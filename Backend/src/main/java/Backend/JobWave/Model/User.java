@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import Backend.JobWave.Dto.JobseekerDto;
 import Backend.JobWave.Dto.RecruiterDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,12 +28,12 @@ public class User implements UserDetails {
     private String name;
     private String email;
     private String password;
-
-    private String role;
+@DocumentReference(collection = "role")
+    private Role role;
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + role));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.getRole()));
     }
 
     @Override
@@ -59,21 +61,28 @@ public class User implements UserDetails {
         return true;
     }
 
-    public User(Jobseeker jobseeker,String role,String password) {
+    public User(Jobseeker jobseeker,Role role,String password) {
         this.setEmail(jobseeker.getEmail());
         this.setName(jobseeker.getName());
         this.setPassword(password);
         this.setRole(role);
     }
 
-    public User(Recruiter recruiter,String role,String password) {
+    public User(JobseekerDto jobseeker,Role role,String password) {
+        this.setEmail(jobseeker.getEmail());
+        this.setName(jobseeker.getName());
+        this.setPassword(password);
+        this.setRole(role);
+    }
+
+    public User(Recruiter recruiter,Role role,String password) {
         this.setEmail(recruiter.getEmail());
         this.setName(recruiter.getName());
         this.setPassword(password);
         this.setRole(role);
     }
 
-    public User(RecruiterDto recruiter, String role, String password) {
+    public User(RecruiterDto recruiter, Role role, String password) {
         this.setEmail(recruiter.getEmail());
         this.setName(recruiter.getName());
         this.setPassword(password);

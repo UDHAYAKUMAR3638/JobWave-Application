@@ -2,7 +2,7 @@
     <img class="image" src="../../assets/image/post.png">
     <div class="postBox">
         <h1 class="head"> Create an job post</h1>
-        <form class="form" [formGroup]="postForm" (ngSubmit)="submit()">
+        <form class="form" [formGroup]="postForm">
             <label class="labels">Job role</label><input class="inputs" placeholder="Enter jo role"
                 formControlName="role">
             <!-- <mat-error *ngIf="postForm.get('role')?.invalid &&
@@ -63,8 +63,9 @@
             <label class="labels">language</label><input type="text" class="inputs" placeholder="Enter language"
                 formControlName="language">
 
-            <button mat-raised-button color="primary" (click)="register()" class="buttons">submit<i
+            <button mat-raised-button color="primary" (click)="payment()" class="buttons">submit<i
                     class="pi pi-check-circle"></i></button>
+
         </form>
     </div>
 

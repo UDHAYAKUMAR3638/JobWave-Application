@@ -22,4 +22,5 @@ export class JobApplyService {
         return this.http.post<any>(environment.jobseekerUrl + "/apply", data);
     }
 
+
 }

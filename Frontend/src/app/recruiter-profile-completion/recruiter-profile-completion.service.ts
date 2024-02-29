@@ -21,7 +21,10 @@ export class RecruiterProfileCompletionService {
     constructor(private http: HttpClient) {
     }
 
-    register(data: any): Observable<any> {
+    register(data: FormData): Observable<any> {
+        // data.forEach((value, key) => {
+        //     console.log(key, value);
+        // })
         return this.http.post<any>(environment.recruiterUrl + "/register", data);
     }
 

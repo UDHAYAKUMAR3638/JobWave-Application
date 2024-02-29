@@ -9,13 +9,14 @@ import { RecruiterProfileCompletionService, registerRecruiter } from './recruite
   templateUrl: './recruiter-profile-completion.component.html',
   styleUrls: ['./recruiter-profile-completion.component.scss']
 })
+
 export class RecruiterProfileCompletionComponent {
   constructor(private fb: FormBuilder, private profileService: RecruiterProfileCompletionService, private route: Router) { }
   private file: File | null = null;
   registerForm = this.fb.group({
     _id: '',
     companyName: ['', Validators.required],
-    empCount: [0, Validators.required],
+    empCount: ['', Validators.required],
     name: ['', Validators.required],
     phoneno: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -30,12 +31,23 @@ export class RecruiterProfileCompletionComponent {
     this.file = file;
   }
 
+
   register() {
 
-    console.log(this.registerForm.value);
-    // if (!this.registerForm.invalid) 
-    {
-      this.profileService.register(this.registerForm.value).subscribe({
+    const formData: FormData = new FormData();
+    formData.append('_id', this.registerForm.get('_id')!.value || "");
+    formData.append('companyName', this.registerForm.get('companyName')?.value || "");
+    formData.append('empCount', this.registerForm.get('empCount')?.value || "");
+    formData.append('name', this.registerForm.get('name')?.value || "");
+    formData.append('phoneno', this.registerForm.get('phoneno')?.value || "");
+    formData.append('email', this.registerForm.get('email')?.value || "");
+    formData.append('password', this.registerForm.get('password')?.value || "");
+    formData.append('companyType', this.registerForm.get('companyType')?.value || "");
+    formData.append('location', this.registerForm.get('location')?.value || "");
+    formData.append('image', this.file || "");
+
+    if (!this.registerForm.invalid) {
+      this.profileService.register(formData).subscribe({
         next: (data) => {
           // console.log(data);
           Swal.fire({

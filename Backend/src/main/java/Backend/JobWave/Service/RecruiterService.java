@@ -1,13 +1,11 @@
 package Backend.JobWave.Service;
 
-import java.io.File;
 import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import Backend.JobWave.Dto.RecruiterDto;
 import Backend.JobWave.Model.JobApplication;
@@ -19,7 +17,6 @@ import Backend.JobWave.Repository.PostRepository;
 import Backend.JobWave.Repository.RecruiterRepository;
 import Backend.JobWave.Repository.RoleRepository;
 import Backend.JobWave.Repository.UserRepository;
-import io.jsonwebtoken.io.IOException;
 
 @Service
 public class RecruiterService {
@@ -28,41 +25,25 @@ public class RecruiterService {
     RecruiterRepository RecruiterRepo;
     @Autowired
     UserRepository userRepository;
-   @Autowired
-   PostRepository postRepository;
-   @Autowired
-   RoleRepository roleRepository;
-   @Autowired
-   PasswordEncoder passwordEncoder;
-   @Autowired
-   JobApplicationRepository jobApplicationRepository;
-
+    @Autowired
+    PostRepository postRepository;
+    @Autowired
+    RoleRepository roleRepository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    JobApplicationRepository jobApplicationRepository;
+    @Autowired
+    ImageService imageService;
 
     public Recruiter getRecruiterDetails(String id) {
         return RecruiterRepo.findById(id).get();
     }
 
-   public String imageConvet(MultipartFile file) throws java.io.IOException{
-        String url = "";
-        String a=file.getContentType();
-        if(a!=null && a.startsWith("image")){
-            url = "http://localhost:8080/static/images/"  + file.getOriginalFilename();
-            try {
-                file.transferTo(new File("C:/Users/ARULMOZHI K/OneDrive/Documents/Intern/JobWave-Application/Backend/src/main/resources/static/images"+file.getOriginalFilename()));
-            } catch (IllegalStateException | IOException e) {
-                e.printStackTrace();
-            }
-        }
-        else{
-            throw new RuntimeException("not image type");
-        }
-        return url;
-   }
-
-
     public Recruiter registerRecruiter(RecruiterDto Recruiter) throws java.io.IOException {
-        userRepository.save(new User(Recruiter,"RECRUITE",passwordEncoder.encode(Recruiter.getPassword())));
-        return RecruiterRepo.save(new Recruiter(Recruiter,this.imageConvet(Recruiter.getImage())));
+        userRepository.save(new User(Recruiter, roleRepository.findByRole("RECRUITER"),
+                passwordEncoder.encode(Recruiter.getPassword())));
+        return RecruiterRepo.save(new Recruiter(Recruiter, imageService.imageConvet(Recruiter.getImage())));
     }
 
     public Recruiter updateRecruiter(Recruiter Recruiter) {
@@ -104,11 +85,10 @@ public class RecruiterService {
     }
 
     public List<Post> getPost(String id) {
-       return postRepository.findByRecruiterId(new ObjectId(id));
+        return postRepository.findByRecruiterId(new ObjectId(id));
     }
 
     public List<JobApplication> getPostSeekers(String id) {
-       return jobApplicationRepository.findByPostId(new ObjectId(id));
+        return jobApplicationRepository.findByPostId(new ObjectId(id));
     }
 }
-

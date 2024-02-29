@@ -22,7 +22,8 @@ export interface jobseeker {
     currentPosition: string,
     skills: string,
     indusrties: Array<industry>,
-    location: string
+    location: string,
+    image: string
 }
 
 @Injectable({

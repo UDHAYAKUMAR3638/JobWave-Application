@@ -10,7 +10,11 @@ import { DataService } from '../service/data.service';
   templateUrl: './job-apply.component.html',
   styleUrls: ['./job-apply.component.scss']
 })
+
+
 export class JobApplyComponent {
+
+
 
   constructor(private fb: FormBuilder, private jobService: JobApplyService, private route: Router, private dataService: DataService) { }
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import Backend.JobWave.Dto.JobseekerDto;
 import Backend.JobWave.Model.JobApplication;
 import Backend.JobWave.Model.Jobseeker;
 import Backend.JobWave.Model.Post;
@@ -32,16 +33,19 @@ public class JobseekerService {
     PasswordEncoder passwordEncoder;
     @Autowired
     JobApplicationRepository jobApplicationRepository;
+    @Autowired
+    ImageService imageService;
 
     public Jobseeker getCandidateDetails(String id) {
         return jobseekerRepo.findById(id).get();
     }
 
-    public Jobseeker registerJobseeker(Jobseeker Jobseeker) {
-        userRepository.save(new User(Jobseeker, "JOBSEEKER",passwordEncoder.encode(Jobseeker.getPassword())));
-        return jobseekerRepo.save(Jobseeker);
+     public Jobseeker registerJobseeker(JobseekerDto Jobseeker) throws java.io.IOException {
+        userRepository.save(new User(Jobseeker, roleRepository.findByRole("JOBSEEKER"),
+                passwordEncoder.encode(Jobseeker.getPassword())));
+        return jobseekerRepo.save(new Jobseeker(Jobseeker, imageService.imageConvet(Jobseeker.getImage())));
     }
-
+ 
     public Jobseeker updateJobseeker(Jobseeker Jobseeker) {
         Jobseeker oldJobseeker = jobseekerRepo.findByEmail(Jobseeker.getEmail());
         if (!Jobseeker.getEmail().equals(oldJobseeker.getEmail())) {

@@ -34,7 +34,7 @@ export class LoginComponent {
             sessionStorage.setItem('isLogged', 'true');
             sessionStorage.setItem('token', token.body.token);
             sessionStorage.setItem('email', token.body.user.email);
-            sessionStorage.setItem('role', token.body.user.role);
+            sessionStorage.setItem('role', token.body.user.role.role);
           }
           this.loginService.getUser().subscribe({
             next: (data) => {

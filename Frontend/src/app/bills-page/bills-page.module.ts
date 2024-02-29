@@ -19,9 +19,9 @@ const appRoute: Routes = [
         RouterModule.forChild(appRoute),
         MatCardModule,
         CommonModule,
-        datePipe,
         FormsModule,
-        MatButtonModule
+        MatButtonModule,
+        datePipe
     ]
 })
 export class BillsPageModule { }

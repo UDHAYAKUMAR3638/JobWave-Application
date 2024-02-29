@@ -14,7 +14,7 @@ import { FindApplicantService, jobseeker } from './find-applicant.service';
 export class FindApplicantComponent {
   inp1!: string;
   inp2!: string;
-
+  image!: string;
   constructor(private findApplicantService: FindApplicantService, private dataService: DataService, private router: Router) {
 
   }
@@ -35,6 +35,7 @@ export class FindApplicantComponent {
     dob: new Date(),
     indusrties: [],
     skills: '',
+    image: ''
   };
 
   ngOnInit() {
@@ -43,6 +44,8 @@ export class FindApplicantComponent {
         this.applicants = data;
         this.applicantsB = data;
         this.selectedApplicant = this.applicants[0];
+        this.image = this.selectedApplicant.image;
+
       },
       error: (error) => {
         console.log(error);
@@ -52,6 +55,7 @@ export class FindApplicantComponent {
 
   rightBox(currPost: jobseeker) {
     this.selectedApplicant = currPost;
+    this.image = this.selectedApplicant.image;
   }
 
   search() {

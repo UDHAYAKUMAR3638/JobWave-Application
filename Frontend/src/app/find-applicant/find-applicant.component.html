@@ -15,11 +15,12 @@
                 <p>{{applicant.headline}}</p>
                 <span class="label">{{applicant.skills}}</span>
                 <span class="label">{{applicant.currentPosition}}</span>
-                <span class="label">{{applicant.email}}</span>
+                <span class="label">{{applicant.location}}</span>
             </div>
         </div>
         <div class="right" id="right">
             <div class="fix-box">
+                <img [src]="image" class="logo">
                 <h3 class="role">{{selectedApplicant.name}}</h3>
                 <span>{{selectedApplicant.headline}}</span>
                 <span>{{selectedApplicant.email}}</span>
