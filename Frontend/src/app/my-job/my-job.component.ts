@@ -9,17 +9,18 @@ import { post } from '../post-page/post-page.service';
 })
 export class MyJobComponent {
   userDetails: any;
+  status!: string;
+  posts!: Array<post>;
+  class!: string;
   constructor(private myJobService: MyJobService) {
   }
 
-
-  posts!: Array<post>;
-  status: string = "pending";
   ngOnInit() {
     this.userDetails = JSON.parse(sessionStorage.getItem('user')!);
     this.myJobService.getJobs(this.userDetails.email).subscribe({
       next: (data) => {
         this.posts = data;
+        this.rightBox(this.posts[0]._id);
       },
       error: (error) => {
         console.log(error);
@@ -27,8 +28,13 @@ export class MyJobComponent {
     });
   }
 
-  rightBox(status: string) {
-    this.status = status;
+  rightBox(postId: string) {
+    this.myJobService.getApplication(postId, this.userDetails.email).subscribe({
+      next: (data) => {
+        this.status = data.status;
+
+      }
+    });
   }
 
   @HostListener('window:scroll', [])

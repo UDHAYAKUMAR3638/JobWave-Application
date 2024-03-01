@@ -16,6 +16,7 @@ export interface applicant {
     experience: string,
     postId: post,
     userId: jobseeker
+    status: string;
 }
 
 @Injectable({

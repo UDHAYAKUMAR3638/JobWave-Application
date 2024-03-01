@@ -13,11 +13,14 @@ export interface jobApplication {
     experience: string,
     postId: post,
     userId: jobseeker
+    status: string
 }
 @Injectable({
     providedIn: 'root'
 })
+
 export class JobApplyService {
+
     constructor(private http: HttpClient) {
     }
 

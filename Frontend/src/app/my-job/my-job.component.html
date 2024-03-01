@@ -4,7 +4,7 @@
     </div>
     <div class="container">
         <div class="left">
-            <div *ngFor="let post of posts" class="post" (click)="rightBox('pending')">
+            <div *ngFor="let post of posts" class="post" (click)="rightBox(post._id)">
                 <div class="boxHead">
                     <img [src]="post.recruiterId.image" class="logo">
                     <strong>{{post.recruiterId.companyName}}</strong>
@@ -23,7 +23,8 @@
         <div class="applicant">
             <img [src]="userDetails.image" class="image">
             <span><b>Application status</b></span>
-            <span>{{'Application submited: Status '+status}}</span>
+            <span>Application submited: Status <span
+                    [ngClass]="status=='Pending'?'yellow':status=='Rejected'?'red':'green'">{{status}}</span></span>
         </div>
     </div>
 </div>

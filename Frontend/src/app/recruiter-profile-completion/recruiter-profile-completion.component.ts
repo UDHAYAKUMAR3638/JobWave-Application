@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { RecruiterProfileCompletionService, registerRecruiter } from './recruiter-profile-completion.service';

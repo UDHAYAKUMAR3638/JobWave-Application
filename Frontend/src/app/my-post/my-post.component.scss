@@ -1,4 +1,4 @@
-.input{
+.input {
     height: 9vh;
     width: 42%;
     border: 0px;
@@ -7,17 +7,18 @@
     color: rgb(9, 9, 9);
 }
 
-.logo{
+.logo {
     height: 10vh;
     margin-right: 5%;
 }
 
-.boxHead{
+.boxHead {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-.button{
+
+.button {
     height: 7vh;
     margin: 10px;
     width: fit-content;
@@ -30,24 +31,24 @@
 }
 
 
-.text{
+.text {
     margin-top: 2%;
-    font-size:large;
+    font-size: large;
 }
 
 
-.head{
-    color:#3F51B5;
+.head {
+    color: #3F51B5;
     padding: 10px;
 }
 
-.container{
+.container {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
-.post{
+.post {
     display: grid;
     width: 500px;
     padding: 25px;
@@ -60,12 +61,12 @@
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.post:hover{
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
+.post:hover {
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
     transform: translateY(-10px);
 }
 
-.left{
+.left {
     width: 78%;
     height: fit-content;
     margin-top: 30px;
@@ -79,17 +80,17 @@
     justify-content: space-around;
 }
 
-.head{
-    color:#3F51B5;
+.head {
+    color: #3F51B5;
     margin-top: 0;
     margin-bottom: 20px;
 }
 
-.right{
+.right {
     width: 50%;
-    position:absolute;
+    position: absolute;
     height: 80%;
-    margin:2% 0% 0% 50%;
+    margin: 2% 0% 0% 50%;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -99,12 +100,12 @@
     padding: 15px;
 }
 
-.right-fixed{
-  position: fixed;
-  top: 0;
+.right-fixed {
+    position: fixed;
+    top: 0;
 }
 
-.applicant{
+.applicant {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -117,43 +118,44 @@
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.applicant:hover{
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
+.applicant:hover {
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
     transform: translateY(-3px);
 }
 
-.change-box{
-    width:100%;
+.change-box {
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: row;
     row-gap: 20px;
     column-gap: 10%;
-    padding: 20px;
+    padding: 10px;
     background-color: white;
     overflow-y: auto;
 }
 
 
-.image{
-    width:215px;
-    height:40vh;
+.image {
+    width: 215px;
+    height: 40vh;
     border-radius: 50%;
 }
-.label{
+
+.label {
     background-color: #F3F2F1;
     width: fit-content;
     padding: 5px;
     border-radius: 5px;
 }
 
-.router{
+.router {
     display: grid;
     grid-row: 1fr;
     align-items: center;
     justify-items: center;
 }
 
-.role:hover{
+.role:hover {
     text-decoration: underline;
 }

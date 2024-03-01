@@ -34,10 +34,9 @@ export class JobApplyComponent {
     skills: '',
     resume: '',
     experience: '',
-    postId: {
-      _id: ''
-    },
-    userId: {}
+    postId: {},
+    userId: {},
+    status: 'Pending'
   });
 
   postId!: string;
@@ -51,7 +50,7 @@ export class JobApplyComponent {
       this.jobService.apply(<jobApplication>this.jobApplicationForm.value).subscribe({
         next: (data) => {
           Swal.fire({
-            title: 'Application sent successful!',
+            title: 'Application sent successfully',
             icon: 'success'
           })
         },

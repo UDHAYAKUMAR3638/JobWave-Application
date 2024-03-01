@@ -10,6 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import sweetalert2 from 'sweetalert2';
+import { JobseekerShowDirective } from '../custom-directives/jobseeker-show.directive';
+import { RecruiterShowDirective } from '../custom-directives/recruiter-show.directive';
 const appRoute: Routes = [
     {
         path: "", component: ProfileComponent
@@ -28,6 +30,8 @@ const appRoute: Routes = [
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
+        JobseekerShowDirective,
+        RecruiterShowDirective
     ],
     exports: [RouterModule]
 })

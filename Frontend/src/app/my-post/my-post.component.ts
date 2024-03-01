@@ -37,7 +37,7 @@ export class MyPostComponent {
     this.myPostService.MyPostSeekers(postId).subscribe({
       next: (data) => {
         this.myPostApplicants = data;
-        console.log(data);
+        // console.log(data);
 
       },
       error: (error) => {

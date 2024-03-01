@@ -14,6 +14,10 @@ export class MyJobService {
     getJobs(email: string) {
         return this.http.get<any>(environment.jobseekerUrl + `/myJobs/${email}`);
         // return this.http.get<any>(environment.jobseekerUrl + `/getAll`);
-
     }
+
+    getApplication(postId: string, email: string) {
+        return this.http.get<any>(environment.jobseekerUrl + `/myJobs/${postId}/${email}`);
+    }
+
 }
