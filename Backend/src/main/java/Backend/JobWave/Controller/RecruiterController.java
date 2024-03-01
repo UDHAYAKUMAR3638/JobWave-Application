@@ -41,7 +41,7 @@ public class RecruiterController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Recruiter> updateRecruiter(@RequestBody Recruiter recruiter) {
+    public ResponseEntity<Recruiter> updateRecruiter(@ModelAttribute RecruiterDto recruiter) throws IOException {
         return ResponseEntity.ok(recruiterService.updateRecruiter(recruiter));
     }
 

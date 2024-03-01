@@ -30,4 +30,8 @@ public class Post {
     private Date date;
     @DocumentReference(collection = "recruiter")
     private Recruiter recruiterId;
+
+    public Post(String id){
+        this._id=id;
+    }
 }

@@ -1,6 +1,5 @@
 package Backend.JobWave.Model;
 
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection="recruiter")
+@Document(collection = "recruiter")
 public class Recruiter {
     @Id
     private String _id;
@@ -25,17 +24,18 @@ public class Recruiter {
     private String companyType;
     private String location;
     private String image;
-    
-    public Recruiter(RecruiterDto recruiterDto,String image){
-     this.setCompanyName(recruiterDto.getCompanyName());
-     this.setEmpCount(recruiterDto.getEmpCount());
-     this.setName(recruiterDto.getName());
-     this.setPhoneno(recruiterDto.getPhoneno());
-     this.setPassword(recruiterDto.getPassword());
-     this.setEmail(recruiterDto.getEmail());
-     this.setCompanyType(recruiterDto.getCompanyType());
-     this.setLocation(recruiterDto.getLocation());
-     this.setImage(image);
+
+    public Recruiter(RecruiterDto recruiterDto, String image) {
+        this.set_id(recruiterDto.get_id());
+        this.setCompanyName(recruiterDto.getCompanyName());
+        this.setEmpCount(recruiterDto.getEmpCount());
+        this.setName(recruiterDto.getName());
+        this.setPhoneno(recruiterDto.getPhoneno());
+        this.setPassword(recruiterDto.getPassword());
+        this.setEmail(recruiterDto.getEmail());
+        this.setCompanyType(recruiterDto.getCompanyType());
+        this.setLocation(recruiterDto.getLocation());
+        this.setImage(image);
     }
-    
+
 }

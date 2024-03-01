@@ -1,5 +1,6 @@
 package Backend.JobWave.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,48 +47,11 @@ public class JobseekerService {
         return jobseekerRepo.save(new Jobseeker(Jobseeker, imageService.imageConvet(Jobseeker.getImage())));
     }
  
-    public Jobseeker updateJobseeker(Jobseeker Jobseeker) {
-        Jobseeker oldJobseeker = jobseekerRepo.findByEmail(Jobseeker.getEmail());
-        if (!Jobseeker.getEmail().equals(oldJobseeker.getEmail())) {
-            oldJobseeker.setEmail(Jobseeker.getEmail());
-        }
-        if (!Jobseeker.getDob().equals(oldJobseeker.getDob())) {
-            oldJobseeker.setDob(Jobseeker.getDob());
-        }
-        if (!Jobseeker.getHeadline().equals(oldJobseeker.getHeadline())) {
-            oldJobseeker.setHeadline(Jobseeker.getHeadline());
-        }
-        if (!Jobseeker.getName().equals(oldJobseeker.getName())) {
-            oldJobseeker.setName(Jobseeker.getName());
-        }
-        if (!Jobseeker.getPhoneno().equals(oldJobseeker.getPhoneno())) {
-            oldJobseeker.setPhoneno(Jobseeker.getPhoneno());
-        }
-        if (!Jobseeker.getPassword().equals(oldJobseeker.getPassword())) {
-            oldJobseeker.setPassword(Jobseeker.getPassword());
-        }
-        if (!Jobseeker.getCollegeName().equals(oldJobseeker.getCollegeName())) {
-            oldJobseeker.setCollegeName(Jobseeker.getCollegeName());
-        }
-        if (!Jobseeker.getClgPassedOutYear().equals(oldJobseeker.getClgPassedOutYear())) {
-            oldJobseeker.setClgPassedOutYear(Jobseeker.getClgPassedOutYear());
-        }
-        if (!Jobseeker.getLocation().equals(oldJobseeker.getLocation())) {
-            oldJobseeker.setLocation(Jobseeker.getLocation());
-        }
-        if (!Jobseeker.getSchoolName().equals(oldJobseeker.getSchoolName())) {
-            oldJobseeker.setSchoolName(Jobseeker.getSchoolName());
-        }
-        if (!Jobseeker.getSchlPassedOutYear().equals(oldJobseeker.getSchlPassedOutYear())) {
-            oldJobseeker.setSchlPassedOutYear(Jobseeker.getSchlPassedOutYear());
-        }
-        if (!Jobseeker.getSkills().equals(oldJobseeker.getSkills())) {
-            oldJobseeker.setSkills(Jobseeker.getSkills());
-        }
-        if (!Jobseeker.getCurrentPosition().equals(oldJobseeker.getCurrentPosition())) {
-            oldJobseeker.setCurrentPosition(Jobseeker.getCurrentPosition());
-        }
-        return jobseekerRepo.save(oldJobseeker);
+    public Jobseeker updateJobseeker(JobseekerDto Jobseeker) throws IOException {
+        if(!Jobseeker.getImage().isEmpty())
+        return jobseekerRepo.save(new Jobseeker(Jobseeker, imageService.imageConvet(Jobseeker.getImage())));
+        else
+        return jobseekerRepo.save(new Jobseeker(Jobseeker,jobseekerRepo.findById(Jobseeker.get_id()).get().getImage()) );
     }
 
     public JobApplication jobApply(JobApplication jobApplication) {
@@ -112,5 +76,9 @@ public class JobseekerService {
 
     public Jobseeker getEmail(String email) {
         return jobseekerRepo.findByEmail(email);
+    }
+
+    public JobApplication myJobsDetails(Post postId, String email) {
+       return jobApplicationRepository.findByEmailAndPostId(email,postId);
     }
 }

@@ -16,7 +16,7 @@ public class JobseekerDto {
     private String name;
     private String email;
     private String phoneno;
-    private Date dob;
+    private String dob;
     private String password;
     private String headline;
     private String schoolName;

@@ -50,18 +50,28 @@ public class JobseekerController {
         return ResponseEntity.ok(jobseekerService.jobApply(jobApplication));
     }
 
+    @PutMapping("/update-application")
+    public ResponseEntity<JobApplication> updateApplication(@RequestBody JobApplication jobApplication) {
+        return ResponseEntity.ok(jobseekerService.jobApply(jobApplication));
+    }
+
     @GetMapping("/myJobs/{email}")
     public ResponseEntity<List<Post>> myJobs(@PathVariable String email) {
         return ResponseEntity.ok(jobseekerService.myJobs(email));
     }
 
+    @GetMapping("/myJobs/{postId}/{email}")
+    public ResponseEntity<JobApplication> myJobs(@PathVariable String postId,@PathVariable String email) {
+        return ResponseEntity.ok(jobseekerService.myJobsDetails(new Post(postId),email));
+    }
+    
       @GetMapping("/getEmail/{email}")
     public ResponseEntity<Jobseeker> getEmail(@PathVariable String email) {
         return ResponseEntity.ok(jobseekerService.getEmail(email));
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Jobseeker> updateJobseeker(@RequestBody Jobseeker jobseeker) {
+    public ResponseEntity<Jobseeker> updateJobseeker(@ModelAttribute JobseekerDto jobseeker) throws IOException {
         return ResponseEntity.ok(jobseekerService.updateJobseeker(jobseeker));
     }
 

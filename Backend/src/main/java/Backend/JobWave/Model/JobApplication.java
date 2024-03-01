@@ -26,4 +26,5 @@ public class JobApplication {
     private Post postId;
     @DocumentReference(collection="jobseeker")
     private Jobseeker userId;
+    private String status;
 }

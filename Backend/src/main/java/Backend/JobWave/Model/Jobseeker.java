@@ -1,6 +1,5 @@
 package Backend.JobWave.Model;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -22,7 +21,7 @@ public class Jobseeker {
     private String name;
     private String email;
     private String phoneno;
-    private Date dob;
+    private String dob;
     private String password;
     private String headline;
     private String schoolName;
@@ -36,6 +35,7 @@ public class Jobseeker {
     private String image;
 
     public Jobseeker(JobseekerDto jobseeker, String imageConvet) {
+        this.set_id(jobseeker.get_id());
         this.setName(jobseeker.getName());
         this.setEmail(jobseeker.getEmail());
         this.setPhoneno(jobseeker.getPhoneno());

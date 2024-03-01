@@ -1,5 +1,6 @@
 package Backend.JobWave.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -46,34 +47,11 @@ public class RecruiterService {
         return RecruiterRepo.save(new Recruiter(Recruiter, imageService.imageConvet(Recruiter.getImage())));
     }
 
-    public Recruiter updateRecruiter(Recruiter Recruiter) {
-        Recruiter oldRecruiter = RecruiterRepo.findByEmail(Recruiter.getEmail());
-        if (!Recruiter.getCompanyName().equals(oldRecruiter.getCompanyName())) {
-            oldRecruiter.setCompanyName(Recruiter.getCompanyName());
-        }
-        if (!(Recruiter.getEmpCount() == oldRecruiter.getEmpCount())) {
-            oldRecruiter.setEmpCount(Recruiter.getEmpCount());
-        }
-        if (!Recruiter.getEmail().equals(oldRecruiter.getEmail())) {
-            oldRecruiter.setEmail(Recruiter.getEmail());
-        }
-        if (!Recruiter.getName().equals(oldRecruiter.getName())) {
-            oldRecruiter.setName(Recruiter.getName());
-        }
-        if (!Recruiter.getPhoneno().equals(oldRecruiter.getPhoneno())) {
-            oldRecruiter.setPhoneno(Recruiter.getPhoneno());
-        }
-        if (!Recruiter.getPassword().equals(oldRecruiter.getPassword())) {
-            oldRecruiter.setPassword(Recruiter.getPassword());
-        }
-        if (!Recruiter.getCompanyType().equals(oldRecruiter.getCompanyType())) {
-            oldRecruiter.setCompanyType(Recruiter.getCompanyType());
-        }
-        if (!Recruiter.getLocation().equals(oldRecruiter.getLocation())) {
-            oldRecruiter.setLocation(Recruiter.getLocation());
-        }
-
-        return RecruiterRepo.save(oldRecruiter);
+    public Recruiter updateRecruiter(RecruiterDto recruiter) throws IOException {
+         if(!recruiter.getImage().isEmpty())
+        return RecruiterRepo.save(new Recruiter(recruiter, imageService.imageConvet(recruiter.getImage())));
+        else
+        return RecruiterRepo.save(new Recruiter(recruiter,RecruiterRepo.findById(recruiter.get_id()).get().getImage()) );
     }
 
     public Post postJob(Post post) {
