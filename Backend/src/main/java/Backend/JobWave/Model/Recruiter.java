@@ -26,7 +26,7 @@ public class Recruiter {
     private String image;
 
     public Recruiter(RecruiterDto recruiterDto, String image) {
-        this.set_id(recruiterDto.get_id());
+        this.set_id(recruiterDto.getId());
         this.setCompanyName(recruiterDto.getCompanyName());
         this.setEmpCount(recruiterDto.getEmpCount());
         this.setName(recruiterDto.getName());

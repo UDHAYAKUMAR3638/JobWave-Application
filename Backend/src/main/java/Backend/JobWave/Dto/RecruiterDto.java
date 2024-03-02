@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class RecruiterDto {
-    private String _id;
+    private String id;
     private String companyName;
     private Integer empCount;
     private String name;

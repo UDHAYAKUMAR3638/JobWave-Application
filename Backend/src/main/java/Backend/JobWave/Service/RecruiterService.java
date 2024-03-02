@@ -51,7 +51,7 @@ public class RecruiterService {
          if(!recruiter.getImage().isEmpty())
         return RecruiterRepo.save(new Recruiter(recruiter, imageService.imageConvet(recruiter.getImage())));
         else
-        return RecruiterRepo.save(new Recruiter(recruiter,RecruiterRepo.findById(recruiter.get_id()).get().getImage()) );
+        return RecruiterRepo.save(new Recruiter(recruiter,RecruiterRepo.findById(recruiter.getId()).get().getImage()) );
     }
 
     public Post postJob(Post post) {

@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import Backend.JobWave.Dao.JobseekerDao;
 import Backend.JobWave.Dto.JobseekerDto;
 import Backend.JobWave.Model.JobApplication;
 import Backend.JobWave.Model.Jobseeker;
+import Backend.JobWave.Model.JobseekerIndustry;
 import Backend.JobWave.Model.Post;
 import Backend.JobWave.Model.User;
 import Backend.JobWave.Repository.JobApplicationRepository;
@@ -36,6 +38,8 @@ public class JobseekerService {
     JobApplicationRepository jobApplicationRepository;
     @Autowired
     ImageService imageService;
+    @Autowired
+    JobseekerDao jobseekerDao;
 
     public Jobseeker getCandidateDetails(String id) {
         return jobseekerRepo.findById(id).get();
@@ -52,6 +56,11 @@ public class JobseekerService {
         return jobseekerRepo.save(new Jobseeker(Jobseeker, imageService.imageConvet(Jobseeker.getImage())));
         else
         return jobseekerRepo.save(new Jobseeker(Jobseeker,jobseekerRepo.findById(Jobseeker.get_id()).get().getImage()) );
+    }
+
+    public Boolean updateJobseekerIndustries(String id,List<JobseekerIndustry> industry) {
+        jobseekerDao.updateIndustry(id,industry);
+        return true;
     }
 
     public JobApplication jobApply(JobApplication jobApplication) {

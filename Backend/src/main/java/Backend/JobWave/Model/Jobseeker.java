@@ -30,7 +30,7 @@ public class Jobseeker {
     private Integer clgPassedOutYear;
     private String currentPosition;
     private String skills;
-    private List<JobseekerIndustry> indusrties;
+    private List<JobseekerIndustry> industries;
     private String location;
     private String image;
 

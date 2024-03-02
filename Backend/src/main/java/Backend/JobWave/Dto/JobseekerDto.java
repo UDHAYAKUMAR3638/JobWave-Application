@@ -1,6 +1,5 @@
 package Backend.JobWave.Dto;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -25,7 +24,7 @@ public class JobseekerDto {
     private Integer clgPassedOutYear;
     private String currentPosition;
     private String skills;
-    // private List<JobseekerIndustry> indusrties;
+    private List<JobseekerIndustry> industries;
     private String location;
     private MultipartFile image;
 }

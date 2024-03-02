@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import Backend.JobWave.Dto.JobseekerDto;
 import Backend.JobWave.Model.JobApplication;
 import Backend.JobWave.Model.Jobseeker;
+import Backend.JobWave.Model.JobseekerIndustry;
 import Backend.JobWave.Model.Post;
 import Backend.JobWave.Service.JobseekerService;
 
@@ -74,5 +75,12 @@ public class JobseekerController {
     public ResponseEntity<Jobseeker> updateJobseeker(@ModelAttribute JobseekerDto jobseeker) throws IOException {
         return ResponseEntity.ok(jobseekerService.updateJobseeker(jobseeker));
     }
+
+    @PutMapping("/update-industry/{id}")
+    public ResponseEntity<Boolean> updateJobseekerIndustries(@PathVariable String id,@RequestBody List<JobseekerIndustry> industry) throws IOException {
+        return ResponseEntity.ok(jobseekerService.updateJobseekerIndustries(id,industry));
+    }
+
+    
 
 }
