@@ -3,7 +3,7 @@
     <div class="profile-container">
       <div class="profile-div">
         <div class="profile">
-          <img [src]="userDetails.image" class="image">
+          <img [src]="profileImage" class="image">
         </div>
       </div>
       <input type="file" placeholder (change)="image($event)">
@@ -13,120 +13,152 @@
   </div>
 
   <div class="container">
-    <div>
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.name" placeholder="Enter name" />
-      </mat-form-field>
-    </div>
+    <form [formGroup]="userForm">
 
-    <div>
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.email" placeholder="Enter Email" />
-      </mat-form-field>
-    </div>
+      <span class="table">
+        <div>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" placeholder="Enter name" />
+          </mat-form-field>
+        </div>
 
-    <div recruiterShow>
-      <mat-form-field>
-        <mat-label>Company Name</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.companyName" placeholder="Enter Company Name" />
-      </mat-form-field>
-    </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="Enter Email" />
+          </mat-form-field>
+        </div>
 
-    <div recruiterShow>
-      <mat-form-field>
-        <mat-label>companyType</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.companyType" placeholder="Enter companyType" />
-      </mat-form-field>
-    </div>
+        <div recruiterShow>
+          <mat-form-field>
+            <mat-label>Company Name</mat-label>
+            <input matInput formControlName="companyName" placeholder="Enter Company Name" />
+          </mat-form-field>
+        </div>
 
-    <div recruiterShow>
-      <mat-form-field>
-        <mat-label>Employee count</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.empCount" placeholder="Enter Employee count" />
-      </mat-form-field>
-    </div>
+        <div recruiterShow>
+          <mat-form-field>
+            <mat-label>companyType</mat-label>
+            <input matInput formControlName="companyType" placeholder="Enter companyType" />
+          </mat-form-field>
+        </div>
 
-    <div>
-      <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.password" placeholder="Enter Password" />
-      </mat-form-field>
-    </div>
+        <div recruiterShow>
+          <mat-form-field>
+            <mat-label>Employee count</mat-label>
+            <input matInput formControlName="empCount" placeholder="Enter Employee count" />
+          </mat-form-field>
+        </div>
 
-    <div>
-      <mat-form-field>
-        <mat-label>Phone no</mat-label>
-        <input matInput #input maxlength="10" [(ngModel)]="userDetails.phoneno" placeholder="Enter Phoneno">
-      </mat-form-field>
-    </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" placeholder="Enter Password" />
+          </mat-form-field>
+        </div>
 
-    <div jobseekerShow>
-      <mat-form-field>
-        <mat-label>dob</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.dob" placeholder="Enter dob">
-      </mat-form-field>
-    </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Phone no</mat-label>
+            <input matInput #input maxlength="10" formControlName="phoneno" placeholder="Enter Phoneno">
+          </mat-form-field>
+        </div>
 
-    <div jobseekerShow>
-      <mat-form-field>
-        <mat-label>headline</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.headline" placeholder="Enter headline">
-      </mat-form-field>
-    </div>
+        <div jobseekerShow>
+          <mat-form-field>
+            <mat-label>DOB</mat-label>
+            <input matInput formControlName="dob" placeholder="Enter dob">
+          </mat-form-field>
+        </div>
 
-    <div jobseekerShow>
-      <mat-form-field>
-        <mat-label>schoolName</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.schoolName" placeholder="Enter schoolName">
-      </mat-form-field>
-    </div>
+        <div jobseekerShow>
+          <mat-form-field>
+            <mat-label>Headline</mat-label>
+            <input matInput formControlName="headline" placeholder="Enter headline">
+          </mat-form-field>
+        </div>
 
-    <div jobseekerShow>
-      <mat-form-field>
-        <mat-label>schlPassedOutYear</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.schlPassedOutYear" placeholder="Enter schlPassedOutYear">
-      </mat-form-field>
-    </div>
+        <div jobseekerShow>
+          <mat-form-field>
+            <mat-label>School name</mat-label>
+            <input matInput formControlName="schoolName" placeholder="Enter schoolName">
+          </mat-form-field>
+        </div>
 
-    <div jobseekerShow>
-      <mat-form-field>
-        <mat-label>collegeName</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.collegeName" placeholder="Enter collegeName">
-      </mat-form-field>
-    </div>
+        <div jobseekerShow>
+          <mat-form-field>
+            <mat-label>School passed out year</mat-label>
+            <input matInput formControlName="schlPassedOutYear" placeholder="Enter schlPassedOutYear">
+          </mat-form-field>
+        </div>
 
-    <div jobseekerShow>
-      <mat-form-field>
-        <mat-label>clgPassedOutYear</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.clgPassedOutYear" placeholder="Enter clgPassedOutYear">
-      </mat-form-field>
-    </div>
+        <div jobseekerShow>
+          <mat-form-field>
+            <mat-label>College name</mat-label>
+            <input matInput formControlName="collegeName" placeholder="Enter collegeName">
+          </mat-form-field>
+        </div>
 
-    <div jobseekerShow>
-      <mat-form-field>
-        <mat-label>currentPosition</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.currentPosition" placeholder="Enter currentPosition">
-      </mat-form-field>
-    </div>
+        <div jobseekerShow>
+          <mat-form-field>
+            <mat-label>College passed out year</mat-label>
+            <input matInput formControlName="clgPassedOutYear" placeholder="Enter clgPassedOutYear">
+          </mat-form-field>
+        </div>
 
-    <div jobseekerShow>
-      <mat-form-field>
-        <mat-label>skills</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.skills" placeholder="Enter skills">
-      </mat-form-field>
-    </div>
+        <div jobseekerShow>
+          <mat-form-field>
+            <mat-label>currentPosition</mat-label>
+            <input matInput formControlName="currentPosition" placeholder="Enter currentPosition">
+          </mat-form-field>
+        </div>
 
-    <div>
-      <mat-form-field>
-        <mat-label>Location</mat-label>
-        <input matInput #input [(ngModel)]="userDetails.location" placeholder="Enter Location">
-      </mat-form-field>
-    </div>
+        <div jobseekerShow>
+          <mat-form-field>
+            <mat-label>skills</mat-label>
+            <input matInput formControlName="skills" placeholder="Enter skills">
+          </mat-form-field>
+        </div>
 
+        <div>
+          <mat-form-field>
+            <mat-label>Location</mat-label>
+            <input matInput formControlName="location" placeholder="Enter Location">
+          </mat-form-field>
+        </div>
+      </span>
+      <div class="industry">
+        <div formArrayName="jobseekerIndustries">
+          <div *ngFor="let industry of jobseekerIndustries.controls; let i = index">
+            <div [formGroupName]="i" class="industry-container">
+              <div class="industry">
+                <mat-form-field>
+                  <mat-label>Industry name</mat-label>
+                  <input matInput formControlName="industryName" placeholder="Industry Name">
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Position</mat-label>
+                  <input matInput formControlName="role" placeholder="Position">
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Duration</mat-label>
+                  <input matInput formControlName="duration" placeholder="Duration">
+                </mat-form-field>
+              </div>
+              <button mat-raised-button class="remove-button" color="primary" class="buttons"
+                (click)="removeIndustry(i)">Remove</button>
+            </div>
+          </div>
+        </div>
+        <button mat-raised-button color="primary" class="buttons" (click)="addIndustry()">Add Industry</button>
+      </div>
+    </form>
   </div>
   <div>
     <button mat-raised-button color="primary" class="buttons" (click)="update()">Update</button>
   </div>
+
 </div>
