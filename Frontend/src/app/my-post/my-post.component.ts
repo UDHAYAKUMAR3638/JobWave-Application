@@ -4,6 +4,7 @@ import { post } from '../post-page/post-page.service';
 import { ApplicantComponent } from '../applicant/applicant.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../service/data.service';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-my-post',
@@ -13,24 +14,30 @@ import { DataService } from '../service/data.service';
 export class MyPostComponent {
 
   myPost!: Array<post>;
-
-  constructor(private myPostService: MyPostService, private data: DataService,
-    public dialog: MatDialog) {
-  }
-
   myPostApplicants!: Array<applicant>;
   userDetails!: any;
+
+  constructor(private myPostService: MyPostService, private data: DataService,
+    public dialog: MatDialog, private loginService: LoginService) {
+  }
+
   ngOnInit() {
-    this.userDetails = JSON.parse(sessionStorage.getItem('user')!);
-    this.myPostService.MyPosts(this.userDetails._id).subscribe({
+
+    this.loginService.getUser().subscribe({
       next: (data) => {
-        this.myPost = data;
-        this.rightBox(data[0]._id);
-      },
-      error: (error) => {
-        console.log(error);
+        this.userDetails = data;
+        this.myPostService.MyPosts(this.userDetails._id).subscribe({
+          next: (data) => {
+            this.myPost = data;
+            this.rightBox(data[0]._id);
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        });
       }
     });
+
   }
 
   rightBox(postId: string) {

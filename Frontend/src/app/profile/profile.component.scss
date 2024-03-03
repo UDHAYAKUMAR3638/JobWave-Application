@@ -3,23 +3,29 @@
     row-gap: 20px;
 }
 
+
+.table {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
 .industry {
     display: flex;
     flex-direction: column;
     margin-right: 10px;
 }
 
-.table {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 30px;
-    justify-content: center;
-    align-items: center;
-}
-
 .industry-container {
     display: flex;
     flex-direction: row;
+}
+
+.industry-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .remove-button {

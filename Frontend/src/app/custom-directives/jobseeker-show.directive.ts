@@ -10,7 +10,7 @@ export class JobseekerShowDirective {
   }
   ngOnInit() {
     if (!(sessionStorage.getItem('role') === "JOBSEEKER"))
-      this.el.nativeElement.hidden = true;
+      this.el.nativeElement.style.display = 'none';
   }
 
 }

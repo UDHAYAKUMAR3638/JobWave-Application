@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { PostPageService, post } from './post-page.service';
+import { LoginService } from '../login/login.service';
 declare const Razorpay: any;
 
 @Component({
@@ -12,15 +13,44 @@ declare const Razorpay: any;
 })
 export class PostPageComponent {
 
-  constructor(private fb: FormBuilder, private postService: PostPageService, private route: Router) { }
+  constructor(private fb: FormBuilder,
+    private postService: PostPageService,
+    private loginService: LoginService) { }
 
   paymentDetails!: any;
   perPostCost = 900;
-  user: any = sessionStorage.getItem('user');
-  userDetails = JSON.parse(this.user);
+  userDetails!: any;
+
+  ngOnInit() {
+    this.loginService.getUser().subscribe({
+      next: (data) => {
+        this.userDetails = data;
+        this.postForm.get('companyName')?.setValue(this.userDetails.companyName);
+        this.postForm.get('location')?.setValue(this.userDetails.location);
+        this.postForm.get('recruiterId')?.setValue({ _id: this.userDetails._id });
+      }
+    })
+  }
+
+  postForm = this.fb.group({
+    companyName: '',
+    role: ['', Validators.required],
+    location: [, Validators.required],
+    salary: ['', Validators.required],
+    jobType: ['', Validators.required],
+    schedule: ['', Validators.required],
+    content: ['', Validators.required],
+    education: ['', Validators.required],
+    skills: '',
+    benifits: '',
+    language: '',
+    date: new Date(),
+    recruiterId: { _id: '' }
+  });
 
   payment() {
     if (!this.postForm.invalid) {
+      this.postForm.get('date')?.setValue(new Date());
       this.postService.createOrder(this.perPostCost).subscribe({
         next: (data) => {
           // console.log(data);
@@ -95,22 +125,5 @@ export class PostPageComponent {
       }
     });
   }
-
-  postForm = this.fb.group({
-    companyName: '',
-    role: ['', Validators.required],
-    location: [, Validators.required],
-    salary: ['', Validators.required],
-    jobType: ['', Validators.required],
-    schedule: ['', Validators.required],
-    content: ['', Validators.required],
-    education: ['', Validators.required],
-    skills: '',
-    benifits: '',
-    language: '',
-    date: new Date(),
-    recruiterId: { _id: this.userDetails._id }
-  });
-
 
 }

@@ -5,6 +5,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { MatCard, MatCardModule } from '@angular/material/card';
 import { datePipe } from "../pipe/date.pipe";
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 const appRoute: Routes = [
   {
@@ -19,7 +21,9 @@ const appRoute: Routes = [
     MatCardModule,
     CommonModule,
     datePipe,
-    FormsModule
+    FormsModule,
+    MatIconModule,
+    MatButtonModule
   ]
 })
 export class JobModule { }

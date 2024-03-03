@@ -2,8 +2,6 @@ import { Component, HostListener } from '@angular/core';
 import { post } from '../post-page/post-page.service';
 import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
-import { JobPageService } from '../job-page/job-page.service';
-import { applicant } from '../my-post/my-post.service';
 import { FindApplicantService, jobseeker } from './find-applicant.service';
 
 @Component({
@@ -12,6 +10,7 @@ import { FindApplicantService, jobseeker } from './find-applicant.service';
   styleUrls: ['./find-applicant.component.scss']
 })
 export class FindApplicantComponent {
+
   inp1!: string;
   inp2!: string;
   constructor(private findApplicantService: FindApplicantService, private dataService: DataService, private router: Router) {
@@ -57,6 +56,8 @@ export class FindApplicantComponent {
   search() {
     if ((this.inp1 !== '' && this.inp1 !== undefined) || (this.inp2 !== '' && this.inp2 !== undefined)) {
       this.applicants = this.applicantsB.filter((data) => {
+        console.log(data.skills, this.inp1, data.skills.includes(this.inp1));
+
         if (this.inp2 !== '' && this.inp2 !== undefined)
           return (data.skills.includes(this.inp1) || data.headline.includes(this.inp1)) && data.location.includes(this.inp2);
         else

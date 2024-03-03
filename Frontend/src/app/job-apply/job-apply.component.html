@@ -28,10 +28,12 @@
             <label class="labels">Your skills: </label><input type="text" class="inputs" placeholder="Enter skills"
                 formControlName="skills">
 
-            <label class="labels">Your resume: </label><input type="text" class="inputs" placeholder="Enter resume"
-                formControlName="resume">
             <label class="labels">Your experience: </label><input type="text" class="inputs"
                 placeholder="Enter experience" formControlName="experience">
+
+            <label class="labels">Your resume: </label><input type="file" id="upload" (change)="upload($event)">
+            <br>
+            <br>
 
             <button mat-raised-button color="primary" (click)="apply()" class="buttons">Apply<i
                     class="pi pi-check-circle"></i></button>

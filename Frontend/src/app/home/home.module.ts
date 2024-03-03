@@ -34,7 +34,7 @@ const appRoute: Routes = [
                     import('../post-page/post-page.module').then((d) => d.PostModule),
             },
             {
-                path: 'jobApply',
+                path: 'jobApply/:postId',
                 loadChildren: () =>
                     import('../job-apply/job-apply.module').then((d) => d.JobApplyModule)
             },

@@ -6,11 +6,17 @@
         <span>Phone no: {{applicantData.phoneno}}</span>
         <span>Experience: {{applicantData.experience}}</span>
         <span>Skills: {{applicantData.skills}}</span>
-        <span>Resume: {{applicantData.resume}}</span>
+        <span>Resume: <a [href]="applicantData.resume" target="blank">{{applicantData.name}}.pdf</a></span>
+        <span>Status:
+            <span [ngClass]="status=='Pending'?'yellow':status=='Rejected'?'red':'green'">{{applicantData.status}}
+            </span>
+        </span>
     </div>
     <div class="buttons">
-        <button mat-raised-button color="primary" class="button" (click)="accept()">Accept</button>
-        <button mat-raised-button color="primary" class="button" (click)="reject()">Reject</button>
+        <button *ngIf="status=='Pending'" mat-raised-button color="primary" class="button"
+            (click)="accept()">Accept</button>
+        <button *ngIf="status=='Pending'" mat-raised-button color="primary" class="button"
+            (click)="reject()">Reject</button>
         <button mat-raised-button color="primary" class="button" (click)="close()">Back</button>
     </div>
 

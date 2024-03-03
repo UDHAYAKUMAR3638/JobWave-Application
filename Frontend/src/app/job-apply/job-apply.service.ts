@@ -24,7 +24,7 @@ export class JobApplyService {
     constructor(private http: HttpClient) {
     }
 
-    apply(data: jobApplication): Observable<any> {
+    apply(data: FormData): Observable<any> {
         return this.http.post<any>(environment.jobseekerUrl + "/apply", data);
     }
 

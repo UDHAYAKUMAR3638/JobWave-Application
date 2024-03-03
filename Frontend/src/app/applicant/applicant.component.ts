@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class ApplicantComponent {
   applicantData!: applicant;
-
+  status!: string;
   constructor(
     @Inject(MAT_DIALOG_DATA) public details: applicant, public dialogRef: MatDialogRef<ApplicantComponent>,
     private applicantService: ApplicantService
@@ -18,6 +18,7 @@ export class ApplicantComponent {
 
   ngOnInit() {
     this.applicantData = this.details;
+    this.status = this.applicantData.status;
   }
 
   close(): void {
@@ -26,9 +27,11 @@ export class ApplicantComponent {
 
   accept() {
     this.applicantService.acceptMail(this.applicantData.postId, this.applicantData);
+    this.status = this.applicantData.status;
   }
 
   reject() {
     this.applicantService.rejectMail(this.applicantData.postId, this.applicantData);
+    this.status = this.applicantData.status;
   }
 }

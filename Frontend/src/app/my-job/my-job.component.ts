@@ -1,6 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { MyJobService } from './my-job.service';
 import { post } from '../post-page/post-page.service';
+import { LoginService } from '../login/login.service';
+import { jobseeker } from '../find-applicant/find-applicant.service';
 
 @Component({
   selector: 'app-my-job',
@@ -8,24 +10,46 @@ import { post } from '../post-page/post-page.service';
   styleUrls: ['./my-job.component.scss']
 })
 export class MyJobComponent {
-  userDetails: any;
+  userDetails: jobseeker = {
+    _id: '',
+    email: '',
+    name: '',
+    phoneno: '',
+    dob: new Date(),
+    headline: '',
+    schoolName: '',
+    schlPassedOutYear: 0,
+    collegeName: '',
+    clgPassedOutYear: 0,
+    currentPosition: '',
+    skills: '',
+    indusrties: [],
+    location: '',
+    image: ''
+  };
   status!: string;
   posts!: Array<post>;
   class!: string;
-  constructor(private myJobService: MyJobService) {
+  constructor(private myJobService: MyJobService, private loginService: LoginService) {
   }
 
   ngOnInit() {
-    this.userDetails = JSON.parse(sessionStorage.getItem('user')!);
-    this.myJobService.getJobs(this.userDetails.email).subscribe({
+
+    this.loginService.getUser().subscribe({
       next: (data) => {
-        this.posts = data;
-        this.rightBox(this.posts[0]._id);
-      },
-      error: (error) => {
-        console.log(error);
+        this.userDetails = data;
+        this.myJobService.getJobs(this.userDetails.email).subscribe({
+          next: (data) => {
+            this.posts = data;
+            this.rightBox(this.posts[0]._id);
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        });
       }
     });
+
   }
 
   rightBox(postId: string) {

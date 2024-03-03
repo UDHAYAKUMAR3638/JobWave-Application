@@ -84,8 +84,8 @@ export class JobPageComponent {
   }
 
   apply(postId: string) {
-    this.dataService.messageSource.next(postId);
-    this.router.navigate(['jobApply']);
+    // this.dataService.messageSource.next(postId);
+    this.router.navigate(['jobApply', postId]);
   }
 
 

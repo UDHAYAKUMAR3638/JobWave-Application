@@ -1,5 +1,4 @@
 import { Component, Inject } from '@angular/core';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { ProfileService, user } from './profile.service';
 import { LoginService } from '../login/login.service';
@@ -112,20 +111,7 @@ export class ProfileComponent {
   update() {
     const formData: FormData = new FormData();
     formData.append('image', this.file === "" ? new Blob([]) : this.file);
-    if (this.profileService.update(this.userForm.value, formData) != null) {
-      Swal.fire({
-        title: 'Profile Updated',
-        text: 'Successfully',
-        icon: 'success',
-      });
-    }
-    else {
-      Swal.fire({
-        title: 'Profile Updated',
-        text: 'Failed',
-        icon: 'error',
-      });
-    }
+    this.profileService.update(this.userForm.value, formData);
   }
 
   logout() {

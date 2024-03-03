@@ -11,7 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
 const appRoute: Routes = [
     {
-        path: "", component: JobApplyComponent
+        path: '', component: JobApplyComponent
     },
 ]
 
