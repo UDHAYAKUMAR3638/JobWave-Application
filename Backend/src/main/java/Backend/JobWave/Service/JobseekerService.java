@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import Backend.JobWave.Dao.JobseekerDao;
+import Backend.JobWave.Dto.JobApplicationDto;
 import Backend.JobWave.Dto.JobseekerDto;
 import Backend.JobWave.Model.JobApplication;
 import Backend.JobWave.Model.Jobseeker;
@@ -37,7 +38,7 @@ public class JobseekerService {
     @Autowired
     JobApplicationRepository jobApplicationRepository;
     @Autowired
-    ImageService imageService;
+    FileService fileService;
     @Autowired
     JobseekerDao jobseekerDao;
 
@@ -48,12 +49,17 @@ public class JobseekerService {
      public Jobseeker registerJobseeker(JobseekerDto Jobseeker) throws java.io.IOException {
         userRepository.save(new User(Jobseeker, roleRepository.findByRole("JOBSEEKER"),
                 passwordEncoder.encode(Jobseeker.getPassword())));
-        return jobseekerRepo.save(new Jobseeker(Jobseeker, imageService.imageConvet(Jobseeker.getImage())));
+        return jobseekerRepo.save(new Jobseeker(Jobseeker, fileService.imageConvet(Jobseeker.getImage())));
     }
  
     public Jobseeker updateJobseeker(JobseekerDto Jobseeker) throws IOException {
+        User user= userRepository.findByEmail(jobseekerRepo.findById(Jobseeker.get_id()).get().getEmail());
+        user.setEmail(Jobseeker.getEmail());
+        user.setPassword(passwordEncoder.encode(Jobseeker.getPassword()));
+        user.setName(Jobseeker.getName());
+        userRepository.save(user);
         if(!Jobseeker.getImage().isEmpty())
-        return jobseekerRepo.save(new Jobseeker(Jobseeker, imageService.imageConvet(Jobseeker.getImage())));
+        return jobseekerRepo.save(new Jobseeker(Jobseeker, fileService.imageConvet(Jobseeker.getImage())));
         else
         return jobseekerRepo.save(new Jobseeker(Jobseeker,jobseekerRepo.findById(Jobseeker.get_id()).get().getImage()) );
     }
@@ -63,8 +69,11 @@ public class JobseekerService {
         return true;
     }
 
-    public JobApplication jobApply(JobApplication jobApplication) {
-        return jobApplicationRepository.save(jobApplication);
+    public JobApplication jobApply(JobApplicationDto jobApplication) throws IOException {
+        if(!jobApplication.getResume().isEmpty())
+        return jobApplicationRepository.save(new JobApplication(jobApplication, fileService.pdfConvet(jobApplication.getResume())));
+        else
+        return jobApplicationRepository.save(new JobApplication(jobApplication,jobApplicationRepository.findById(jobApplication.get_id()).get().getResume()));
     }
 
     public List<Post> myJobs(String email) {
@@ -89,5 +98,9 @@ public class JobseekerService {
 
     public JobApplication myJobsDetails(Post postId, String email) {
        return jobApplicationRepository.findByEmailAndPostId(email,postId);
+    }
+
+    public JobApplication updateApplication(JobApplication jobApplication) {
+       return jobApplicationRepository.save(jobApplication);
     }
 }

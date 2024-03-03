@@ -1,5 +1,7 @@
 package Backend.JobWave.Model;
 
+
+
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -17,6 +19,7 @@ import lombok.NoArgsConstructor;
 public class Post {
     @Id
     private String _id;
+    private String companyName;
     private String role;
     private String location;
     private String salary;
@@ -30,7 +33,7 @@ public class Post {
     private Date date;
     @DocumentReference(collection = "recruiter")
     private Recruiter recruiterId;
-
+    
     public Post(String id){
         this._id=id;
     }

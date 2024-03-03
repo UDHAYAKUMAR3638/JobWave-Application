@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import Backend.JobWave.Dto.JobApplicationDto;
 import Backend.JobWave.Dto.JobseekerDto;
 import Backend.JobWave.Model.JobApplication;
 import Backend.JobWave.Model.Jobseeker;
@@ -47,13 +48,13 @@ public class JobseekerController {
     }
 
     @PostMapping("/apply")
-    public ResponseEntity<JobApplication> jobApply(@RequestBody JobApplication jobApplication) {
+    public ResponseEntity<JobApplication> jobApply(@ModelAttribute JobApplicationDto jobApplication) throws IOException {
         return ResponseEntity.ok(jobseekerService.jobApply(jobApplication));
     }
 
     @PutMapping("/update-application")
     public ResponseEntity<JobApplication> updateApplication(@RequestBody JobApplication jobApplication) {
-        return ResponseEntity.ok(jobseekerService.jobApply(jobApplication));
+        return ResponseEntity.ok(jobseekerService.updateApplication(jobApplication));
     }
 
     @GetMapping("/myJobs/{email}")

@@ -35,7 +35,7 @@ public class RecruiterService {
     @Autowired
     JobApplicationRepository jobApplicationRepository;
     @Autowired
-    ImageService imageService;
+    FileService fileService;
 
     public Recruiter getRecruiterDetails(String id) {
         return RecruiterRepo.findById(id).get();
@@ -44,12 +44,17 @@ public class RecruiterService {
     public Recruiter registerRecruiter(RecruiterDto Recruiter) throws java.io.IOException {
         userRepository.save(new User(Recruiter, roleRepository.findByRole("RECRUITER"),
                 passwordEncoder.encode(Recruiter.getPassword())));
-        return RecruiterRepo.save(new Recruiter(Recruiter, imageService.imageConvet(Recruiter.getImage())));
+        return RecruiterRepo.save(new Recruiter(Recruiter, fileService.imageConvet(Recruiter.getImage())));
     }
 
     public Recruiter updateRecruiter(RecruiterDto recruiter) throws IOException {
+        User user= userRepository.findByEmail(RecruiterRepo.findById(recruiter.getId()).get().getEmail());
+        user.setEmail(recruiter.getEmail());
+        user.setPassword(passwordEncoder.encode(recruiter.getPassword()));
+        user.setName(recruiter.getName());
+        userRepository.save(user);
          if(!recruiter.getImage().isEmpty())
-        return RecruiterRepo.save(new Recruiter(recruiter, imageService.imageConvet(recruiter.getImage())));
+        return RecruiterRepo.save(new Recruiter(recruiter, fileService.imageConvet(recruiter.getImage())));
         else
         return RecruiterRepo.save(new Recruiter(recruiter,RecruiterRepo.findById(recruiter.getId()).get().getImage()) );
     }

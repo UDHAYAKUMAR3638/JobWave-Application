@@ -51,4 +51,8 @@ public class Jobseeker {
         this.setLocation(jobseeker.getLocation());
         this.setImage(imageConvet);
     }
+
+    public Jobseeker(String id){
+        this._id=id;
+    }
 }
