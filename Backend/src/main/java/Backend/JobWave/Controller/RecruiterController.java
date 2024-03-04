@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,25 +28,24 @@ public class RecruiterController {
     
     @Autowired
     RecruiterService recruiterService;
-     @GetMapping("/view")
-    public ResponseEntity<String> getRecruiter() {
-        return new ResponseEntity<>("Recruiter",HttpStatus.OK);
-    }
-
+    
     @PostMapping("/register")
     public ResponseEntity<Recruiter> registerRecruiter(@ModelAttribute RecruiterDto recruiter) throws IOException {
-        System.out.println("hello");
         return ResponseEntity.ok(recruiterService.registerRecruiter(recruiter));
     }
 
     @PutMapping("/update")
     public ResponseEntity<Recruiter> updateRecruiter(@ModelAttribute RecruiterDto recruiter) throws IOException {
-        System.out.println(recruiter);
         return ResponseEntity.ok(recruiterService.updateRecruiter(recruiter));
     }
 
     @PostMapping("/post") 
     public ResponseEntity<Post> postJob(@RequestBody Post post) {
+        return ResponseEntity.ok(recruiterService.postJob(post));
+    }
+
+    @PutMapping("/update-post") 
+    public ResponseEntity<Post> updatePost(@RequestBody Post post) {
         return ResponseEntity.ok(recruiterService.postJob(post));
     }
 

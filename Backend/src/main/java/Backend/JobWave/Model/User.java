@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import Backend.JobWave.Dto.JobseekerDto;
 import Backend.JobWave.Dto.RecruiterDto;
+import Backend.JobWave.Dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -85,6 +86,13 @@ public class User implements UserDetails {
     public User(RecruiterDto recruiter, Role role, String password) {
         this.setEmail(recruiter.getEmail());
         this.setName(recruiter.getName());
+        this.setPassword(password);
+        this.setRole(role);
+    }
+
+    public User(UserDto user,Role role, String password) {
+        this.setEmail(user.getEmail());
+        this.setName(user.getName());
         this.setPassword(password);
         this.setRole(role);
     }

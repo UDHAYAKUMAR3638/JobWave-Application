@@ -38,4 +38,10 @@ public class Recruiter {
         this.setImage(image);
     }
 
+    public Recruiter(User user) {
+        this.name=user.getName();
+        this.email=user.getEmail();
+        this.password=user.getPassword();
+    }
+
 }

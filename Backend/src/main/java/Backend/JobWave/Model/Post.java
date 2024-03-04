@@ -31,6 +31,7 @@ public class Post {
     private String benifits;
     private String language;
     private Date date;
+    private String status;
     @DocumentReference(collection = "recruiter")
     private Recruiter recruiterId;
     

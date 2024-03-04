@@ -55,4 +55,10 @@ public class Jobseeker {
     public Jobseeker(String id){
         this._id=id;
     }
+
+    public Jobseeker(User user) {
+      this.name=user.getName();
+      this.email=user.getEmail();
+      this.password=user.getPassword();
+    }
 }

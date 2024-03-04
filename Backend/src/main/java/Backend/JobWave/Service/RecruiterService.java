@@ -48,6 +48,7 @@ public class RecruiterService {
     }
 
     public Recruiter updateRecruiter(RecruiterDto recruiter) throws IOException {
+
         User user= userRepository.findByEmail(RecruiterRepo.findById(recruiter.getId()).get().getEmail());
         user.setEmail(recruiter.getEmail());
         user.setPassword(passwordEncoder.encode(recruiter.getPassword()));
@@ -57,6 +58,7 @@ public class RecruiterService {
         return RecruiterRepo.save(new Recruiter(recruiter, fileService.imageConvet(recruiter.getImage())));
         else
         return RecruiterRepo.save(new Recruiter(recruiter,RecruiterRepo.findById(recruiter.getId()).get().getImage()) );
+        
     }
 
     public Post postJob(Post post) {
