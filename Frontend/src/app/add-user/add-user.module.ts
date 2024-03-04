@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { DropdownModule } from 'primeng/dropdown';
 import { MatFormFieldModule } from '@angular/material/form-field';
+
 const appRoute: Routes = [
     {
         path: "", component: UserComponent
@@ -14,7 +15,9 @@ const appRoute: Routes = [
 ]
 
 @NgModule({
+
     declarations: [UserComponent],
+
     imports: [
         CommonModule,
         RouterModule.forChild(appRoute),
@@ -25,6 +28,7 @@ const appRoute: Routes = [
         MatFormFieldModule,
         DropdownModule
     ],
+
     exports: [RouterModule]
 })
-export class UserModule { }
+export class AddUserModule { }

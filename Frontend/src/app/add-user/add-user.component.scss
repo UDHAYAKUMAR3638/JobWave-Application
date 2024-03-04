@@ -1,9 +1,27 @@
+.container {
+    display: flex;
+    flex-direction: row;
+}
 
+.image {
+    margin-top: 6%;
+    position: fixed;
+    width: 40%;
+    height: 70%;
+}
+
+.head {
+    color: #3F51B5;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
 
 .registerBox {
-    width: 100%;
-    height: 100%;
-    padding: 40px;
+
+    width: 500px;
+    height: fit-content;
+    margin: 2% 0% 2% 50%;
+    padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #fff;
@@ -14,24 +32,23 @@
     display: block;
     margin-bottom: 5px;
     color: #333;
-     
+
 }
 
 .inputs {
     width: 100%;
+
     padding: 8px;
     margin-bottom: 10px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
-     
 }
 
 .buttons {
     font-size: 15px;
     border: 0px;
     padding: 10px;
-    margin-left: 35%;
     width: fit-content;
 }
 
@@ -40,10 +57,14 @@
     background-color: aliceblue;
     cursor: pointer;
 }
-.footer{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+
+.input {
+    height: fit-content;
+    width: fit-content;
 }
-h2{
-    margin: 10px 0px 40px 35%;
+
+.date {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
 }

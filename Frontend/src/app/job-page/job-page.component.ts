@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { JobPageService } from './job-page.service';
 import { post } from '../post-page/post-page.service';
 import { List } from 'lodash';
@@ -14,26 +14,30 @@ export class JobPageComponent {
   inp1!: string;
   inp2!: string;
 
+  @ViewChild('applyButton') applyButton!: ElementRef;
+
   constructor(private jobPageService: JobPageService, private dataService: DataService, private router: Router) {
 
   }
+
   jobPosts!: Array<post>;
   jobPostsB!: Array<post>;
   selectedPost: post = {
     _id: '',
-    role: 'Staff Software Engineer',
-    location: 'Remote',
-    salary: '₹53,60,000 - ₹80,40,000 a year',
-    jobType: 'Full-time',
-    schedule: 'Monday to Friday',
-    content: 'Are comfortable working cross-functionally to drive impact across the Software Development Lifecycle (SDLC), including working with product managers to clarify requirements and break down work,…',
-    education: 'Masters (Preferred)',
-    benifits: 'Internet reimbursement',
-    language: 'English (Preferred)',
+    role: '',
+    location: '',
+    salary: '',
+    jobType: '',
+    schedule: '',
+    content: '',
+    education: '',
+    benifits: '',
+    language: '',
     date: new Date(),
     skills: '',
     recruiterId: {
-    }
+    },
+    status: ''
   };
 
   ngOnInit() {
@@ -41,7 +45,7 @@ export class JobPageComponent {
       next: (data) => {
         this.jobPosts = data;
         this.jobPostsB = data;
-        this.selectedPost = this.jobPosts[0];
+        this.rightBox(this.jobPosts[0]);
       },
       error: (error) => {
         console.log(error);
@@ -51,6 +55,17 @@ export class JobPageComponent {
 
   rightBox(currPost: post) {
     this.selectedPost = currPost;
+    this.jobPageService.getApplication(this.selectedPost._id, sessionStorage.getItem('email') || '').subscribe({
+      next: (data) => {
+
+        if (data != null) {
+          this.applyButton.nativeElement.disabled = true;
+        }
+        else {
+          this.applyButton.nativeElement.disabled = false;
+        }
+      }
+    })
   }
 
   search() {

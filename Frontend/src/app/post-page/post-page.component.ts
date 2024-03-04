@@ -37,20 +37,20 @@ export class PostPageComponent {
     role: ['', Validators.required],
     location: [, Validators.required],
     salary: ['', Validators.required],
-    jobType: ['', Validators.required],
-    schedule: ['', Validators.required],
+    jobType: ['Select job type', Validators.required],
+    schedule: ['Select work schedule', Validators.required],
     content: ['', Validators.required],
     education: ['', Validators.required],
     skills: '',
     benifits: '',
     language: '',
     date: new Date(),
-    recruiterId: { _id: '' }
+    recruiterId: { _id: '' },
+    status: 'Open'
   });
 
   payment() {
     if (!this.postForm.invalid) {
-      this.postForm.get('date')?.setValue(new Date());
       this.postService.createOrder(this.perPostCost).subscribe({
         next: (data) => {
           // console.log(data);
@@ -70,6 +70,7 @@ export class PostPageComponent {
   }
 
   openTransactionModel(response: any) {
+
     const options = {
       order_id: response.orderId,
       key: response.key,
@@ -82,23 +83,28 @@ export class PostPageComponent {
         name: "udhaya" || this.userDetails.name,
         email: "udhaya@gmail.com" || this.userDetails.email,
       },
+
       handler: (response: any) => {
         if (response != null && response.razorpay_payment_id != null)
           this.processResponse(response);
         else
           alert('Payment failed..');
       },
+
       notes: {
         address: 'charges for job post'
       },
+
       theme: {
         color: '#F37254'
       },
+
       modal: {
         ondismiss: () => {
           console.log('dismissed');
         }
       }
+
     };
 
     const razorpayObject: any = new Razorpay(options);
@@ -107,11 +113,16 @@ export class PostPageComponent {
   }
 
   processResponse(response: any) {
+
     this.paymentDetails = response;
+
     this.register();
   }
 
   register() {
+
+    this.postForm.get('date')?.setValue(new Date());
+
     this.postService.post(this.postForm.value).subscribe({
       next: (data) => {
         this.postService.savePayment(data._id, this.paymentDetails, this.userDetails, this.perPostCost);
@@ -120,9 +131,11 @@ export class PostPageComponent {
           icon: 'success'
         })
       },
+
       error: (error) => {
         console.log(error);
       }
+
     });
   }
 

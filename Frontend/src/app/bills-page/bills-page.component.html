@@ -2,12 +2,12 @@
     <h2 class="head">Your post bills</h2>
 
     <div *ngFor="let bill of bills" class="bill">
-        <p><strong>Post Title:</strong> {{bill.postId.role}}</p>
-        <p><strong>Name:</strong> {{bill.name}}</p>
-        <p><strong>Email:</strong> {{bill.email}}</p>
-        <p><strong>Payment ID:</strong> {{bill.paymentId}}</p>
-        <p><strong>Order ID:</strong> {{bill.orderId}}</p>
-        <p><strong>Amount:</strong> ₹{{bill.amount}}</p>
-        <p><strong>Payment Date:</strong> {{bill.postId.date | toDate| date:'medium'}}</p>
+        <span><strong>Post Title:</strong> {{bill.postId.role}}</span>
+        <span><strong>Name:</strong> {{bill.name}}</span>
+        <span><strong>Email:</strong> {{bill.email}}</span>
+        <span><strong>Payment ID:</strong> {{bill.paymentId}}</span>
+        <span><strong>Order ID:</strong> {{bill.orderId}}</span>
+        <span><strong>Amount:</strong> ₹{{bill.amount}}</span>
+        <span><strong>Payment Date:</strong> {{bill.postId.date | toDate| date:'medium'}}</span>
 
     </div>

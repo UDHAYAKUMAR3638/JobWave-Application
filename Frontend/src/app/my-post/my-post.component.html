@@ -15,7 +15,14 @@
                 <span class="label">{{post.jobType}}</span>
                 <span class="label">{{post.schedule}}</span>
                 <p>{{post.content.substring(0,100)+"..."}}</p>
-                <p>{{(post.date | toDate | date:'medium')}}</p>
+                <span>Post status: <span [ngClass]="post.status==='Open'?'green':'red'">{{post.status}}</span></span>
+                <span>{{(post.date | toDate | date:'medium')}}</span>
+                <div class="button-box" *ngIf="post.status==='Open'">
+                    <button mat-raised-button color="primary" class="button" (click)="close(post)">Close</button>
+                </div>
+                <div class="button-box" *ngIf="post.status==='Close'">
+                    <button mat-raised-button color="primary" class="button" (click)="open(post)">Open</button>
+                </div>
             </div>
         </div>
         <div class="right" id="right">

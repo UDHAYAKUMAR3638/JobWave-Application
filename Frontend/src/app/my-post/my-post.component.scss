@@ -66,6 +66,21 @@
     transform: translateY(-10px);
 }
 
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.button-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .left {
     width: 78%;
     height: fit-content;

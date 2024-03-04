@@ -5,6 +5,7 @@ import { ApplicantComponent } from '../applicant/applicant.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../service/data.service';
 import { LoginService } from '../login/login.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-my-post',
@@ -71,6 +72,30 @@ export class MyPostComponent {
     } else if (textHeight.top > -71) {
       rightbox.classList.remove('right-fixed');
     }
+  }
+
+  open(post: post) {
+    post.status = 'Open';
+    this.myPostService.updatePost(post).subscribe({
+      next: () => {
+        Swal.fire({
+          title: 'Post updated Successfully',
+          icon: 'success'
+        })
+      }
+    })
+  }
+
+  close(post: post) {
+    post.status = 'Close';
+    this.myPostService.updatePost(post).subscribe({
+      next: () => {
+        Swal.fire({
+          title: 'Post updated Successfully',
+          icon: 'success'
+        })
+      }
+    })
   }
 
 }

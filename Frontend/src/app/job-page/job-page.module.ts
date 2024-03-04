@@ -7,6 +7,7 @@ import { datePipe } from "../pipe/date.pipe";
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { JobseekerShowDirective } from '../custom-directives/jobseeker-show.directive';
 
 const appRoute: Routes = [
   {
@@ -23,7 +24,8 @@ const appRoute: Routes = [
     datePipe,
     FormsModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    JobseekerShowDirective
   ]
 })
 export class JobModule { }

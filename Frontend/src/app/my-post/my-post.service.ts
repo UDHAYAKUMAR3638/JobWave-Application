@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { post } from '../post-page/post-page.service';
 import { jobseeker } from '../find-applicant/find-applicant.service';
+import { jobApplication } from '../job-apply/job-apply.service';
+import { List } from 'lodash';
 
 
 export interface applicant {
@@ -25,12 +27,17 @@ export interface applicant {
 export class MyPostService {
     constructor(private http: HttpClient) {
     }
+
     MyPosts(id: string): Observable<any> {
         return this.http.get<Array<post>>(environment.recruiterUrl + `/getPosts/${id}`);
     }
 
     MyPostSeekers(id: string): Observable<any> {
-        return this.http.get<any>(environment.recruiterUrl + `/getPostSeekers/${id}`);
+        return this.http.get<List<jobApplication>>(environment.recruiterUrl + `/getPostSeekers/${id}`);
+    }
+
+    updatePost(post: post): Observable<any> {
+        return this.http.put<any>(`${environment.recruiterUrl}/update-post`, post);
     }
 
 }

@@ -13,6 +13,10 @@ export class JobPageService {
     }
 
     getAllPosts() {
-        return this.http.get<any>(environment.recruiterUrl + "/getAllPost");
+        return this.http.get<any>(`${environment.recruiterUrl}/getAllPost`);
+    }
+
+    getApplication(postId: string, email: string) {
+        return this.http.get<any>(`${environment.jobseekerUrl}/myJobs/${postId}/${email}`);
     }
 }

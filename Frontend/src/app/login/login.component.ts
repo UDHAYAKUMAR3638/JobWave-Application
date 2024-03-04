@@ -36,14 +36,6 @@ export class LoginComponent {
             sessionStorage.setItem('email', token.body.user.email);
             sessionStorage.setItem('role', token.body.user.role.role);
           }
-          this.loginService.getUser().subscribe({
-            next: (data) => {
-              sessionStorage.setItem('user', JSON.stringify(data));
-            },
-            error: (error) => {
-              console.log(error);
-            }
-          })
         },
         error: (error) => {
           console.log('error:', error);
@@ -60,18 +52,21 @@ export class LoginComponent {
             icon: 'success',
           });
           if (this.loginService.isAuthencticate()) {
-            this.router.navigate(['home']);
+            this.homePage();
           }
-        },
+        }
       });
     }
   }
+
   registerPage() {
     this.router.navigate(['typeLogin']);
   }
+
   loginPage() {
     this.router.navigate(['login']);
   }
+
   homePage() {
     this.router.navigate(['home']);
   }

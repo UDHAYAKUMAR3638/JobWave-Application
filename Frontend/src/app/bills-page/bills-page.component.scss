@@ -1,6 +1,7 @@
 .bill {
     display: grid;
     width: 500px;
+    row-gap: 10px;
     padding: 25px;
     grid-row: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     border-radius: 10px;
@@ -10,15 +11,14 @@
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.role:hover {
-    text-decoration: underline;
-}
-
 .bill:hover {
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
     transform: translateY(-10px);
 }
 
+.role:hover {
+    text-decoration: underline;
+}
 
 .head {
     color: #3F51B5;
