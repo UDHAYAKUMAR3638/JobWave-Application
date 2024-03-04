@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,8 +56,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody UserDto user) throws IOException {
+    public ResponseEntity<User> register(@ModelAttribute UserDto user) throws IOException {
         return new ResponseEntity<User>(userService.register(user),HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<User> update(@ModelAttribute UserDto user) throws IOException {
+        return new ResponseEntity<User>(userService.update(user),HttpStatus.OK);
     }
    
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import Backend.JobWave.Model.User;
 @Repository
-public interface UserRepository extends MongoRepository<User, Long> {
+public interface UserRepository extends MongoRepository<User, String> {
 
     User findByEmail(String email);
 

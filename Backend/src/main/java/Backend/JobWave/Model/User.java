@@ -10,8 +10,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import Backend.JobWave.Dto.JobseekerDto;
-import Backend.JobWave.Dto.RecruiterDto;
 import Backend.JobWave.Dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +27,7 @@ public class User implements UserDetails {
     private String name;
     private String email;
     private String password;
+    private String image;
 @DocumentReference(collection = "role")
     private Role role;
     
@@ -67,13 +66,7 @@ public class User implements UserDetails {
         this.setName(jobseeker.getName());
         this.setPassword(password);
         this.setRole(role);
-    }
-
-    public User(JobseekerDto jobseeker,Role role,String password) {
-        this.setEmail(jobseeker.getEmail());
-        this.setName(jobseeker.getName());
-        this.setPassword(password);
-        this.setRole(role);
+        this.setImage(jobseeker.getImage());
     }
 
     public User(Recruiter recruiter,Role role,String password) {
@@ -81,19 +74,16 @@ public class User implements UserDetails {
         this.setName(recruiter.getName());
         this.setPassword(password);
         this.setRole(role);
+        this.setImage(recruiter.getImage());
+
     }
 
-    public User(RecruiterDto recruiter, Role role, String password) {
-        this.setEmail(recruiter.getEmail());
-        this.setName(recruiter.getName());
-        this.setPassword(password);
-        this.setRole(role);
-    }
-
-    public User(UserDto user,Role role, String password) {
+    public User(UserDto user,Role role, String password,String image) {
         this.setEmail(user.getEmail());
         this.setName(user.getName());
         this.setPassword(password);
         this.setRole(role);
+        this.setImage(image);
+
     }
 }

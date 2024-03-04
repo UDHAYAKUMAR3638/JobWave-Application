@@ -47,21 +47,29 @@ public class JobseekerService {
     }
 
      public Jobseeker registerJobseeker(JobseekerDto Jobseeker) throws java.io.IOException {
-        userRepository.save(new User(Jobseeker, roleRepository.findByRole("JOBSEEKER"),
+        Jobseeker jobseeker=new Jobseeker(Jobseeker, fileService.imageConvet(Jobseeker.getImage()));
+        userRepository.save(new User(jobseeker, roleRepository.findByRole("RECRUITER"),
                 passwordEncoder.encode(Jobseeker.getPassword())));
-        return jobseekerRepo.save(new Jobseeker(Jobseeker, fileService.imageConvet(Jobseeker.getImage())));
+        return jobseekerRepo.save(jobseeker);
     }
  
     public Jobseeker updateJobseeker(JobseekerDto Jobseeker) throws IOException {
-        User user= userRepository.findByEmail(jobseekerRepo.findById(Jobseeker.get_id()).get().getEmail());
-        user.setEmail(Jobseeker.getEmail());
-        user.setPassword(passwordEncoder.encode(Jobseeker.getPassword()));
-        user.setName(Jobseeker.getName());
-        userRepository.save(user);
+        Jobseeker jobseeker=new Jobseeker();
+    
         if(!Jobseeker.getImage().isEmpty())
-        return jobseekerRepo.save(new Jobseeker(Jobseeker, fileService.imageConvet(Jobseeker.getImage())));
+        jobseeker=new Jobseeker(Jobseeker, fileService.imageConvet(Jobseeker.getImage()));
         else
-        return jobseekerRepo.save(new Jobseeker(Jobseeker,jobseekerRepo.findById(Jobseeker.get_id()).get().getImage()) );
+        jobseeker=new Jobseeker(Jobseeker,jobseekerRepo.findById(Jobseeker.get_id()).get().getImage());
+
+        User user= userRepository.findByEmail(jobseekerRepo.findById(Jobseeker.get_id()).get().getEmail());
+        user.setEmail(jobseeker.getEmail());
+        user.setPassword(passwordEncoder.encode(jobseeker.getPassword()));
+        user.setName(jobseeker.getName());
+        user.setImage(jobseeker.getImage());
+        userRepository.save(user);
+
+        return jobseekerRepo.save(jobseeker);
+       
     }
 
     public Boolean updateJobseekerIndustries(String id,List<JobseekerIndustry> industry) {

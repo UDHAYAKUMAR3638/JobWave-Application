@@ -42,22 +42,28 @@ public class RecruiterService {
     }
 
     public Recruiter registerRecruiter(RecruiterDto Recruiter) throws java.io.IOException {
-        userRepository.save(new User(Recruiter, roleRepository.findByRole("RECRUITER"),
+        Recruiter recruiter=new Recruiter(Recruiter, fileService.imageConvet(Recruiter.getImage()));
+        userRepository.save(new User(recruiter, roleRepository.findByRole("RECRUITER"),
                 passwordEncoder.encode(Recruiter.getPassword())));
-        return RecruiterRepo.save(new Recruiter(Recruiter, fileService.imageConvet(Recruiter.getImage())));
+        return RecruiterRepo.save(recruiter);
     }
 
     public Recruiter updateRecruiter(RecruiterDto recruiter) throws IOException {
-
-        User user= userRepository.findByEmail(RecruiterRepo.findById(recruiter.getId()).get().getEmail());
-        user.setEmail(recruiter.getEmail());
-        user.setPassword(passwordEncoder.encode(recruiter.getPassword()));
-        user.setName(recruiter.getName());
-        userRepository.save(user);
-         if(!recruiter.getImage().isEmpty())
-        return RecruiterRepo.save(new Recruiter(recruiter, fileService.imageConvet(recruiter.getImage())));
+        Recruiter Recruiter=new Recruiter();
+    
+        if(!recruiter.getImage().isEmpty())
+        Recruiter=new Recruiter(recruiter, fileService.imageConvet(recruiter.getImage()));
         else
-        return RecruiterRepo.save(new Recruiter(recruiter,RecruiterRepo.findById(recruiter.getId()).get().getImage()) );
+        Recruiter=new Recruiter(recruiter,RecruiterRepo.findById(recruiter.getId()).get().getImage());
+        
+        User user= userRepository.findByEmail(RecruiterRepo.findById(Recruiter.get_id()).get().getEmail());
+        user.setEmail(Recruiter.getEmail());
+        user.setPassword(passwordEncoder.encode(Recruiter.getPassword()));
+        user.setName(Recruiter.getName());
+        user.setImage(Recruiter.getImage());
+        userRepository.save(user);
+       
+        return RecruiterRepo.save(Recruiter);
         
     }
 
