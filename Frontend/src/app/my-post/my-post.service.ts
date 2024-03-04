@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { post } from '../post-page/post-page.service';
-import { jobseeker } from '../find-applicant/find-applicant.service';
-import { jobApplication } from '../job-apply/job-apply.service';
+import { Post } from '../post-page/post-page.service';
+import { Jobseeker } from '../find-applicant/find-applicant.service';
+import { JobApplication } from '../job-apply/job-apply.service';
 import { List } from 'lodash';
 
 
-export interface applicant {
+export interface Applicant {
     _id: string,
     email: string,
     name: string,
@@ -16,8 +16,8 @@ export interface applicant {
     resume: string,
     skills: string,
     experience: string,
-    postId: post,
-    userId: jobseeker
+    postId: Post,
+    userId: Jobseeker
     status: string;
 }
 
@@ -29,14 +29,14 @@ export class MyPostService {
     }
 
     MyPosts(id: string): Observable<any> {
-        return this.http.get<Array<post>>(environment.recruiterUrl + `/getPosts/${id}`);
+        return this.http.get<Array<Post>>(environment.recruiterUrl + `/getPosts/${id}`);
     }
 
     MyPostSeekers(id: string): Observable<any> {
-        return this.http.get<List<jobApplication>>(environment.recruiterUrl + `/getPostSeekers/${id}`);
+        return this.http.get<List<JobApplication>>(environment.recruiterUrl + `/getPostSeekers/${id}`);
     }
 
-    updatePost(post: post): Observable<any> {
+    updatePost(post: Post): Observable<any> {
         return this.http.put<any>(`${environment.recruiterUrl}/update-post`, post);
     }
 

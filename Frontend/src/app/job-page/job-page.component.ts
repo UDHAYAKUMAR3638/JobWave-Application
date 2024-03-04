@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { JobPageService } from './job-page.service';
-import { post } from '../post-page/post-page.service';
+import { Post } from '../post-page/post-page.service';
 import { List } from 'lodash';
 import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
@@ -20,9 +20,9 @@ export class JobPageComponent {
 
   }
 
-  jobPosts!: Array<post>;
-  jobPostsB!: Array<post>;
-  selectedPost: post = {
+  jobPosts!: Array<Post>;
+  jobPostsB!: Array<Post>;
+  selectedPost: Post = {
     _id: '',
     role: '',
     location: '',
@@ -53,7 +53,7 @@ export class JobPageComponent {
     })
   }
 
-  rightBox(currPost: post) {
+  rightBox(currPost: Post) {
     this.selectedPost = currPost;
     this.jobPageService.getApplication(this.selectedPost._id, sessionStorage.getItem('email') || '').subscribe({
       next: (data) => {

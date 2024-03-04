@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
-import { post } from '../post-page/post-page.service';
+import { Post } from '../post-page/post-page.service';
 
-export interface bill {
+export interface Bill {
 
   _id: string,
-  postId: post,
+  postId: Post,
   paymentId: string,
   orderId: string,
   name: string,

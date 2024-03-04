@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProfileService, user } from './profile.service';
+import { ProfileService, User } from './profile.service';
 import { LoginService } from '../login/login.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 

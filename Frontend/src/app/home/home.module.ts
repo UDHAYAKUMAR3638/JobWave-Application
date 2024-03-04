@@ -77,6 +77,18 @@ const appRoute: Routes = [
                     import('../add-user/add-user.module').then((d) => d.AddUserModule)
             },
 
+            {
+                path: 'company', canActivate: [AuthGuard, RoleGuard], data: { roles: ['JOBSEEKER'] },
+                loadChildren: () =>
+                    import('../company-page/company-page.module').then((d) => d.CompanyPageModule)
+            },
+
+            {
+                path: "viewCompany/:id", canActivate: [AuthGuard, RoleGuard], data: { roles: ['JOBSEEKER'] },
+                loadChildren: () =>
+                    import('../view-company/view-company.module').then((d) => d.ViewCompanyModule)
+            },
+
         ]
     },
 

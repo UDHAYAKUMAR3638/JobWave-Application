@@ -9,9 +9,11 @@ import { ApplicantComponent } from './applicant/applicant.component';
 import { MatButtonModule } from '@angular/material/button';
 import { AdminHideDirective } from './custom-directives/admin-hide.directive';
 import { AdminShowDirective } from './custom-directives/admin-show.directive';
+import { CompanyPageComponent } from './company-page/company-page.component';
+import { ViewCompanyComponent } from './view-company/view-company.component';
 
 @NgModule({
-  declarations: [AppComponent, ApplicantComponent],
+  declarations: [AppComponent, ApplicantComponent, CompanyPageComponent],
 
   imports: [
     BrowserModule,

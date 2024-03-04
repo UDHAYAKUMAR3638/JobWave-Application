@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="company" *ngFor="let company of companies">
+        <img [src]="company.image" class="image">
+        <div class="company-box">
+            <span>{{company.companyName}}</span>
+            <span>{{company.companyType}}</span>
+            <span>{{company.empCount}}+ employees</span>
+            <span>{{company.location}}</span>
+            <button mat-raised-button color="primary" class="button" (click)="redirect(company._id)">View</button>
+        </div>
+    </div>
+</div>

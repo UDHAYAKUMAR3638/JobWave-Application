@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { PostPageService, post } from './post-page.service';
+import { PostPageService } from './post-page.service';
 import { LoginService } from '../login/login.service';
 declare const Razorpay: any;
 

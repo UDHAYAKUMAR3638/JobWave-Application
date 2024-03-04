@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoginService, login } from './login.service';
+import { LoginService, Login } from './login.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -13,7 +13,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent {
 
   loginForm = this.fb.group({
-    email: ['admin3@gmail.com', [Validators.email, Validators.required]],
+    email: ['admin@gmail.com', [Validators.email, Validators.required]],
     password: ['admin', Validators.required]
 
   });
@@ -28,7 +28,7 @@ export class LoginComponent {
   }
   login(): void {
     if (!this.loginForm.invalid) {
-      this.loginService.authenticate(<login>this.loginForm.value).subscribe({
+      this.loginService.authenticate(<Login>this.loginForm.value).subscribe({
         next: (token) => {
           if (token.status == 200) {
             sessionStorage.setItem('isLogged', 'true');

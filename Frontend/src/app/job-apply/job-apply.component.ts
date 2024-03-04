@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { JobApplyService, jobApplication } from './job-apply.service';
+import { JobApplyService, JobApplication } from './job-apply.service';
 import Swal from 'sweetalert2';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';

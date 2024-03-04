@@ -1,11 +1,11 @@
 import { Component, HostListener } from '@angular/core';
-import { MyPostService, applicant } from './my-post.service';
-import { post } from '../post-page/post-page.service';
+import { Applicant, MyPostService } from './my-post.service';
 import { ApplicantComponent } from '../applicant/applicant.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../service/data.service';
 import { LoginService } from '../login/login.service';
 import Swal from 'sweetalert2';
+import { Post } from '../post-page/post-page.service';
 
 @Component({
   selector: 'app-my-post',
@@ -14,8 +14,8 @@ import Swal from 'sweetalert2';
 })
 export class MyPostComponent {
 
-  myPost!: Array<post>;
-  myPostApplicants!: Array<applicant>;
+  myPost!: Array<Post>;
+  myPostApplicants!: Array<Applicant>;
   userDetails!: any;
 
   constructor(private myPostService: MyPostService, private data: DataService,
@@ -74,7 +74,7 @@ export class MyPostComponent {
     }
   }
 
-  open(post: post) {
+  open(post: Post) {
     post.status = 'Open';
     this.myPostService.updatePost(post).subscribe({
       next: () => {
@@ -86,7 +86,7 @@ export class MyPostComponent {
     })
   }
 
-  close(post: post) {
+  close(post: Post) {
     post.status = 'Close';
     this.myPostService.updatePost(post).subscribe({
       next: () => {

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { applicant } from '../my-post/my-post.service';
+import { Applicant } from '../my-post/my-post.service';
 import { ApplicantService } from './applicant.service';
 import Swal from 'sweetalert2';
 @Component({
@@ -9,10 +9,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./applicant.component.scss']
 })
 export class ApplicantComponent {
-  applicantData!: applicant;
+  applicantData!: Applicant;
   status!: string;
   constructor(
-    @Inject(MAT_DIALOG_DATA) public details: applicant, public dialogRef: MatDialogRef<ApplicantComponent>,
+    @Inject(MAT_DIALOG_DATA) public details: Applicant, public dialogRef: MatDialogRef<ApplicantComponent>,
     private applicantService: ApplicantService
   ) { }
 

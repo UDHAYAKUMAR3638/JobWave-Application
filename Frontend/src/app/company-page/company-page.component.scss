@@ -1,0 +1,36 @@
+.container {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 20px;
+    justify-content: center;
+}
+
+.company-box {
+    padding: 20px;
+    display: grid;
+    grid-row: 1fr 1fr 1fr 1fr 1fr;
+    row-gap: 5px;
+}
+
+.company {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+    padding: 10px;
+    border-radius: 10px;
+    align-items: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+}
+
+.company:hover {
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+}
+
+.button {
+    width: fit-content;
+    cursor: pointer;
+    margin: 10px
+}

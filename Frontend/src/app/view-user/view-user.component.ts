@@ -7,7 +7,7 @@ import { ProfileComponent } from '../profile/profile.component';
 @Component({
   selector: 'app-appointment',
   templateUrl: './view-user.component.html',
-  styleUrls: ['./view-user.component.css'],
+  styleUrls: ['./view-user.component.scss'],
 })
 export class ViewUserComponent {
 

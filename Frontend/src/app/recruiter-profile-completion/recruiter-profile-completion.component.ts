@@ -2,7 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { RecruiterProfileCompletionService, registerRecruiter } from './recruiter-profile-completion.service';
+import { RecruiterProfileCompletionService } from './recruiter-profile-completion.service';
 
 @Component({
   selector: 'app-recruiter-profile-completion',

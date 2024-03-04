@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment.development';
 import { FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 
-export interface user {
+export interface User {
   _id: string,
   name: string,
   email: string,

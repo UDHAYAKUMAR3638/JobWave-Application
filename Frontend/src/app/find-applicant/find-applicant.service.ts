@@ -3,12 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
-export interface industry {
+export interface Industry {
     industryName: string,
     role: string,
     duration: string
 }
-export interface jobseeker {
+export interface Jobseeker {
     _id: string,
     email: string,
     name: string,
@@ -21,7 +21,7 @@ export interface jobseeker {
     clgPassedOutYear: number,
     currentPosition: string,
     skills: string,
-    indusrties: Array<industry>,
+    indusrties: Array<Industry>,
     location: string,
     image: string
 }
@@ -34,7 +34,7 @@ export class FindApplicantService {
     }
 
     getAllSeekers(): Observable<any> {
-        return this.http.get<Array<jobseeker>>(environment.jobseekerUrl + `/getAll`);
+        return this.http.get<Array<Jobseeker>>(environment.jobseekerUrl + `/getAll`);
     }
 
 }

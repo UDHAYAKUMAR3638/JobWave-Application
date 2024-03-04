@@ -13,20 +13,18 @@
     </div>
     <div class="container">
         <div class="left">
-            <div *ngFor="let post of jobPosts" (click)="rightBox(post)">
-                <div *ngIf="post.status=='Open'" class="post">
-                    <div class="boxHead">
-                        <img [src]=post.recruiterId.image class="logo">
-                        <strong>{{post.recruiterId.companyName}}</strong>
-                    </div>
-                    <h2 class="role">{{post.role}}</h2>
-                    <p>{{post.location}}</p>
-                    <span class="label">{{post.salary}}</span>
-                    <span class="label">{{post.jobType}}</span>
-                    <span class="label">{{post.schedule}}</span>
-                    <p>{{post.content.substring(0,100)+"..."}}</p>
-                    <p>{{(post.date | toDate | date:'medium')}}</p>
+            <div *ngFor="let post of jobPosts" (click)="rightBox(post)" class="post">
+                <div class="boxHead">
+                    <img [src]=post.recruiterId.image class="logo">
+                    <strong>{{post.recruiterId.companyName}}</strong>
                 </div>
+                <h2 class="role">{{post.role}}</h2>
+                <p>{{post.location}}</p>
+                <span class="label">{{post.salary}}</span>
+                <span class="label">{{post.jobType}}</span>
+                <span class="label">{{post.schedule}}</span>
+                <p>{{post.content.substring(0,100)+"..."}}</p>
+                <p>{{(post.date | toDate | date:'medium')}}</p>
             </div>
         </div>
         <div class="right" id="right">

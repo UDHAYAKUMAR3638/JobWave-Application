@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, finalize } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-export interface login {
+export interface Login {
   email: string;
   password: string;
 }
@@ -14,7 +14,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  authenticate(data: login): Observable<any> {
+  authenticate(data: Login): Observable<any> {
     const response: any = this.http.post<any>(environment.baseUrl + '/authenticate', data, { observe: 'response' });
     return response;
   }

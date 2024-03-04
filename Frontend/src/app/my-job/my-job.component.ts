@@ -1,8 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { MyJobService } from './my-job.service';
-import { post } from '../post-page/post-page.service';
+import { Post } from '../post-page/post-page.service';
 import { LoginService } from '../login/login.service';
-import { jobseeker } from '../find-applicant/find-applicant.service';
+import { Jobseeker } from '../find-applicant/find-applicant.service';
 
 @Component({
   selector: 'app-my-job',
@@ -10,7 +10,7 @@ import { jobseeker } from '../find-applicant/find-applicant.service';
   styleUrls: ['./my-job.component.scss']
 })
 export class MyJobComponent {
-  userDetails: jobseeker = {
+  userDetails: Jobseeker = {
     _id: '',
     email: '',
     name: '',
@@ -28,7 +28,7 @@ export class MyJobComponent {
     image: ''
   };
   status!: string;
-  posts!: Array<post>;
+  posts!: Array<Post>;
   class!: string;
   constructor(private myJobService: MyJobService, private loginService: LoginService) {
   }

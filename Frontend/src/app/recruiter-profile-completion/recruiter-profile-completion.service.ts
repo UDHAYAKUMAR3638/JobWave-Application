@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-export interface registerRecruiter {
+export interface Recruiter {
+    _id: string,
     name: string,
     companyName: string,
     empCount: number,
@@ -11,7 +12,7 @@ export interface registerRecruiter {
     phoneno: string,
     password: string,
     location: string,
-    image: File,
+    image: string,
 
 }
 @Injectable({

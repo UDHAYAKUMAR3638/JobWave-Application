@@ -1,8 +1,8 @@
 import { Component, HostListener } from '@angular/core';
-import { post } from '../post-page/post-page.service';
+import { Post } from '../post-page/post-page.service';
 import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
-import { FindApplicantService, jobseeker } from './find-applicant.service';
+import { FindApplicantService, Jobseeker } from './find-applicant.service';
 
 @Component({
   selector: 'app-find-applicant',
@@ -16,9 +16,9 @@ export class FindApplicantComponent {
   constructor(private findApplicantService: FindApplicantService, private dataService: DataService, private router: Router) {
 
   }
-  applicants!: Array<jobseeker>;
-  applicantsB!: Array<jobseeker>;
-  selectedApplicant: jobseeker = {
+  applicants!: Array<Jobseeker>;
+  applicantsB!: Array<Jobseeker>;
+  selectedApplicant: Jobseeker = {
     _id: '',
     name: '',
     email: '',
@@ -49,7 +49,7 @@ export class FindApplicantComponent {
     })
   }
 
-  rightBox(currPost: jobseeker) {
+  rightBox(currPost: Jobseeker) {
     this.selectedApplicant = currPost;
   }
 

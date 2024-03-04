@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { jobseeker } from '../find-applicant/find-applicant.service';
-import { post } from '../post-page/post-page.service';
-export interface jobApplication {
+import { Jobseeker } from '../find-applicant/find-applicant.service';
+import { Post } from '../post-page/post-page.service';
+export interface JobApplication {
     name: string,
     email: string,
     phoneno: string,
     skills: string,
     resume: string,
     experience: string,
-    postId: post,
-    userId: jobseeker
+    postId: Post,
+    userId: Jobseeker
     status: string
 }
 @Injectable({

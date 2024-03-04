@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BillsPageService, bill } from './bills-page.service';
+import { Bill, BillsPageService } from './bills-page.service';
 
 @Component({
   selector: 'app-bills-page',
@@ -11,7 +11,7 @@ export class BillsPageComponent {
   constructor(private billService: BillsPageService) {
   }
 
-  bills!: Array<bill>;
+  bills!: Array<Bill>;
 
   ngOnInit() {
     this.billService.getBills().subscribe({
