@@ -88,6 +88,7 @@ export class ProfileComponent {
           location: [details.location, Validators.required],
           jobseekerIndustries: this.fb.array([]),
         });
+
         if (details.industries !== null) {
           for (let x of details.industries) {
             const industry = this.fb.group({

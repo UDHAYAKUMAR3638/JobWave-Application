@@ -11,6 +11,7 @@ import { RecruiterShowDirective } from '../custom-directives/recruiter-show.dire
 import { JobseekerShowDirective } from '../custom-directives/jobseeker-show.directive';
 import { AuthGuard } from '../guards/auth.guard';
 import { RoleGuard } from '../guards/role.guard';
+import { AdminShowDirective } from '../custom-directives/admin-show.directive';
 
 const appRoute: Routes = [
     {
@@ -116,7 +117,8 @@ const appRoute: Routes = [
         LoginHideDirective,
         LoginShowDirective,
         JobseekerShowDirective,
-        RecruiterShowDirective
+        RecruiterShowDirective,
+        AdminShowDirective
     ],
     exports: [RouterModule]
 })

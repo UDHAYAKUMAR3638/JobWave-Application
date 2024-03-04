@@ -58,7 +58,7 @@
           </mat-form-field>
         </div>
 
-        <div>
+        <div adminHide>
           <mat-form-field>
             <mat-label>Phone no</mat-label>
             <input matInput #input maxlength="10" formControlName="phoneno" placeholder="Enter Phoneno">
@@ -121,13 +121,14 @@
           </mat-form-field>
         </div>
 
-        <div>
+        <div adminHide>
           <mat-form-field>
             <mat-label>Location</mat-label>
             <input matInput formControlName="location" placeholder="Enter Location">
           </mat-form-field>
         </div>
       </span>
+
       <div class="industry" jobseekerShow>
         <div formArrayName="jobseekerIndustries" class="industry-box">
           <div *ngFor="let industry of jobseekerIndustries.controls; let i = index">

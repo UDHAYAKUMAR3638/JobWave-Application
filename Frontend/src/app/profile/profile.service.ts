@@ -105,6 +105,7 @@ export class ProfileService {
       form.append('name', user.name);
       form.append('email', user.email);
       form.append('password', user.password);
+      form.append('role', 'ADMIN');
       return this.http.put(`${environment.userUrl}/update`, form).subscribe({
         next: () => {
           Swal.fire({
@@ -122,5 +123,6 @@ export class ProfileService {
         }
       });
     }
+
   }
 }

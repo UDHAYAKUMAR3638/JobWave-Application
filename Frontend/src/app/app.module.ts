@@ -7,9 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptor } from './interceptors/interceptors.interceptor';
 import { ApplicantComponent } from './applicant/applicant.component';
 import { MatButtonModule } from '@angular/material/button';
+import { AdminHideDirective } from './custom-directives/admin-hide.directive';
+import { AdminShowDirective } from './custom-directives/admin-show.directive';
 
 @NgModule({
   declarations: [AppComponent, ApplicantComponent],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -17,9 +20,11 @@ import { MatButtonModule } from '@angular/material/button';
     BrowserAnimationsModule,
     MatButtonModule
   ],
+
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
+
   bootstrap: [AppComponent],
 })
 export class AppModule { }

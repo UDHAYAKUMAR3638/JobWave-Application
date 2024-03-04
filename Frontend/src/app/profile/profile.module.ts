@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import sweetalert2 from 'sweetalert2';
 import { JobseekerShowDirective } from '../custom-directives/jobseeker-show.directive';
 import { RecruiterShowDirective } from '../custom-directives/recruiter-show.directive';
+import { AdminHideDirective } from '../custom-directives/admin-hide.directive';
 const appRoute: Routes = [
     {
         path: "", component: ProfileComponent
@@ -31,7 +32,8 @@ const appRoute: Routes = [
         MatInputModule,
         MatSelectModule,
         JobseekerShowDirective,
-        RecruiterShowDirective
+        RecruiterShowDirective,
+        AdminHideDirective
     ],
     exports: [RouterModule]
 })
