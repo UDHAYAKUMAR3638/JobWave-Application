@@ -23,7 +23,7 @@ import Backend.JobWave.Repository.UserRepository;
 public class RecruiterService {
 
     @Autowired
-    RecruiterRepository RecruiterRepo;
+    RecruiterRepository recruiterRepo;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -38,14 +38,14 @@ public class RecruiterService {
     FileService fileService;
 
     public Recruiter getRecruiterDetails(String id) {
-        return RecruiterRepo.findById(id).get();
+        return recruiterRepo.findById(id).get();
     }
 
     public Recruiter registerRecruiter(RecruiterDto Recruiter) throws java.io.IOException {
         Recruiter recruiter=new Recruiter(Recruiter, fileService.imageConvet(Recruiter.getImage()));
         userRepository.save(new User(recruiter, roleRepository.findByRole("RECRUITER"),
                 passwordEncoder.encode(Recruiter.getPassword())));
-        return RecruiterRepo.save(recruiter);
+        return recruiterRepo.save(recruiter);
     }
 
     public Recruiter updateRecruiter(RecruiterDto recruiter) throws IOException {
@@ -54,16 +54,16 @@ public class RecruiterService {
         if(!recruiter.getImage().isEmpty())
         Recruiter=new Recruiter(recruiter, fileService.imageConvet(recruiter.getImage()));
         else
-        Recruiter=new Recruiter(recruiter,RecruiterRepo.findById(recruiter.getId()).get().getImage());
+        Recruiter=new Recruiter(recruiter,recruiterRepo.findById(recruiter.getId()).get().getImage());
         
-        User user= userRepository.findByEmail(RecruiterRepo.findById(Recruiter.get_id()).get().getEmail());
+        User user= userRepository.findByEmail(recruiterRepo.findById(Recruiter.get_id()).get().getEmail());
         user.setEmail(Recruiter.getEmail());
         user.setPassword(passwordEncoder.encode(Recruiter.getPassword()));
         user.setName(Recruiter.getName());
         user.setImage(Recruiter.getImage());
         userRepository.save(user);
        
-        return RecruiterRepo.save(Recruiter);
+        return recruiterRepo.save(Recruiter);
         
     }
 
@@ -72,7 +72,7 @@ public class RecruiterService {
     }
 
     public List<Post> getAllPost() {
-        return postRepository.findAll();
+        return postRepository.findByStatus("Open");
     }
 
     public List<Post> getPost(String id) {
@@ -84,6 +84,14 @@ public class RecruiterService {
     }
 
     public Recruiter getEmail(String email) {
-        return RecruiterRepo.findByEmail(email);
+        return recruiterRepo.findByEmail(email);
+    }
+
+    public List<Recruiter>getAll() {
+        return  recruiterRepo.findAll();
+    }
+
+    public Recruiter getById(String id) {
+        return recruiterRepo.findById(id).get();
     }
 }

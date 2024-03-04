@@ -12,5 +12,7 @@ import Backend.JobWave.Model.Post;
 public interface PostRepository extends MongoRepository<Post,String> {
 
     List<Post> findByRecruiterId(ObjectId objectId);
+
+    List<Post> findByStatus(String string);
     
 }

@@ -31,6 +31,7 @@ public class UserService {
     }
 
     public User register(UserDto user) throws IOException {
+        System.out.println(user);
         return userRepo.save(new User(user, roleRepository.findByRole(user.getRole()),
                 passwordEncoder.encode(user.getPassword()),fileService.imageConvet(user.getImage())));
     }

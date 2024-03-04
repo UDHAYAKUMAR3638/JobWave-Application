@@ -10,7 +10,7 @@ import io.jsonwebtoken.io.IOException;
 @Service
 public class FileService {
     public String imageConvet(MultipartFile file) throws java.io.IOException {
-        if (file != null) {
+        if (!file.isEmpty()) {
             String url = "";
             String a = file.getContentType();
             if (a != null && a.startsWith("image")) {
