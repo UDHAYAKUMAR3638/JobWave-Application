@@ -34,7 +34,7 @@ public class JobseekerController {
 
     @GetMapping("/view")
     public ResponseEntity<String> getJobseeker() {
-        return new ResponseEntity<>("jobseeker",HttpStatus.OK);
+        return new ResponseEntity<>("jobseeker", HttpStatus.OK);
     }
 
     @GetMapping("/getAll")
@@ -48,7 +48,8 @@ public class JobseekerController {
     }
 
     @PostMapping("/apply")
-    public ResponseEntity<JobApplication> jobApply(@ModelAttribute JobApplicationDto jobApplication) throws IOException {
+    public ResponseEntity<JobApplication> jobApply(@ModelAttribute JobApplicationDto jobApplication)
+            throws IOException {
         return ResponseEntity.ok(jobseekerService.jobApply(jobApplication));
     }
 
@@ -63,25 +64,26 @@ public class JobseekerController {
     }
 
     @GetMapping("/myJobs/{postId}/{email}")
-    public ResponseEntity<JobApplication> myJobs(@PathVariable String postId,@PathVariable String email) {
-        return ResponseEntity.ok(jobseekerService.myJobsDetails(new Post(postId),email));
+    public ResponseEntity<JobApplication> myJobs(@PathVariable String postId, @PathVariable String email) {
+        return ResponseEntity.ok(jobseekerService.myJobsDetails(new Post(postId), email));
     }
-    
-      @GetMapping("/getEmail/{email}")
+
+    @GetMapping("/getEmail/{email}")
     public ResponseEntity<Jobseeker> getEmail(@PathVariable String email) {
-        return ResponseEntity.ok(jobseekerService.getEmail(email));
+        Jobseeker job = jobseekerService.getEmail(email);
+        return ResponseEntity.ok(job);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Jobseeker> updateJobseeker(@ModelAttribute JobseekerDto jobseeker) throws IOException {
+        System.out.println(jobseeker);
         return ResponseEntity.ok(jobseekerService.updateJobseeker(jobseeker));
     }
 
     @PutMapping("/update-industry/{id}")
-    public ResponseEntity<Boolean> updateJobseekerIndustries(@PathVariable String id,@RequestBody List<JobseekerIndustry> industry) throws IOException {
-        return ResponseEntity.ok(jobseekerService.updateJobseekerIndustries(id,industry));
+    public ResponseEntity<Boolean> updateJobseekerIndustries(@PathVariable String id,
+            @RequestBody List<JobseekerIndustry> industry) throws IOException {
+        return ResponseEntity.ok(jobseekerService.updateJobseekerIndustries(id, industry));
     }
-
-    
 
 }

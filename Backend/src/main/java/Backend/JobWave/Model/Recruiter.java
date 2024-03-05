@@ -24,6 +24,7 @@ public class Recruiter {
     private String companyType;
     private String location;
     private String image;
+    private String about;
 
     public Recruiter(RecruiterDto recruiterDto, String image) {
         this.set_id(recruiterDto.getId());
@@ -36,6 +37,7 @@ public class Recruiter {
         this.setCompanyType(recruiterDto.getCompanyType());
         this.setLocation(recruiterDto.getLocation());
         this.setImage(image);
+        this.setAbout(recruiterDto.getAbout());
     }
 
     public Recruiter(User user) {

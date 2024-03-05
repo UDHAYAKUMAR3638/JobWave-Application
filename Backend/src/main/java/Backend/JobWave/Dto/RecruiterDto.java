@@ -2,10 +2,14 @@ package Backend.JobWave.Dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RecruiterDto {
    
     private String id;
@@ -18,6 +22,7 @@ public class RecruiterDto {
     private String companyType;
     private String location;
     private MultipartFile image;
+    private String about;
 
     public RecruiterDto(UserDto user) {
         this.email=user.getEmail();

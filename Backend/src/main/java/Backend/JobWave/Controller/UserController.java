@@ -4,6 +4,7 @@ package Backend.JobWave.Controller;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import Backend.JobWave.Dto.JobseekerDto;
@@ -22,8 +24,6 @@ import Backend.JobWave.Dto.UserDto;
 import Backend.JobWave.Model.Jobseeker;
 import Backend.JobWave.Model.Recruiter;
 import Backend.JobWave.Model.User;
-import Backend.JobWave.Service.JobseekerService;
-import Backend.JobWave.Service.RecruiterService;
 import Backend.JobWave.Service.UserService;
 
 @RestController
@@ -35,10 +35,10 @@ public class UserController {
     UserService userService;
 
     @Autowired
-    JobseekerService JobseekerService;
+    Backend.JobWave.Service.JobseekerService JobseekerService;
 
     @Autowired
-    RecruiterService RecruiterService;
+    Backend.JobWave.Service.RecruiterService RecruiterService;
 
     @GetMapping("/getEmail/{email}")
     public ResponseEntity<?> getEmail(@PathVariable String email) {
@@ -64,5 +64,11 @@ public class UserController {
     public ResponseEntity<User> update(@ModelAttribute UserDto user) throws IOException {
         return new ResponseEntity<User>(userService.update(user),HttpStatus.OK);
     }
-   
+
+    @GetMapping("/getAll")
+    public ResponseEntity<Page<User>> getItems(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
+    Page<User> user=userService.getItems(page,size);
+    return new ResponseEntity<Page<User>>(user,HttpStatus.OK);
+    }
+
 }

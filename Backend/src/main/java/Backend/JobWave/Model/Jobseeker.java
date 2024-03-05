@@ -1,5 +1,8 @@
 package Backend.JobWave.Model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -21,7 +24,7 @@ public class Jobseeker {
     private String name;
     private String email;
     private String phoneno;
-    private String dob;
+    private Date dob;
     private String password;
     private String headline;
     private String schoolName;
@@ -35,11 +38,15 @@ public class Jobseeker {
     private String image;
 
     public Jobseeker(JobseekerDto jobseeker, String imageConvet) {
-        this.set_id(jobseeker.get_id());
+        this.set_id(jobseeker.getId());
         this.setName(jobseeker.getName());
         this.setEmail(jobseeker.getEmail());
         this.setPhoneno(jobseeker.getPhoneno());
-        this.setDob(jobseeker.getDob());
+        try {
+            this.setDob((new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss 'GMT'Z (Z)").parse(jobseeker.getDob())));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         this.setPassword(jobseeker.getPassword());
         this.setHeadline(jobseeker.getHeadline());
         this.setSchoolName(jobseeker.getSchoolName());
