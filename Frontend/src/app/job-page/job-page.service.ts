@@ -19,4 +19,8 @@ export class JobPageService {
     getApplication(postId: string, email: string) {
         return this.http.get<any>(`${environment.jobseekerUrl}/myJobs/${postId}/${email}`);
     }
+
+    getMyJobs() {
+        return this.http.get<any>(`${environment.jobseekerUrl}/myJobs/${sessionStorage.getItem('email')}`);
+    }
 }

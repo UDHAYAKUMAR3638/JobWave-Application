@@ -1,14 +1,40 @@
 <div class="container">
-    <nav class="nav">
-        <div class="head">
-            <img [src]="company.image">
-            <div class="head-box">
-                <span>{{company.companyName}}</span>
-                <span>{{company.companyType}}</span>
-                <span>{{company.location}}</span>
+    <div class="head">
+        <img [src]="company.image">
+        <div class="head-box">
+            <h2>{{company.companyName}}</h2>
+            <span>{{company.companyType}}</span>
+            <span>{{company.location}}</span>
+        </div>
+    </div>
+    <div class="content">
+        <p>About the company</p>
+        <p>Job openings:</p>
+
+        <div class="posts">
+            <div *ngFor="let post of companyPosts" class="post">
+
+                <div class="boxHead">
+                    <img [src]="post.recruiterId.image" class="logo">
+                    <strong>{{post.recruiterId.companyName}}</strong>
+                </div>
+
+                <h2 class="role">{{post.role}}</h2>
+                <p>{{post.location}}</p>
+                <span class="label">{{post.salary}}</span>
+                <span class="label">{{post.jobType}}</span>
+                <span class="label">{{post.schedule}}</span>
+                <p>{{post.content.substring(0,100)+"..."}}</p>
+                <span>{{post.date}}</span>
+
+                <div>
+                    <button class="button1" jobseekerShow (click)="apply(post._id)"
+                        [disabled]="applicationStatus(post._id)">
+                        <b>Apply now</b>
+                    </button>
+                </div>
+
             </div>
         </div>
-        <p>About the company</p>
-
-    </nav>
+    </div>
 </div>

@@ -11,16 +11,19 @@ import { AdminHideDirective } from './custom-directives/admin-hide.directive';
 import { AdminShowDirective } from './custom-directives/admin-show.directive';
 import { CompanyPageComponent } from './company-page/company-page.component';
 import { ViewCompanyComponent } from './view-company/view-company.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ApplyButtonHideDirective } from './custom-directives/apply-button-hide.directive';
 
 @NgModule({
-  declarations: [AppComponent, ApplicantComponent, CompanyPageComponent],
+  declarations: [AppComponent, ApplicantComponent, CompanyPageComponent, ApplyButtonHideDirective],
 
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
   ],
 
   providers: [

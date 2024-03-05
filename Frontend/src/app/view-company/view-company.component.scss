@@ -1,11 +1,83 @@
 .head {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    // column-gap: 15px;
+    grid-template-columns: 0.5fr 3fr;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    border-radius: 15px;
 }
 
 .head-box {
     display: flex;
     flex-direction: column;
-    row-gap: 10px;
+}
+
+
+.container {
+    padding: 10px;
+}
+
+.label {
+    background-color: #F3F2F1;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.posts {
+    display: flex;
+    flex-direction: row;
+    column-gap: 15px;
+}
+
+.post {
+    display: grid;
+    width: 400px;
+    padding: 25px;
+    grid-row: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    row-gap: 5px;
+    border-radius: 10px;
+    border: 1px solid rgb(12, 12, 12);
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    overflow-y: auto;
+}
+
+.post:hover {
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+}
+
+.button1 {
+    height: 7vh;
+    margin: 10px;
+    width: fit-content;
+    border: 0px;
+    background-color: #2557A7;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: medium;
+    color: white;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.button1:hover {
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+}
+
+.button1:disabled {
+    background-color: gray;
+}
+
+.logo {
+    height: 10vh;
+    margin-right: 5%;
+}
+
+.boxHead {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
