@@ -23,7 +23,7 @@ export class MyJobComponent {
     clgPassedOutYear: 0,
     currentPosition: '',
     skills: '',
-    indusrties: [],
+    industries: [],
     location: '',
     image: ''
   };

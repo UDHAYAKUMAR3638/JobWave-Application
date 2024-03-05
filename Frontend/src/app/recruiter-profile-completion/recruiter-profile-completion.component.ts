@@ -25,6 +25,7 @@ export class RecruiterProfileCompletionComponent {
     companyType: ['', Validators.required],
     location: ['', Validators.required],
     image: this.file,
+    about: ''
   });
 
   upload(event: any) {
@@ -44,6 +45,7 @@ export class RecruiterProfileCompletionComponent {
     formData.append('companyType', this.registerForm.get('companyType')?.value || "");
     formData.append('location', this.registerForm.get('location')?.value || "");
     formData.append('image', this.file || "");
+    formData.append('about', this.registerForm.get('about')?.value || "");
 
     if (!this.registerForm.invalid) {
       this.profileService.register(formData).subscribe({

@@ -65,10 +65,19 @@
           </mat-form-field>
         </div>
 
+        <div recruiterShow>
+          <mat-form-field>
+            <mat-label>About</mat-label>
+            <input matInput #input formControlName="about" placeholder="Enter about the company">
+          </mat-form-field>
+        </div>
+
         <div jobseekerShow>
           <mat-form-field>
-            <mat-label>DOB</mat-label>
-            <input matInput formControlName="dob" placeholder="Enter dob">
+            <mat-label>Date of birth</mat-label>
+            <input matInput formControlName="dob" [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
 
@@ -129,11 +138,12 @@
         </div>
       </span>
 
-      <div class="industry" jobseekerShow>
+      <div jobseekerShow>
         <div formArrayName="jobseekerIndustries" class="industry-box">
           <div *ngFor="let industry of jobseekerIndustries.controls; let i = index">
             <div [formGroupName]="i" class="industry-container">
               <div class="industry">
+
                 <mat-form-field>
                   <mat-label>Industry name</mat-label>
                   <input matInput formControlName="industryName" placeholder="Industry Name">
@@ -148,6 +158,7 @@
                   <mat-label>Duration</mat-label>
                   <input matInput formControlName="duration" placeholder="Duration">
                 </mat-form-field>
+
               </div>
               <button mat-raised-button class="remove-button" color="primary" class="buttons"
                 (click)="removeIndustry(i)">Remove</button>

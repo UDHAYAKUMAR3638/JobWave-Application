@@ -25,6 +25,7 @@ export class ViewCompanyComponent {
     password: '',
     location: '',
     image: '',
+    about: ''
   }
 
   companyPosts!: Array<Post>;

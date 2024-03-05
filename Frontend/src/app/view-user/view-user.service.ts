@@ -12,11 +12,18 @@ export class UserService {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString());
-    return this.http.get<any>(environment.userUrl + "/getAll", { params });
+    return this.http.get<any>(environment.userUrl + '/getAll', { params });
   }
 
-  getUsers(): Observable<any> {
-    return this.http.get<any>(environment.userUrl + `/getAll`);
+  getDetails(role: string, email: string) {
+    if (role === 'JOBSEEKER')
+      return this.http.get<any>(
+        `${environment.jobseekerUrl}/getEmail/${email}`);
+    else if (role === 'RECRUITER')
+      return this.http.get<any>(
+        `${environment.recruiterUrl}/getEmail/${email}`);
+    else
+      return this.http.get<any>(
+        `${environment.userUrl}/getEmail/${email}`);
   }
-
 }

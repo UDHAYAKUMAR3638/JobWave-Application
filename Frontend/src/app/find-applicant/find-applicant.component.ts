@@ -31,7 +31,7 @@ export class FindApplicantComponent {
     headline: '',
     location: '',
     dob: new Date(),
-    indusrties: [],
+    industries: [],
     skills: '',
     image: ''
   };

@@ -7,6 +7,13 @@
     justify-content: center;
 }
 
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .company-box {
     padding: 20px;
     display: grid;
@@ -33,4 +40,13 @@
     width: fit-content;
     cursor: pointer;
     margin: 10px
+}
+
+.text {
+    font-size: large;
+}
+
+.head {
+    color: #3F51B5;
+    padding: 10px;
 }

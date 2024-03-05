@@ -29,7 +29,7 @@ export class ProfileComponent {
       companyType: new FormControl(['', Validators.required]),
       empCount: new FormControl(['', Validators.required]),
       phoneno: new FormControl(['', Validators.required]),
-      dob: new FormControl(['', Validators.required]),
+      dob: new FormControl([new Date(), Validators.required]),
       headline: new FormControl(['', Validators.required]),
       schoolName: new FormControl(['', Validators.required]),
       schlPassedOutYear: new FormControl(['', Validators.required]),
@@ -38,6 +38,7 @@ export class ProfileComponent {
       currentPosition: new FormControl(['', Validators.required]),
       skills: new FormControl(['', Validators.required]),
       location: new FormControl(['', Validators.required]),
+      about: new FormControl(['', Validators.required]),
       jobseekerIndustries: this.fb.array([]),
     });
     this.getUser();
@@ -86,6 +87,7 @@ export class ProfileComponent {
           currentPosition: [details.currentPosition, Validators.required],
           skills: [details.skills, Validators.required],
           location: [details.location, Validators.required],
+          about: [details.about, Validators.required],
           jobseekerIndustries: this.fb.array([]),
         });
 

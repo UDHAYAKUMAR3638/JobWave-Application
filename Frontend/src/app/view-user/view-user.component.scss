@@ -10,10 +10,24 @@
 
 .name {
     font-size: 15px;
-      
 }
-.header{
-    margin-bottom: 20px;
+
+
+.content {
+    padding: 20px;
+    width: 100%;
+}
+
+.text {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+}
+
+.head {
+    color: #3F51B5;
+    padding: 10px;
 }
 
 .buttons {
@@ -30,14 +44,30 @@
     cursor: pointer;
 }
 
-.body {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    row-gap: 30px;
-    column-gap: 15px;
+table {
+    width: 100%;
 }
 
-.footer{
+.body {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    height: fit-content;
+    margin: 10px;
+    width: fit-content;
+    border: 0px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: medium;
+    color: white;
+    cursor: pointer;
+}
+
+.footer {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;

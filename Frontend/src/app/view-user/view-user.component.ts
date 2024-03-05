@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { UserService } from './view-user.service';
-import { DataService } from '../service/data.service';
+import { PageEvent } from '@angular/material/paginator';
+import { User } from '../profile/profile.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ProfileComponent } from '../profile/profile.component';
+import { UserDetailsComponent } from '../user-details/user-details.component';
 
 @Component({
   selector: 'app-appointment',
@@ -11,53 +12,48 @@ import { ProfileComponent } from '../profile/profile.component';
 })
 export class ViewUserComponent {
 
+  constructor(
+    private userService: UserService,
+    private matDialog: MatDialog
+  ) { }
+
   users: any = '';
-  constructor(private userService: UserService, private data: DataService,
-    public dialog: MatDialog) {
-  }
+  length = 40;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25];
+  showFirstLastButtons = true;
+  displayedColumns: string[] = ['Name', 'Email', 'Role', 'Profile'];
 
   ngOnInit(): void {
-    this.listUsers();
+    this.getUsers();
   }
 
-
-  sendDetails(data: any) {
-    this.data.changeMessage(data);
+  getDetails(role: string, email: string) {
+    this.userService.getDetails(role, email).subscribe({
+      next: (data) => {
+        this.matDialog.open(UserDetailsComponent, {
+          data: { data, role },
+          height: '550px',
+          width: '600px',
+        });
+      }
+    });
   }
 
-  openDialog(details: any) {
-    const dialog = this.dialog.open(ProfileComponent, {
-      data: details,
-      height: '500px',
-      width: '700px',
-    }
-    )
+  handlePageEvent(event: PageEvent) {
+    this.length = event.length;
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+    this.getUsers();
   }
 
-  currentPage: number = 0;
-  pageSize: number = 6;
-  lastpage = false;
-
-  listUsers(): void {
-    this.userService.getItems(this.currentPage, this.pageSize)
+  getUsers(): void {
+    this.userService.getItems(this.pageIndex, this.pageSize)
       .subscribe(response => {
+        this.length = response.totalElements;
         this.users = response.content;
-        if (this.users.length < this.pageSize)
-          this.lastpage = true;
-        else
-          this.lastpage = false;
       });
   }
 
-  nextPage(): void {
-    this.currentPage++;
-    this.listUsers();
-  }
-
-  previousPage(): void {
-    if (this.currentPage > 0) {
-      this.currentPage--;
-      this.listUsers();
-    }
-  }
 }

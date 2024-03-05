@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Applicant } from '../my-post/my-post.service';
 import { ApplicantService } from './applicant.service';
-import Swal from 'sweetalert2';
 @Component({
   selector: 'app-applicant',
   templateUrl: './applicant.component.html',

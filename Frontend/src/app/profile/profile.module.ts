@@ -9,10 +9,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import sweetalert2 from 'sweetalert2';
 import { JobseekerShowDirective } from '../custom-directives/jobseeker-show.directive';
 import { RecruiterShowDirective } from '../custom-directives/recruiter-show.directive';
 import { AdminHideDirective } from '../custom-directives/admin-hide.directive';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
+
 const appRoute: Routes = [
     {
         path: "", component: ProfileComponent
@@ -33,7 +36,9 @@ const appRoute: Routes = [
         MatSelectModule,
         JobseekerShowDirective,
         RecruiterShowDirective,
-        AdminHideDirective
+        AdminHideDirective,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     exports: [RouterModule]
 })

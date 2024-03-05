@@ -89,6 +89,12 @@ const appRoute: Routes = [
                     import('../view-company/view-company.module').then((d) => d.ViewCompanyModule)
             },
 
+            {
+                path: 'viewUser', canActivate: [AuthGuard, RoleGuard], data: { roles: ['ADMIN'] },
+                loadChildren: () =>
+                    import('../view-user/view-user.module').then((d) => d.ViewUserModule)
+            },
+
         ]
     },
 

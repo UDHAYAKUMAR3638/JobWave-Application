@@ -17,6 +17,7 @@
                 <p>{{post.content.substring(0,100)+"..."}}</p>
                 <p>{{(post.date | toDate | date:'medium')}}</p>
             </div>
+            <div *ngIf="posts?.length==0">No job applied</div>
         </div>
     </div>
     <div class="right" id="right">

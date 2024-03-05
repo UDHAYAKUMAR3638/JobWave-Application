@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-home',
@@ -9,15 +9,19 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class HomeComponent {
 
+  profile: string = '';
+  name: string = '';
+  constructor(private router: Router, private loginService: LoginService) { }
 
-  constructor(private router: Router, public dialog: MatDialog) { }
+  ngOnInit() {
+    this.loginService.getUser().subscribe({
+      next: (data) => {
+        this.profile = data.image;
+        this.name = data.name;
+      }
+    })
+  }
 
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(LoginComponent);
-  //   dialogRef.afterClosed().subscribe(() => {
-  //     console.log('The dialog was closed');
-  //   });
-  // } 
   login() {
     this.router.navigate(['login']);
   }

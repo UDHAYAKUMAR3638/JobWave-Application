@@ -37,7 +37,7 @@ export class ProfileService {
   update(user: any, form: FormData) {
 
     if (sessionStorage.getItem('role') === "JOBSEEKER") {
-      form.append('_id', user._id);
+      form.append('id', user._id);
       form.append('name', user.name);
       form.append('email', user.email);
       form.append('dob', user.dob);
@@ -83,6 +83,7 @@ export class ProfileService {
       form.append('password', user.password);
       form.append('companyType', user.companyType);
       form.append('location', user.location);
+      form.append('about', user.about);
       return this.http.put(`${environment.recruiterUrl}/update`, form).subscribe({
         next: () => {
           Swal.fire({

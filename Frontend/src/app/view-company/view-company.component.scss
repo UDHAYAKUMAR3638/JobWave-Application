@@ -6,14 +6,19 @@
     border-radius: 15px;
 }
 
+.content {
+    display: grid;
+    padding: 10px;
+}
+
 .head-box {
     display: flex;
     flex-direction: column;
 }
 
-
 .container {
-    padding: 10px;
+    padding: 30px;
+    padding-top: 10px;
 }
 
 .label {
@@ -24,9 +29,11 @@
 }
 
 .posts {
+    padding-top: 20px;
     display: flex;
     flex-direction: row;
-    column-gap: 15px;
+    column-gap: 20px;
+    overflow-y: auto;
 }
 
 .post {
@@ -40,7 +47,6 @@
     cursor: pointer;
     margin-bottom: 20px;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
-    overflow-y: auto;
 }
 
 .post:hover {

@@ -14,22 +14,23 @@ import { ViewCompanyComponent } from './view-company/view-company.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApplyButtonHideDirective } from './custom-directives/apply-button-hide.directive';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { datePipe } from "./pipe/date.pipe";
+import { PaymentDetailsComponent } from './payment-details/payment-details.component';
 
 @NgModule({
-  declarations: [AppComponent, ApplicantComponent, CompanyPageComponent, ApplyButtonHideDirective],
-
+  declarations: [AppComponent, ApplicantComponent, CompanyPageComponent, ApplyButtonHideDirective, UserDetailsComponent, PaymentDetailsComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
-  ],
-
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  ],
-
-  bootstrap: [AppComponent],
+    datePipe
+  ]
 })
 export class AppModule { }

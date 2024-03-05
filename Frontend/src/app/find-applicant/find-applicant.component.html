@@ -50,12 +50,18 @@
                 <span>{{selectedApplicant.currentPosition}}</span>
                 <span><b>Skills</b></span>
                 <span>{{selectedApplicant.skills}}</span>
-                <span><b>Industries</b></span>
-                <span>{{selectedApplicant.indusrties}}</span>
                 <span><b>Location</b></span>
                 <span>{{selectedApplicant.location}}</span>
                 <span><b>Date of birth</b></span>
-                <span>{{selectedApplicant.dob}}</span>
+                <span>{{selectedApplicant.dob|toDate|date:'medium'}}</span>
+                <span><b>Industries</b></span>
+                <ol>
+                    <li *ngFor="let industry of selectedApplicant.industries">
+                        <div><b>Industry name:</b> {{industry.industryName}}</div>
+                        <div><b>Position:</b> {{industry.role}}</div>
+                        <div><b>Duration:</b> {{industry.duration}}</div>
+                    </li>
+                </ol>
             </div>
         </div>
     </div>

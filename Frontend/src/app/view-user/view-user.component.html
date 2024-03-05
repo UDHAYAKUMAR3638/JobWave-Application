@@ -1,34 +1,43 @@
-  <div class="header">
-    <h2>Users List</h2>
-  </div>
-<div class="body">
+<div class="content">
 
-  <div *ngFor="let x of users" class="box">
-    <label class="name">First Name: {{ x.firstname }}</label>
-    <br />
-    <label class="name">Last Name: {{ x.lastname }}</label>
-    <br />
-    <label class="name">Email: {{ x.email }}</label>
-    <br />
-    <label class="name">Phone no: {{ x.phoneno }}</label>
-    <br />
-    <label class="name">Role: {{ x.role }}</label>
-    <br />
-    <br />
-    <button mat-raised-button color="primary" class="buttons" 
-        (click)="openDialog({
-          id: x.id,
-          firstname: x.firstname,
-          lastname: x.lastname,
-          email: x.email,
-          phoneno: x.phoneno,
-          role: x.role,
-          flag: true
-        })">Edit
-  </button>
+  <div class="text" id="text">
+    <h2 class="head">Users list</h2>
   </div>
-  <div class="footer">
-    <button mat-raised-button color="primary"(click)="previousPage()" [disabled]="currentPage === 0">Previous</button>
-    <button mat-raised-button color="primary" (click)="nextPage()" [disabled]=lastpage>Next</button>
+
+  <div class="body">
+    <mat-table [dataSource]="users" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="Name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Email">
+        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Role">
+        <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.role.role}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Profile">
+        <mat-header-cell *matHeaderCellDef> Profile </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <button mat-raised-button color="primary" class="button"
+            (click)="getDetails(element.role.role,element.email)">View</button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
   </div>
+  <div>
+    <mat-paginator (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
+      [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex"
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
+
 </div>

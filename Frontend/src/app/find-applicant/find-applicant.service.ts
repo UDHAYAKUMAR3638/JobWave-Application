@@ -21,7 +21,7 @@ export interface Jobseeker {
     clgPassedOutYear: number,
     currentPosition: string,
     skills: string,
-    indusrties: Array<Industry>,
+    industries: Array<Industry>,
     location: string,
     image: string
 }
