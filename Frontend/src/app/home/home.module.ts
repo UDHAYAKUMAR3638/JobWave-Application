@@ -95,6 +95,12 @@ const appRoute: Routes = [
                     import('../view-user/view-user.module').then((d) => d.ViewUserModule)
             },
 
+            {
+                path: 'payment',
+                loadChildren: () =>
+                    import('../payment-details/payment-details.module').then((d) => d.PaymentDetailsModule),
+            },
+
         ]
     },
 
@@ -121,6 +127,7 @@ const appRoute: Routes = [
         loadChildren: () =>
             import('../jobseeker-profile-completion/jobseeker-profile-completion.module').then((d) => d.ProfileCompletionModule),
     },
+
 
 ]
 

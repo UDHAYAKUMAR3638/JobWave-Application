@@ -19,7 +19,7 @@ import { datePipe } from "./pipe/date.pipe";
 import { PaymentDetailsComponent } from './payment-details/payment-details.component';
 
 @NgModule({
-  declarations: [AppComponent, ApplicantComponent, ApplyButtonHideDirective, UserDetailsComponent, PaymentDetailsComponent],
+  declarations: [AppComponent, ApplicantComponent, ApplyButtonHideDirective, UserDetailsComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],

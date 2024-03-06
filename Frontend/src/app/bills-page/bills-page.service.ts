@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { Post } from '../post-page/post-page.service';
 import { Observable } from 'rxjs';
+import { Recruiter } from '../recruiter-profile-completion/recruiter-profile-completion.service';
 
 export interface Bill {
 
   _id: string,
   postId: Post,
+  recruiterId: Recruiter,
   paymentId: string,
   orderId: string,
   name: string,
@@ -30,5 +32,12 @@ export class BillsPageService {
       .set('pageIndex', pageIndex)
       .set('pageSize', pageSize);
     return this.http.get(`${environment.paymentUrl}/bills`, { params });
+  }
+
+  getAllBills(pageIndex: number, pageSize: number): Observable<any> {
+    const params = new HttpParams()
+      .set('pageIndex', pageIndex)
+      .set('pageSize', pageSize);
+    return this.http.get(`${environment.paymentUrl}/getAllBills`, { params });
   }
 }

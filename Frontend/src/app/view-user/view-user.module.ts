@@ -18,7 +18,9 @@ const appRoute: Routes = [
 @NgModule({
   declarations: [ViewUserComponent],
   exports: [RouterModule],
-  imports: [CommonModule, RouterModule.forChild(appRoute),
+  imports: [
+    CommonModule,
+    RouterModule.forChild(appRoute),
     FormsModule,
     MatButtonModule,
     MatCardModule,

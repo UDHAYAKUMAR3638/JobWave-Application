@@ -17,6 +17,7 @@ export class MyPostComponent {
 
   myPost!: Array<Post>;
   myPostApplicants!: Array<Applicant>;
+  flag = false;
   userDetails!: any;
   length = 40;
   pageSize = 5;
@@ -50,7 +51,7 @@ export class MyPostComponent {
       next: (data) => {
         this.myPost = data.content;
         this.length = data.totalElements;
-        this.rightBox(data[0]._id);
+        this.rightBox(this.myPost[0]._id);
       },
       error: (error) => {
         console.log(error);
@@ -63,6 +64,10 @@ export class MyPostComponent {
     this.myPostService.MyPostSeekers(postId).subscribe({
       next: (data) => {
         this.myPostApplicants = data;
+        if (data.length > 0)
+          this.flag = true;
+        else
+          this.flag = false;
       },
       error: (error) => {
         console.log(error);

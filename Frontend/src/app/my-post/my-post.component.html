@@ -26,7 +26,8 @@
             </div>
         </div>
         <div class="right" id="right">
-            <h2 class="head">Candidates applied for post</h2>
+            <h2 class="head" *ngIf="flag">Candidates applied for post</h2>
+            <h2 class="head" *ngIf="!flag">No candidates applied for post</h2>
             <div class="change-box">
                 <div *ngFor="let applicant of myPostApplicants" class="applicant">
                     <img [src]="applicant.userId.image" class="image">
