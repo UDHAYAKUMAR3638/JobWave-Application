@@ -1,11 +1,11 @@
 package Backend.JobWave.Service.Implementation;
 
-import java.util.List;
-
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,7 +71,7 @@ public class PaymentServiceImp implements PaymentService{
        return paymentRepository.save(payment);
     }
 
-    public List<Payment> getBills(String email) {
-     return paymentRepository.findByEmail(email);
+    public Page<Payment> getBills(String email,int page,int size) {
+     return paymentRepository.findByEmail(email,PageRequest.of(page,size));
     }
 }

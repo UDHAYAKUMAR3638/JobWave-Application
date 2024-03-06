@@ -1,6 +1,6 @@
 package Backend.JobWave.Service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import Backend.JobWave.Model.Payment;
@@ -13,5 +13,5 @@ public interface PaymentService {
 
     public Payment savePayment(Payment payment) ;
 
-    public List<Payment> getBills(String email) ;
+    public Page<Payment> getBills(String email,int page,int size) ;
 }

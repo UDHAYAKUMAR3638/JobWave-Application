@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import Backend.JobWave.Dto.RecruiterDto;
@@ -54,9 +56,10 @@ public class RecruiterController {
         return ResponseEntity.ok(recruiterService.getAllPost());
     }
 
-    @GetMapping("/getPosts/{id}")
-    public ResponseEntity<List<Post>> getPost(@PathVariable String id) {
-        return ResponseEntity.ok(recruiterService.getPost(id));
+    @GetMapping("/getPosts")
+    public ResponseEntity<Page<Post>> getPost(@RequestParam(value="id") String id,
+    @RequestParam(value = "pageIndex") int page,@RequestParam(value = "pageSize") int size) {
+        return ResponseEntity.ok(recruiterService.getPost(id,page,size));
     }
 
     @GetMapping("/getEmail/{email}")
@@ -75,8 +78,9 @@ public class RecruiterController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Recruiter>> getAll() {
-        return ResponseEntity.ok(recruiterService.getAll());
+    public ResponseEntity<Page<Recruiter>> getAll(@RequestParam(value="companyName") String name,
+    @RequestParam(value = "pageIndex") int page,@RequestParam(value = "pageSize") int size) {
+        return ResponseEntity.ok(recruiterService.getAll(name,page,size));
     }
 
 }

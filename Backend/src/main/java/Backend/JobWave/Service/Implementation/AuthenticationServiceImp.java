@@ -1,5 +1,6 @@
 package Backend.JobWave.Service.Implementation;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationServiceImp implements AuthenticationService{
+public class AuthenticationServiceImp implements AuthenticationService {
 
         private final UserRepository userRepository;
         private final PasswordEncoder passwordEncoder;
@@ -34,8 +35,6 @@ public class AuthenticationServiceImp implements AuthenticationService{
                                 .role(roleRepository.findByRole(request.getRole()))
                                 .build();
 
-                System.out.println(request.getRole());
-
                 if (userRepository.existsByEmail(user.getEmail())) {
                         throw new EmailAlreadyExistsException("Email already exists");
                 }
@@ -50,11 +49,16 @@ public class AuthenticationServiceImp implements AuthenticationService{
                 authenticationManager.authenticate(
                                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
                 User user = userRepository.findByEmail(request.getEmail());
-                var jwtToken = jwtService.generateToken(user);
-                return AuthenticationResponse.builder()
-                                .token(jwtToken)
-                                .user(user)
-                                .build();
+                if (user.getStatus().equals("active")) {
+                        var jwtToken = jwtService.generateToken(user);
+                        return AuthenticationResponse.builder()
+                                        .token(jwtToken)
+                                        .user(user)
+                                        .build();
+                }
+                else{
+                        throw new AccessDeniedException("inactive user", null);
+                }
 
         }
 

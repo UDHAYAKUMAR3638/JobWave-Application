@@ -19,5 +19,7 @@ public interface UserService {
 
     public Page<User> getItems(int page, int size);
 
+    public Boolean updateStatus(String id,String status);
+
 
 }

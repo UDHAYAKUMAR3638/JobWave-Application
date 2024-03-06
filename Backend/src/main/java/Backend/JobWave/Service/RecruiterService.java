@@ -3,6 +3,7 @@ package Backend.JobWave.Service;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import Backend.JobWave.Dto.RecruiterDto;
@@ -25,13 +26,13 @@ public interface RecruiterService {
 
     public List<Post> getAllPost();
 
-    public List<Post> getPost(String id);
+    public Page<Post> getPost(String id,int page,int size);
 
     public List<JobApplication> getPostSeekers(String id);
 
     public Recruiter getEmail(String email);
 
-    public List<Recruiter> getAll();
+    public Page<Recruiter> getAll(String name,int page,int size);
 
     public Recruiter getById(String id);
 }

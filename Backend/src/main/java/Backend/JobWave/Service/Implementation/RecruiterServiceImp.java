@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,10 +40,12 @@ public class RecruiterServiceImp implements RecruiterService{
     @Autowired
     FileServiceImp fileService;
 
+    @Override
     public Recruiter getRecruiterDetails(String id) {
         return recruiterRepo.findById(id).get();
     }
 
+    @Override
     public Recruiter registerRecruiter(RecruiterDto Recruiter) throws java.io.IOException {
         Recruiter recruiter=new Recruiter(Recruiter, fileService.imageConvet(Recruiter.getImage()));
         userRepository.save(new User(recruiter, roleRepository.findByRole("RECRUITER"),
@@ -49,6 +53,7 @@ public class RecruiterServiceImp implements RecruiterService{
         return recruiterRepo.save(recruiter);
     }
 
+    @Override
     public Recruiter updateRecruiter(RecruiterDto recruiter) throws IOException {
         Recruiter Recruiter=new Recruiter();
     
@@ -68,31 +73,39 @@ public class RecruiterServiceImp implements RecruiterService{
         
     }
 
+    @Override
     public Post postJob(Post post) {
         return postRepository.save(post);
     }
 
+    @Override
     public List<Post> getAllPost() {
         return postRepository.findByStatus("Open");
     }
 
-    public List<Post> getPost(String id) {
-        return postRepository.findByRecruiterId(new ObjectId(id));
+    @Override
+    public Page<Post> getPost(String id,int page,int size) {
+        return postRepository.findByRecruiterId(new ObjectId(id),PageRequest.of(page, size));
     }
 
+    @Override
     public List<JobApplication> getPostSeekers(String id) {
         return jobApplicationRepository.findByPostId(new ObjectId(id));
     }
 
+    @Override
     public Recruiter getEmail(String email) {
         return recruiterRepo.findByEmail(email);
     }
 
-    public List<Recruiter>getAll() {
-        return  recruiterRepo.findAll();
+    @Override
+    public Page<Recruiter>getAll(String name,int page,int size) {
+        return  recruiterRepo.findByCompanyName(name,PageRequest.of(page, size));
     }
 
+    @Override
     public Recruiter getById(String id) {
         return recruiterRepo.findById(id).get();
     }
+
 }

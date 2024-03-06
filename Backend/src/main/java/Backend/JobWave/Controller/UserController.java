@@ -65,6 +65,11 @@ public class UserController {
         return new ResponseEntity<User>(userService.update(user),HttpStatus.OK);
     }
 
+    @PutMapping("/update-status/{id}/{status}")
+    public ResponseEntity<Boolean> updateStatus(@PathVariable String id,@PathVariable String status) throws IOException {
+        return new ResponseEntity<Boolean>(userService.updateStatus(id,status),HttpStatus.OK);
+    }
+
     @GetMapping("/getAll")
     public ResponseEntity<Page<User>> getItems(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
     Page<User> user=userService.getItems(page,size);

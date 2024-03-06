@@ -1,27 +1,24 @@
 package Backend.JobWave.Dao;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.stereotype.Repository;
-
-import Backend.JobWave.Model.Jobseeker;
-import Backend.JobWave.Model.JobseekerIndustry;
-
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Repository;
+
+import Backend.JobWave.Model.User;
 
 @Repository
-public class JobseekerDao {
+public class UserDao {
     @Autowired
     MongoTemplate template;
 
-    public void updateIndustry(String id, List<JobseekerIndustry> industry) {
+    public Boolean updateStatus(String id, String status) {
         Criteria criteria = Criteria.where("_id").is(id);
         Query query = new Query(criteria);
-        Update update = new Update().set("industries", industry);
-        template.updateFirst(query, update, Jobseeker.class);
+        Update update = new Update().set("status", status);
+        template.updateFirst(query, update, User.class);
+        return true;
     }
 }
