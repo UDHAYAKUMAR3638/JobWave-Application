@@ -7,5 +7,5 @@ export const environment = {
     recruiterUrl: "http://localhost:8080/recruiter",
     paymentUrl: "http://localhost:8080/payment",
     emailUrl: "http://localhost:8080/email/mail",
-
+    postUrl: "http://localhost:8080/post",
 };

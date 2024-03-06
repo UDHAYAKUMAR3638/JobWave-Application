@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { UserService } from './view-user.service';
 import { PageEvent } from '@angular/material/paginator';
-import { User } from '../profile/profile.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDetailsComponent } from '../user-details/user-details.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-appointment',
@@ -23,7 +23,7 @@ export class ViewUserComponent {
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
-  displayedColumns: string[] = ['Name', 'Email', 'Role', 'Profile'];
+  displayedColumns: string[] = ['Name', 'Email', 'Role', 'Edit', 'Profile'];
 
   ngOnInit(): void {
     this.getUsers();
@@ -55,5 +55,21 @@ export class ViewUserComponent {
         this.users = response.content;
       });
   }
+
+  updateStatus(id: string, status: string) {
+    this.userService.updateStatus(id, status).subscribe({
+      next: () => {
+        Swal.fire({
+          title: `User status updated as ${status}`,
+          icon: 'success',
+        });
+        this.getUsers();
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
 
 }

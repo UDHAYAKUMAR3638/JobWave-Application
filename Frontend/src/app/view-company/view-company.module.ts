@@ -6,6 +6,7 @@ import { datePipe } from '../pipe/date.pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const appRoute: Routes = [
   {
@@ -21,7 +22,8 @@ const appRoute: Routes = [
     CommonModule,
     datePipe,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatPaginatorModule
   ],
   // exports: [RouterModule]
 })

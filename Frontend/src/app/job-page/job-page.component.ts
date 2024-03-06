@@ -4,6 +4,8 @@ import { Post } from '../post-page/post-page.service';
 import { List } from 'lodash';
 import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
+import { Subject, debounceTime, switchMap } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-job-page',
@@ -11,17 +13,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./job-page.component.scss']
 })
 export class JobPageComponent {
-  inp1!: string;
-  inp2!: string;
 
   @ViewChild('applyButton') applyButton!: ElementRef;
 
-  constructor(private jobPageService: JobPageService, private dataService: DataService, private router: Router) {
-
-  }
+  constructor(private jobPageService: JobPageService, private router: Router) { }
 
   jobPosts!: Array<Post>;
-  jobPostsB!: Array<Post>;
   selectedPost: Post = {
     _id: '',
     role: '',
@@ -40,24 +37,59 @@ export class JobPageComponent {
     status: ''
   };
 
+  inp1: string = '';
+  inp2: string = '';
+  inp3: string = '';
+  length = 40;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25];
+  showFirstLastButtons = true;
+
+  private searchText$ = new Subject<string>();
+
   ngOnInit() {
-    this.jobPageService.getAllPosts().subscribe({
+    this.searchText$.pipe(debounceTime(500), switchMap(() => this.jobPageService.getAllPosts(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize))).subscribe({
       next: (data) => {
-        this.jobPosts = data;
-        this.jobPostsB = data;
+        this.jobPosts = data.content;
+        this.rightBox(this.jobPosts[0]);
+        this.length = data.totalElements;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+    this.getPost();
+  }
+
+  search() {
+    this.searchText$.next('');
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.length = event.length;
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+    this.getPost();
+  }
+
+  getPost() {
+    this.jobPageService.getAllPosts(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize).subscribe({
+      next: (data) => {
+        this.jobPosts = data.content;
+        this.length = data.totalElements;
         this.rightBox(this.jobPosts[0]);
       },
       error: (error) => {
         console.log(error);
       }
-    })
+    });
   }
 
   rightBox(currPost: Post) {
     this.selectedPost = currPost;
     this.jobPageService.getApplication(this.selectedPost._id, sessionStorage.getItem('email') || '').subscribe({
       next: (data) => {
-
         if (data != null) {
           this.applyButton.nativeElement.disabled = true;
         }
@@ -68,29 +100,14 @@ export class JobPageComponent {
     })
   }
 
-  search() {
-    if ((this.inp1 !== '' && this.inp1 !== undefined) || (this.inp2 !== '' && this.inp2 !== undefined)) {
-      this.jobPosts = this.jobPostsB.filter((data) => {
-        if (this.inp2 !== '' && this.inp2 !== undefined)
-          return (data.role.includes(this.inp1) || data.jobType.includes(this.inp1)) && data.location.includes(this.inp2);
-        else
-          return data.role.includes(this.inp1) || data.jobType.includes(this.inp1) || data.location.includes(this.inp2);
-
-      });
-      if (this.jobPosts.length > 0)
-        this.selectedPost = this.jobPosts[0];
-    }
-    else {
-      this.jobPosts = this.jobPostsB;
-    }
-  }
-
   @HostListener('window:scroll', [])
   OnWindowScroll() {
+
     const rightbox: any = document.getElementById('right');
     const searchbox: any = document.getElementById('search');
-    const boxHeight = rightbox.getBoundingClientRect(); // Height of the box
-    const searchHeight = searchbox.getBoundingClientRect(); // Height of the box
+    const boxHeight = rightbox.getBoundingClientRect();
+    const searchHeight = searchbox.getBoundingClientRect();
+
     if (boxHeight.top < 0) {
       rightbox.classList.add('right-fixed');
     } else if (searchHeight.top > -150) {

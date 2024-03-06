@@ -119,7 +119,7 @@ const appRoute: Routes = [
     {
         path: 'jobseekerRegister',
         loadChildren: () =>
-            import('../profile-completion/profile-completion.module').then((d) => d.ProfileCompletionModule),
+            import('../jobseeker-profile-completion/jobseeker-profile-completion.module').then((d) => d.ProfileCompletionModule),
     },
 
 ]

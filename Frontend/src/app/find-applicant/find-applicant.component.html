@@ -1,9 +1,10 @@
 <div class="router">
     <div class="search" id="search">
-        <input type="text" [(ngModel)]="inp1" placeholder="Headline, Skills" class="input">
+        <input type="text" [(ngModel)]="inp1" placeholder="Headline" class="input" (input)="search()">
         <span class="symbol">|</span>
-        <input type="text" [(ngModel)]="inp2" placeholder="Location" class="input">
-        <button (click)="search()" class="button"><b>Find</b></button>
+        <input type="text" [(ngModel)]="inp2" placeholder="Skills" class="input" (input)="search()">
+        <span class="symbol">|</span>
+        <input type="text" [(ngModel)]="inp3" placeholder="Location" class="input" (input)="search()">
     </div>
     <div class="text" id="text">
         <h2 class="head">Applicants</h2>
@@ -64,5 +65,11 @@
                 </ol>
             </div>
         </div>
+    </div>
+    <div class="paginator">
+        <mat-paginator (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
+            [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex"
+            aria-label="Select page">
+        </mat-paginator>
     </div>
 </div>

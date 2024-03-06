@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, finalize } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -8,12 +7,19 @@ import { environment } from 'src/environments/environment.development';
 })
 
 export class JobPageService {
+
     constructor(private http: HttpClient) {
-        this.getAllPosts();
     }
 
-    getAllPosts() {
-        return this.http.get<any>(`${environment.recruiterUrl}/getAllPost`);
+    getAllPosts(role: string, jobType: string, location: string, pageIndex: number, pageSize: number) {
+        const params = new HttpParams()
+            .set('role', role)
+            .set('jobType', jobType)
+            .set('location', location)
+            .set('pageIndex', pageIndex)
+            .set('pageSize', pageSize);
+
+        return this.http.get<any>(`${environment.postUrl}/getPost`, { params });
     }
 
     getApplication(postId: string, email: string) {

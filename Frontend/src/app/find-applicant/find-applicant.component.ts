@@ -3,6 +3,8 @@ import { Post } from '../post-page/post-page.service';
 import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
 import { FindApplicantService, Jobseeker } from './find-applicant.service';
+import { Subject, debounceTime, switchMap } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-find-applicant',
@@ -11,13 +13,18 @@ import { FindApplicantService, Jobseeker } from './find-applicant.service';
 })
 export class FindApplicantComponent {
 
-  inp1!: string;
-  inp2!: string;
-  constructor(private findApplicantService: FindApplicantService, private dataService: DataService, private router: Router) {
+  constructor(private findApplicantService: FindApplicantService, private router: Router) { }
 
-  }
+  inp1: string = '';
+  inp2: string = '';
+  inp3: string = '';
+  length = 40;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25];
+  showFirstLastButtons = true;
+
   applicants!: Array<Jobseeker>;
-  applicantsB!: Array<Jobseeker>;
   selectedApplicant: Jobseeker = {
     _id: '',
     name: '',
@@ -36,39 +43,50 @@ export class FindApplicantComponent {
     image: ''
   };
 
+  private searchText$ = new Subject<string>();
+
   ngOnInit() {
-    this.findApplicantService.getAllSeekers().subscribe({
+    this.searchText$.pipe(debounceTime(500), switchMap(() => this.findApplicantService.getAllSeekers(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize))).subscribe({
       next: (data) => {
-        this.applicants = data;
-        this.applicantsB = data;
+        this.applicants = data.content;
         this.selectedApplicant = this.applicants[0];
+        this.length = data.totalElements;
       },
       error: (error) => {
         console.log(error);
       }
-    })
+    });
+
+    this.getApplicant();
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.length = event.length;
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+    this.getApplicant();
   }
 
   rightBox(currPost: Jobseeker) {
     this.selectedApplicant = currPost;
   }
 
-  search() {
-    if ((this.inp1 !== '' && this.inp1 !== undefined) || (this.inp2 !== '' && this.inp2 !== undefined)) {
-      this.applicants = this.applicantsB.filter((data) => {
-        console.log(data.skills, this.inp1, data.skills.includes(this.inp1));
-
-        if (this.inp2 !== '' && this.inp2 !== undefined)
-          return (data.skills.includes(this.inp1) || data.headline.includes(this.inp1)) && data.location.includes(this.inp2);
-        else
-          return data.skills.includes(this.inp1) || data.headline.includes(this.inp1) || data.location.includes(this.inp2);
-      });
-      if (this.applicants.length > 0)
+  getApplicant() {
+    this.findApplicantService.getAllSeekers(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize).subscribe({
+      next: (data) => {
+        this.applicants = data.content;
         this.selectedApplicant = this.applicants[0];
-    }
-    else {
-      this.applicants = this.applicantsB;
-    }
+        this.length = data.totalElements;
+
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+  search() {
+    this.searchText$.next('');
   }
 
   @HostListener('window:scroll', [])
@@ -83,11 +101,5 @@ export class FindApplicantComponent {
       rightbox.classList.remove('right-fixed');
     }
   }
-
-  // apply(postId: string) {
-  //   this.dataService.messageSource.next(postId);
-  //   this.router.navigate(['jobApply']);
-  // }
-
 
 }

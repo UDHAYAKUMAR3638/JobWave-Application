@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { JobseekerShowDirective } from '../custom-directives/jobseeker-show.directive';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const appRoute: Routes = [
   {
@@ -25,7 +26,8 @@ const appRoute: Routes = [
     FormsModule,
     MatIconModule,
     MatButtonModule,
-    JobseekerShowDirective
+    JobseekerShowDirective,
+    MatPaginatorModule
   ]
 })
 export class JobModule { }

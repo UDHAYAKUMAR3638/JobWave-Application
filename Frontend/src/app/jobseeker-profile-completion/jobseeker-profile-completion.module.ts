@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { ProfileCompletionComponent } from './profile-completion.component';
+import { JobseekerProfileCompletionComponent } from './jobseeker-profile-completion.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,12 +11,12 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 const appRoute: Routes = [
     {
-        path: "", component: ProfileCompletionComponent
+        path: "", component: JobseekerProfileCompletionComponent
     },
 ]
 
 @NgModule({
-    declarations: [ProfileCompletionComponent],
+    declarations: [JobseekerProfileCompletionComponent],
     imports: [
         RouterModule.forChild(appRoute),
         CommonModule,

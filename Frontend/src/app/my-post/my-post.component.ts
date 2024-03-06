@@ -6,6 +6,7 @@ import { DataService } from '../service/data.service';
 import { LoginService } from '../login/login.service';
 import Swal from 'sweetalert2';
 import { Post } from '../post-page/post-page.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-my-post',
@@ -17,25 +18,42 @@ export class MyPostComponent {
   myPost!: Array<Post>;
   myPostApplicants!: Array<Applicant>;
   userDetails!: any;
+  length = 40;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25];
+  showFirstLastButtons = true;
 
   constructor(private myPostService: MyPostService, private data: DataService,
     public dialog: MatDialog, private loginService: LoginService) {
   }
 
   ngOnInit() {
-
     this.loginService.getUser().subscribe({
       next: (data) => {
         this.userDetails = data;
-        this.myPostService.MyPosts(this.userDetails._id).subscribe({
-          next: (data) => {
-            this.myPost = data;
-            this.rightBox(data[0]._id);
-          },
-          error: (error) => {
-            console.log(error);
-          }
-        });
+        this.getPost();
+      }
+    });
+
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.length = event.length;
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+    this.getPost();
+  }
+
+  getPost() {
+    this.myPostService.MyPosts(this.userDetails._id, this.pageIndex, this.pageSize).subscribe({
+      next: (data) => {
+        this.myPost = data.content;
+        this.length = data.totalElements;
+        this.rightBox(data[0]._id);
+      },
+      error: (error) => {
+        console.log(error);
       }
     });
 
@@ -45,8 +63,6 @@ export class MyPostComponent {
     this.myPostService.MyPostSeekers(postId).subscribe({
       next: (data) => {
         this.myPostApplicants = data;
-        // console.log(data);
-
       },
       error: (error) => {
         console.log(error);

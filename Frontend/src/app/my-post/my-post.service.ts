@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Post } from '../post-page/post-page.service';
@@ -28,8 +28,12 @@ export class MyPostService {
     constructor(private http: HttpClient) {
     }
 
-    MyPosts(id: string): Observable<any> {
-        return this.http.get<Array<Post>>(environment.recruiterUrl + `/getPosts/${id}`);
+    MyPosts(id: string, pageIndex: number, pageSize: number): Observable<any> {
+        const params = new HttpParams()
+            .set('id', id)
+            .set('pageIndex', pageIndex)
+            .set('pageSize', pageSize);
+        return this.http.get<Array<Post>>(environment.recruiterUrl + `/getPosts`, { params });
     }
 
     MyPostSeekers(id: string): Observable<any> {

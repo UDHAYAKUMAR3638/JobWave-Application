@@ -3,6 +3,8 @@ import { MyJobService } from './my-job.service';
 import { Post } from '../post-page/post-page.service';
 import { LoginService } from '../login/login.service';
 import { Jobseeker } from '../find-applicant/find-applicant.service';
+import { PageEvent } from '@angular/material/paginator';
+import { List } from 'lodash';
 
 @Component({
   selector: 'app-my-job',
@@ -28,35 +30,52 @@ export class MyJobComponent {
     image: ''
   };
   status!: string;
-  posts!: Array<Post>;
+  posts: Array<Post> = [];
   class!: string;
+  length = 40;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25];
+  showFirstLastButtons = true;
+
   constructor(private myJobService: MyJobService, private loginService: LoginService) {
   }
 
   ngOnInit() {
+    this.getUser();
+  }
 
-    this.loginService.getUser().subscribe({
-      next: (data) => {
-        this.userDetails = data;
-        this.myJobService.getJobs(this.userDetails.email).subscribe({
-          next: (data) => {
-            this.posts = data;
-            this.rightBox(this.posts[0]._id);
-          },
-          error: (error) => {
-            console.log(error);
-          }
-        });
-      }
-    });
-
+  handlePageEvent(event: PageEvent) {
+    this.length = event.length;
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+    this.getUser();
   }
 
   rightBox(postId: string) {
     this.myJobService.getApplication(postId, this.userDetails.email).subscribe({
       next: (data) => {
         this.status = data.status;
+      }
+    });
+  }
 
+  getUser() {
+    this.loginService.getUser().subscribe({
+      next: (data) => {
+        this.userDetails = data;
+        this.myJobService.getJobs(this.userDetails.email, this.pageIndex, this.pageSize).subscribe({
+          next: (data) => {
+            data.content.forEach((value: any) => {
+              this.posts.push(value.postId);
+            });
+            this.length = data.totalElements;
+            this.rightBox(this.posts[0]._id);
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        });
       }
     });
   }

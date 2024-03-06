@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Recruiter } from '../recruiter-profile-completion/recruiter-profile-completion.service';
-import { Jobseeker } from '../profile-completion/profile-completion.service';
+import { Jobseeker } from '../jobseeker-profile-completion/jobseeker-profile-completion.service';
 import { User } from '../add-user/add-user.service';
 
 @Component({

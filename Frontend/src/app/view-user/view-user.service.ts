@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class UserService {
+
   constructor(private http: HttpClient) { }
 
   getItems(page: number, size: number): Observable<any> {
@@ -25,5 +26,12 @@ export class UserService {
     else
       return this.http.get<any>(
         `${environment.userUrl}/getEmail/${email}`);
+  }
+
+  updateStatus(id: string, status: string) {
+    const params = new HttpParams()
+      .set('id', id)
+      .set('status', status);
+    return this.http.put<any>(`${environment.userUrl}/update-status/${id}/${status}`, { params });
   }
 }

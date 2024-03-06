@@ -7,6 +7,7 @@ import { AuthGuard } from '../guards/auth.guard';
 import { RoleGuard } from '../guards/role.guard';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const appRoute: Routes = [
   {
@@ -16,12 +17,13 @@ const appRoute: Routes = [
 ]
 
 @NgModule({
-  declarations: [],
+  declarations: [CompanyPageComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(appRoute),
     FormsModule,
     MatButtonModule,
+    MatPaginatorModule
   ],
   exports: [RouterModule]
 })

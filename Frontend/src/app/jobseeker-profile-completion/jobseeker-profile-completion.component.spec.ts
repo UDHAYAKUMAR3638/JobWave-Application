@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProfileCompletionComponent } from './profile-completion.component';
+import { ProfileCompletionComponent } from './jobseeker-profile-completion.component';
 
 describe('ProfileCompletionComponent', () => {
   let component: ProfileCompletionComponent;
@@ -8,9 +8,9 @@ describe('ProfileCompletionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfileCompletionComponent ]
+      declarations: [ProfileCompletionComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ProfileCompletionComponent);
     component = fixture.componentInstance;

@@ -1,15 +1,15 @@
 import { Component, HostListener } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ProfileCompletionService, Jobseeker } from './profile-completion.service';
+import { ProfileCompletionService, Jobseeker } from './jobseeker-profile-completion.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-profile-completion',
-  templateUrl: './profile-completion.component.html',
-  styleUrls: ['./profile-completion.component.scss']
+  selector: 'app-jobseeker-profile-completion',
+  templateUrl: './jobseeker-profile-completion.html',
+  styleUrls: ['./jobseeker-profile-completion.scss']
 })
-export class ProfileCompletionComponent {
+export class JobseekerProfileCompletionComponent {
   constructor(private fb: FormBuilder, private profileService: ProfileCompletionService, private route: Router) { }
   private file: File | null = null;
 

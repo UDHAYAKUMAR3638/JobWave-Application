@@ -1,4 +1,7 @@
 <div class="content">
+    <div class="search" id="search">
+        <input type="text" [(ngModel)]="inp" placeholder="Company name" class="input" (input)="search()">
+    </div>
     <div class="text" id="text">
         <h2 class="head">Top companies</h2>
     </div>
@@ -13,5 +16,11 @@
                 <button mat-raised-button color="primary" class="button" (click)="redirect(company._id)">View</button>
             </div>
         </div>
+    </div>
+    <div class="paginator">
+        <mat-paginator (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
+            [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex"
+            aria-label="Select page">
+        </mat-paginator>
     </div>
 </div>

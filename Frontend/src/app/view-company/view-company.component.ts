@@ -6,6 +6,7 @@ import { Post } from '../post-page/post-page.service';
 import { List } from 'lodash';
 import { JobPageService } from '../job-page/job-page.service';
 import { JobApplication } from '../job-apply/job-apply.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-view-company',
@@ -39,22 +40,24 @@ export class ViewCompanyComponent {
     private jobPageService: JobPageService
   ) { }
 
+  length = 40;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25];
+  showFirstLastButtons = true;
+
+  handlePageEvent(event: PageEvent) {
+    this.length = event.length;
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+    this.getCompanyPost();
+  }
+
   ngOnInit() {
     this.companyService.getCompany(this.route.snapshot.paramMap.get('id') || '').subscribe({
       next: (response) => {
         this.company = response;
-        this.companyService.getCompanyPosts(this.company._id).subscribe({
-          next: (posts) => {
-            this.companyPosts = posts;
-            this.jobPageService.getMyJobs().subscribe({
-              next: (data) => {
-                data.forEach((element: Recruiter) => {
-                  this.myJobPosts.push(element._id);
-                });
-              }
-            });
-          }
-        });
+        this.getCompanyPost();
       }
     });
   }
@@ -65,6 +68,22 @@ export class ViewCompanyComponent {
 
   apply(postId: string) {
     this.router.navigate(['jobApply', postId]);
+  }
+
+  getCompanyPost() {
+    this.companyService.getCompanyPosts(this.company._id, this.pageIndex, this.pageSize).subscribe({
+      next: (posts) => {
+        this.companyPosts = posts.content;
+        this.length = posts.totalElements;
+        this.jobPageService.getMyJobs().subscribe({
+          next: (data) => {
+            data.forEach((element: JobApplication) => {
+              this.myJobPosts.push(element.postId._id);
+            });
+          }
+        });
+      }
+    });
   }
 
 }
