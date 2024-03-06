@@ -35,6 +35,7 @@ public class PaymentServiceImp implements PaymentService{
     @Value("${razorpay.company.name}")
     private String company;
  
+    @Override
     @Transactional
     public TransactionDetails createTransaction(double amount) {
         try {
@@ -49,7 +50,6 @@ public class PaymentServiceImp implements PaymentService{
     
             Order order= razorpayClient.orders.create(orderRequest);
  
-            System.out.println(order);
             Integer receivedamount = order.get("amount");
             int getAmount = receivedamount/100;
             TransactionDetails transactionDetails = TransactionDetails.builder()
@@ -67,11 +67,19 @@ public class PaymentServiceImp implements PaymentService{
         }
     }
 
+    @Override
     public Payment savePayment(Payment payment) {
        return paymentRepository.save(payment);
     }
 
+    @Override
     public Page<Payment> getBills(String email,int page,int size) {
      return paymentRepository.findByEmail(email,PageRequest.of(page,size));
     }
+
+    @Override
+    public Page<Payment> getAllBills(int page, int size){
+        return paymentRepository.findAll(PageRequest.of(page,size));
+    }
+
 }

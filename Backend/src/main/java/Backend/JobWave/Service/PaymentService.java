@@ -14,4 +14,6 @@ public interface PaymentService {
     public Payment savePayment(Payment payment) ;
 
     public Page<Payment> getBills(String email,int page,int size) ;
+
+    public Page<Payment> getAllBills(int page, int size);
 }

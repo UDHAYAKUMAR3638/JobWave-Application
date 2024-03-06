@@ -39,6 +39,11 @@ public class PaymentContoller {
            return new ResponseEntity<Page<Payment>>(paymentService.getBills(email,page,size), HttpStatus.OK) ;
     }
 
+    @GetMapping("/getAllBills")
+    public ResponseEntity<Page<Payment>> getAllBills(@RequestParam(value="pageIndex") int page,@RequestParam(value="pageSize") int size) {
+           return new ResponseEntity<Page<Payment>>(paymentService.getAllBills(page,size), HttpStatus.OK) ;
+    }
+
 
     @PostMapping("/save")
     public ResponseEntity<Payment> savePayment(@RequestBody Payment payment) {
