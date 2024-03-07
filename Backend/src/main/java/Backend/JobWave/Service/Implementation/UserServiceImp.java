@@ -57,8 +57,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public Page<User> getItems(int page, int size) {
-        return userRepo.findAll(PageRequest.of(page, size));
+    public Page<User> getItems(String key,int page, int size) {
+        return userRepo.findAllByName(key,PageRequest.of(page, size));
     }
 
     @Override

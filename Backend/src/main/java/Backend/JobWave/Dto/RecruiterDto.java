@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecruiterDto {
+public class RecruiterDto { 
    
     private String id;
     private String companyName;
@@ -23,6 +23,7 @@ public class RecruiterDto {
     private String location;
     private MultipartFile image;
     private String about;
+    private double rating;
 
     public RecruiterDto(UserDto user) {
         this.email=user.getEmail();

@@ -71,8 +71,8 @@ public class UserController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<Page<User>> getItems(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
-    Page<User> user=userService.getItems(page,size);
+    public ResponseEntity<Page<User>> getItems(@RequestParam(value = "search") String key,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
+    Page<User> user=userService.getItems(key,page,size);
     return new ResponseEntity<Page<User>>(user,HttpStatus.OK);
     }
 

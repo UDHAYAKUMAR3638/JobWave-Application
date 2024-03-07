@@ -35,4 +35,5 @@ public interface RecruiterService {
     public Page<Recruiter> getAll(String name,int page,int size);
 
     public Recruiter getById(String id);
-}
+
+}   

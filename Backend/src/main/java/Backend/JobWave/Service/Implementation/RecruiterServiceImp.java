@@ -7,6 +7,8 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -100,7 +102,7 @@ public class RecruiterServiceImp implements RecruiterService{
 
     @Override
     public Page<Recruiter>getAll(String name,int page,int size) {
-        return  recruiterRepo.findByCompanyName(name,PageRequest.of(page, size));
+        return  recruiterRepo.findByCompanyName(name,PageRequest.of(page, size,Sort.by(Order.desc("rating"))));
     }
 
     @Override

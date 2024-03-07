@@ -25,6 +25,7 @@ public class Recruiter {
     private String location;
     private String image;
     private String about;
+    private double rating;
 
     public Recruiter(RecruiterDto recruiterDto, String image) {
         this.set_id(recruiterDto.getId());
