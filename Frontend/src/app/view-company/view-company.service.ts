@@ -24,4 +24,8 @@ export class ViewCompanyService {
       .set('pageSize', pageSize);
     return this.http.get<Array<Post>>(`${environment.recruiterUrl}/getPosts`, { params });
   }
+
+  updateCompany(companyId: string, jobseekerEmail: string, rating: number) {
+    return this.http.post<any>(`${environment.ratingUrl}/post`, { companyId: { _id: companyId }, jobseekerEmail, rating });
+  }
 }

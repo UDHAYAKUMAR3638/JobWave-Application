@@ -96,7 +96,7 @@ export class PostPageComponent {
       },
 
       theme: {
-        color: '#F37254'
+        color: '#2557A7'
       },
 
       modal: {

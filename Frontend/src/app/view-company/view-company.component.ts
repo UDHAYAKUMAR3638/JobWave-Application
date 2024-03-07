@@ -8,6 +8,7 @@ import { JobPageService } from '../job-page/job-page.service';
 import { JobApplication } from '../job-apply/job-apply.service';
 import { PageEvent } from '@angular/material/paginator';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-company',
@@ -16,13 +17,13 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 })
 export class ViewCompanyComponent {
 
-  rating: number = 0;
-  setRating(value: number) {
-    if (this.readonly) return;
-    this.rating = value;
-  }
   readonly = false;
   faStar = faStar;
+  rating: number = 0;
+  companyRating: number = 0;
+  companyPosts!: Array<Post>;
+  myJobPosts: Array<string> = [];
+  disabled: boolean = false;
   company: Recruiter = {
     _id: '',
     name: '',
@@ -34,12 +35,9 @@ export class ViewCompanyComponent {
     password: '',
     location: '',
     image: '',
-    about: ''
+    about: '',
+    rating: 0
   }
-
-  companyPosts!: Array<Post>;
-  myJobPosts: Array<string> = [];
-  disabled: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -65,6 +63,7 @@ export class ViewCompanyComponent {
     this.companyService.getCompany(this.route.snapshot.paramMap.get('id') || '').subscribe({
       next: (response: Recruiter) => {
         this.company = response;
+        this.companyRating = response.rating;
         this.getCompanyPost();
       }
     });
@@ -83,6 +82,7 @@ export class ViewCompanyComponent {
       next: (posts: { content: Post[]; totalElements: number; }) => {
         this.companyPosts = posts.content;
         this.length = posts.totalElements;
+
         this.jobPageService.getMyJobs().subscribe({
           next: (data: JobApplication[]) => {
             data.forEach((element: JobApplication) => {
@@ -92,6 +92,22 @@ export class ViewCompanyComponent {
         });
       }
     });
+  }
+
+  setRating(value: number) {
+    if (this.readonly) return;
+    this.rating = value;
+  }
+
+  updateRating() {
+    this.companyService.updateCompany(this.company._id, sessionStorage.getItem('email') || '', this.rating).subscribe({
+      next: () => {
+        Swal.fire({
+          title: 'Review submitted',
+          icon: 'success',
+        });
+      }
+    })
   }
 
 }

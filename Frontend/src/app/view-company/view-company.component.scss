@@ -1,6 +1,6 @@
 .head {
     display: grid;
-    grid-template-columns: 0.5fr 3fr;
+    grid-template-columns: 0.6fr 3fr 1fr;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 15px;
     border-radius: 15px;
@@ -95,6 +95,18 @@
     flex-direction: row-reverse;
     margin: 40px;
     justify-content: space-between;
+}
+
+.star {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 100px;
+}
+
+.star fa-icon.rated {
+    color: rgb(234, 227, 18);
 }
 
 .container fa-icon {

@@ -13,7 +13,8 @@ export interface Recruiter {
     password: string,
     location: string,
     image: string,
-    about: string
+    about: string,
+    rating: number
 }
 @Injectable({
     providedIn: 'root'

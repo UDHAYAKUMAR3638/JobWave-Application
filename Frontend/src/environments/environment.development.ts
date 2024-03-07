@@ -8,4 +8,6 @@ export const environment = {
     paymentUrl: "http://localhost:8080/payment",
     emailUrl: "http://localhost:8080/email/mail",
     postUrl: "http://localhost:8080/post",
+    ratingUrl: "http://localhost:8080/rating",
+
 };

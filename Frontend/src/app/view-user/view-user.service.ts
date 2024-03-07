@@ -9,8 +9,9 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getItems(page: number, size: number): Observable<any> {
+  getItems(search: string, page: number, size: number): Observable<any> {
     const params = new HttpParams()
+      .set('search', search)
       .set('page', page.toString())
       .set('size', size.toString());
     return this.http.get<any>(environment.userUrl + '/getAll', { params });

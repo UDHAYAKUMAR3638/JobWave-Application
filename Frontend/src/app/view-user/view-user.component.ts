@@ -4,6 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDetailsComponent } from '../user-details/user-details.component';
 import Swal from 'sweetalert2';
+import { Subject, debounceTime, switchMap } from 'rxjs';
 @Component({
   selector: 'app-appointment',
   templateUrl: './view-user.component.html',
@@ -16,6 +17,7 @@ export class ViewUserComponent {
     private matDialog: MatDialog
   ) { }
 
+  inp: string = '';
   users: any = '';
   length = 40;
   pageSize = 5;
@@ -23,8 +25,18 @@ export class ViewUserComponent {
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
   displayedColumns: string[] = ['Name', 'Email', 'Role', 'Edit', 'Profile'];
+  private searchText$ = new Subject<string>();
 
   ngOnInit(): void {
+    this.searchText$.pipe(debounceTime(500), switchMap(() => this.userService.getItems(this.inp, this.pageIndex, this.pageSize))).subscribe({
+      next: (response: any) => {
+        this.users = response.content;
+        this.length = response.totalElements;
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
     this.getUsers();
   }
 
@@ -48,7 +60,7 @@ export class ViewUserComponent {
   }
 
   getUsers(): void {
-    this.userService.getItems(this.pageIndex, this.pageSize)
+    this.userService.getItems(this.inp, this.pageIndex, this.pageSize)
       .subscribe((response: { totalElements: number; content: any; }) => {
         this.length = response.totalElements;
         this.users = response.content;
@@ -68,5 +80,9 @@ export class ViewUserComponent {
         console.log(error);
       }
     });
+  }
+
+  search() {
+    this.searchText$.next('');
   }
 }

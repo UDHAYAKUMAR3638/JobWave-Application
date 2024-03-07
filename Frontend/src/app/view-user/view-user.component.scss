@@ -25,6 +25,31 @@
     font-size: large;
 }
 
+.search {
+    margin-top: 2%;
+    padding: 1px;
+    border: 1px solid black;
+    width: 50%;
+    border-radius: 5px;
+    margin-left: 25%;
+    display: flex;
+    flex-direction: row;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.search:hover {
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+.input {
+    height: 9vh;
+    width: 100%;
+    border: 0px;
+    padding: 10px;
+    font-size: medium;
+    color: rgb(9, 9, 9);
+}
 
 
 .head {

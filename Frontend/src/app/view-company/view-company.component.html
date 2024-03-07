@@ -3,6 +3,13 @@
         <img [src]="company.image">
         <div class="head-box">
             <h2>{{company.companyName}}</h2>
+            <div class="star" [class.readOnly]="readonly">
+                <fa-icon [class.rated]="companyRating >= 5" [icon]="faStar"></fa-icon>
+                <fa-icon [class.rated]="companyRating >= 4" [icon]="faStar"></fa-icon>
+                <fa-icon [class.rated]="companyRating >= 3" [icon]="faStar"></fa-icon>
+                <fa-icon [class.rated]="companyRating >= 2" [icon]="faStar"></fa-icon>
+                <fa-icon [class.rated]="companyRating >= 1" [icon]="faStar"></fa-icon>
+            </div>
             <span>{{company.companyType}}</span>
             <span>{{company.location}}</span>
         </div>
@@ -15,7 +22,7 @@
                 <fa-icon [class.rated]="rating >= 1" [icon]="faStar" (click)="setRating(1)"></fa-icon>
             </div>
             <div class="action-buttons">
-                <button mat-raised-button (click)="setRating(1)" mat-dialog-close color="primary">Submit</button>
+                <button mat-raised-button (click)="updateRating()" mat-dialog-close color="primary">Submit</button>
             </div>
         </div>
     </div>
