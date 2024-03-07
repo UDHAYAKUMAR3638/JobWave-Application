@@ -47,12 +47,12 @@ export class FindApplicantComponent {
 
   ngOnInit() {
     this.searchText$.pipe(debounceTime(500), switchMap(() => this.findApplicantService.getAllSeekers(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize))).subscribe({
-      next: (data) => {
+      next: (data: { content: Jobseeker[]; totalElements: number; }) => {
         this.applicants = data.content;
         this.selectedApplicant = this.applicants[0];
         this.length = data.totalElements;
       },
-      error: (error) => {
+      error: (error: any) => {
         console.log(error);
       }
     });
@@ -73,13 +73,13 @@ export class FindApplicantComponent {
 
   getApplicant() {
     this.findApplicantService.getAllSeekers(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize).subscribe({
-      next: (data) => {
+      next: (data: { content: Jobseeker[]; totalElements: number; }) => {
         this.applicants = data.content;
         this.selectedApplicant = this.applicants[0];
         this.length = data.totalElements;
 
       },
-      error: (error) => {
+      error: (error: any) => {
         console.log(error);
       }
     });

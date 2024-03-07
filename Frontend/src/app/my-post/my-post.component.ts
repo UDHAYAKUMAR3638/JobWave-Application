@@ -25,13 +25,13 @@ export class MyPostComponent {
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
 
-  constructor(private myPostService: MyPostService, private data: DataService,
-    public dialog: MatDialog, private loginService: LoginService) {
-  }
+  constructor(private myPostService: MyPostService,
+    public dialog: MatDialog, private loginService: LoginService
+  ) { }
 
   ngOnInit() {
     this.loginService.getUser().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.userDetails = data;
         this.getPost();
       }
@@ -48,12 +48,12 @@ export class MyPostComponent {
 
   getPost() {
     this.myPostService.MyPosts(this.userDetails._id, this.pageIndex, this.pageSize).subscribe({
-      next: (data) => {
+      next: (data: { content: Post[]; totalElements: number; }) => {
         this.myPost = data.content;
         this.length = data.totalElements;
         this.rightBox(this.myPost[0]._id);
       },
-      error: (error) => {
+      error: (error: any) => {
         console.log(error);
       }
     });
@@ -62,14 +62,14 @@ export class MyPostComponent {
 
   rightBox(postId: string) {
     this.myPostService.MyPostSeekers(postId).subscribe({
-      next: (data) => {
+      next: (data: Array<Applicant>) => {
         this.myPostApplicants = data;
         if (data.length > 0)
           this.flag = true;
         else
           this.flag = false;
       },
-      error: (error) => {
+      error: (error: any) => {
         console.log(error);
       }
     });

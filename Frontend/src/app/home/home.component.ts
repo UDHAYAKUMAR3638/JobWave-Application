@@ -15,7 +15,7 @@ export class HomeComponent {
 
   ngOnInit() {
     this.loginService.getUser().subscribe({
-      next: (data) => {
+      next: (data: { image: string; name: string; }) => {
         this.profile = data.image;
         this.name = data.name;
       }

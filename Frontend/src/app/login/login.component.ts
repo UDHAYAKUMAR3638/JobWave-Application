@@ -29,7 +29,7 @@ export class LoginComponent {
   login(): void {
     if (!this.loginForm.invalid) {
       this.loginService.authenticate(<Login>this.loginForm.value).subscribe({
-        next: (token) => {
+        next: (token: { status: number; body: { token: string; user: { email: string; role: { role: string; }; }; }; }) => {
           if (token.status == 200) {
             sessionStorage.setItem('isLogged', 'true');
             sessionStorage.setItem('token', token.body.token);
@@ -37,7 +37,7 @@ export class LoginComponent {
             sessionStorage.setItem('role', token.body.user.role.role);
           }
         },
-        error: (error) => {
+        error: (error: any) => {
           console.log('error:', error);
           Swal.fire({
             title: 'Enter Valid User Details!',
@@ -48,7 +48,7 @@ export class LoginComponent {
         complete: () => {
           Swal.fire({
             title: 'Login Success',
-            text: 'redirected to dashboard',
+            text: 'redirected to home',
             icon: 'success',
           });
           if (this.loginService.isAuthencticate()) {

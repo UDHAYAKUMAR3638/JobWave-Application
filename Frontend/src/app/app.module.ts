@@ -7,19 +7,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptor } from './interceptors/interceptors.interceptor';
 import { ApplicantComponent } from './applicant/applicant.component';
 import { MatButtonModule } from '@angular/material/button';
-import { AdminHideDirective } from './custom-directives/admin-hide.directive';
-import { AdminShowDirective } from './custom-directives/admin-show.directive';
-import { CompanyPageComponent } from './company-page/company-page.component';
-import { ViewCompanyComponent } from './view-company/view-company.component';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { ApplyButtonHideDirective } from './custom-directives/apply-button-hide.directive';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { datePipe } from "./pipe/date.pipe";
-import { PaymentDetailsComponent } from './payment-details/payment-details.component';
+import { UserAppliedJobsComponent } from './user-applied-jobs/user-applied-jobs.component';
+import { UserPostedJobsComponent } from './user-posted-jobs/user-posted-jobs.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
-  declarations: [AppComponent, ApplicantComponent, ApplyButtonHideDirective, UserDetailsComponent],
+  declarations: [AppComponent, ApplicantComponent, ApplyButtonHideDirective, UserDetailsComponent, UserAppliedJobsComponent, UserPostedJobsComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
@@ -30,7 +27,9 @@ import { PaymentDetailsComponent } from './payment-details/payment-details.compo
     HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    datePipe
+    datePipe,
+    MatPaginatorModule,
+    MatTableModule
   ]
 })
 export class AppModule { }

@@ -31,7 +31,7 @@ export class CompanyPageComponent {
         this.companies = response.content;
         this.length = response.totalElements;
       },
-      error: (error) => {
+      error: (error: any) => {
         console.log(error);
       }
     });
@@ -45,7 +45,7 @@ export class CompanyPageComponent {
         this.companies = response.content;
         this.length = response.totalElements;
       },
-      error: (error) => {
+      error: (error: any) => {
         console.log(error);
       }
     });

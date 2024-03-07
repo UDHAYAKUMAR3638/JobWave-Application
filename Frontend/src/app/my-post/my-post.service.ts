@@ -44,4 +44,9 @@ export class MyPostService {
         return this.http.put<any>(`${environment.recruiterUrl}/update-post`, post);
     }
 
+    getUserId(email: string) {
+        return this.http.get<any>(
+            `${environment.recruiterUrl}/getEmail/${email}`);
+    }
+
 }

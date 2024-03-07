@@ -23,7 +23,7 @@ export class PostPageComponent {
 
   ngOnInit() {
     this.loginService.getUser().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.userDetails = data;
         this.postForm.get('companyName')?.setValue(this.userDetails.companyName);
         this.postForm.get('location')?.setValue(this.userDetails.location);
@@ -52,11 +52,11 @@ export class PostPageComponent {
   payment() {
     if (!this.postForm.invalid) {
       this.postService.createOrder(this.perPostCost).subscribe({
-        next: (data) => {
+        next: (data: any) => {
           // console.log(data);
           this.openTransactionModel(data);
         },
-        error: (error) => {
+        error: (error: any) => {
           console.log(error);
         }
       })
@@ -124,7 +124,7 @@ export class PostPageComponent {
     this.postForm.get('date')?.setValue(new Date());
 
     this.postService.post(this.postForm.value).subscribe({
-      next: (data) => {
+      next: (data: { _id: string; }) => {
         this.postService.savePayment(data._id, this.paymentDetails, this.userDetails, this.perPostCost);
         Swal.fire({
           title: 'Post added Successfully',
@@ -132,7 +132,7 @@ export class PostPageComponent {
         })
       },
 
-      error: (error) => {
+      error: (error: any) => {
         console.log(error);
       }
 

@@ -1,10 +1,22 @@
-<div class="container">
+<div class="container-main">
     <div class="head">
         <img [src]="company.image">
         <div class="head-box">
             <h2>{{company.companyName}}</h2>
             <span>{{company.companyType}}</span>
             <span>{{company.location}}</span>
+        </div>
+        <div>
+            <div class="container" [class.readOnly]="readonly">
+                <fa-icon [class.rated]="rating >= 5" [icon]="faStar" (click)="setRating(5)"></fa-icon>
+                <fa-icon [class.rated]="rating >= 4" [icon]="faStar" (click)="setRating(4)"></fa-icon>
+                <fa-icon [class.rated]="rating >= 3" [icon]="faStar" (click)="setRating(3)"></fa-icon>
+                <fa-icon [class.rated]="rating >= 2" [icon]="faStar" (click)="setRating(2)"></fa-icon>
+                <fa-icon [class.rated]="rating >= 1" [icon]="faStar" (click)="setRating(1)"></fa-icon>
+            </div>
+            <div class="action-buttons">
+                <button mat-raised-button (click)="setRating(1)" mat-dialog-close color="primary">Submit</button>
+            </div>
         </div>
     </div>
     <div class="content">

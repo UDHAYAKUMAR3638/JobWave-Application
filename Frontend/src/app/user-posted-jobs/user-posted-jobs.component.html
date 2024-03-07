@@ -1,0 +1,52 @@
+<div class="content">
+
+    <div class="text" id="text">
+        <h2 class="head">Jobs posted</h2>
+    </div>
+
+    <div class="body">
+        <mat-table [dataSource]="posts" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="Job title">
+                <mat-header-cell *matHeaderCellDef> Job title </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.role}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Salary">
+                <mat-header-cell *matHeaderCellDef> Salary </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.salary}} </mat-cell>
+            </ng-container>
+            'Status'
+            <ng-container matColumnDef="Job type">
+                <mat-header-cell *matHeaderCellDef> Job type </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.jobType}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Location">
+                <mat-header-cell *matHeaderCellDef> Location </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.location}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Posted date">
+                <mat-header-cell *matHeaderCellDef> Posted date </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.date|toDate|date:'medium'}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Status">
+                <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                <mat-cell *matCellDef="let element" [ngClass]="element.status=='Open'?'green':'red'">{{element.status}}
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </div>
+    <div>
+        <mat-paginator (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
+            [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex"
+            aria-label="Select page">
+        </mat-paginator>
+    </div>
+
+</div>

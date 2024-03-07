@@ -4,7 +4,6 @@ import { Post } from '../post-page/post-page.service';
 import { LoginService } from '../login/login.service';
 import { Jobseeker } from '../find-applicant/find-applicant.service';
 import { PageEvent } from '@angular/material/paginator';
-import { List } from 'lodash';
 
 @Component({
   selector: 'app-my-job',
@@ -54,7 +53,7 @@ export class MyJobComponent {
 
   rightBox(postId: string) {
     this.myJobService.getApplication(postId, this.userDetails.email).subscribe({
-      next: (data) => {
+      next: (data: { status: string; }) => {
         this.status = data.status;
       }
     });
@@ -62,17 +61,17 @@ export class MyJobComponent {
 
   getUser() {
     this.loginService.getUser().subscribe({
-      next: (data) => {
+      next: (data: Jobseeker) => {
         this.userDetails = data;
         this.myJobService.getJobs(this.userDetails.email, this.pageIndex, this.pageSize).subscribe({
-          next: (data) => {
+          next: (data: { content: any[]; totalElements: number; }) => {
             data.content.forEach((value: any) => {
               this.posts.push(value.postId);
             });
             this.length = data.totalElements;
             this.rightBox(this.posts[0]._id);
           },
-          error: (error) => {
+          error: (error: any) => {
             console.log(error);
           }
         });

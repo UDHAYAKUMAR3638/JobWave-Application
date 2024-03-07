@@ -50,12 +50,12 @@ export class JobPageComponent {
 
   ngOnInit() {
     this.searchText$.pipe(debounceTime(500), switchMap(() => this.jobPageService.getAllPosts(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize))).subscribe({
-      next: (data) => {
+      next: (data: { content: Post[]; totalElements: number; }) => {
         this.jobPosts = data.content;
         this.rightBox(this.jobPosts[0]);
         this.length = data.totalElements;
       },
-      error: (error) => {
+      error: (error: any) => {
         console.log(error);
       }
     });
@@ -75,12 +75,12 @@ export class JobPageComponent {
 
   getPost() {
     this.jobPageService.getAllPosts(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize).subscribe({
-      next: (data) => {
+      next: (data: { content: Post[]; totalElements: number; }) => {
         this.jobPosts = data.content;
         this.length = data.totalElements;
         this.rightBox(this.jobPosts[0]);
       },
-      error: (error) => {
+      error: (error: any) => {
         console.log(error);
       }
     });
@@ -89,7 +89,7 @@ export class JobPageComponent {
   rightBox(currPost: Post) {
     this.selectedPost = currPost;
     this.jobPageService.getApplication(this.selectedPost._id, sessionStorage.getItem('email') || '').subscribe({
-      next: (data) => {
+      next: (data: null) => {
         if (data != null) {
           this.applyButton.nativeElement.disabled = true;
         }

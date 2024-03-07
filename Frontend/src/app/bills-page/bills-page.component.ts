@@ -36,11 +36,11 @@ export class BillsPageComponent {
 
   getBill() {
     this.billService.getBills(this.pageIndex, this.pageSize).subscribe({
-      next: (data) => {
+      next: (data: { content: Bill[]; totalElements: number; }) => {
         this.bills = data.content;
         this.length = data.totalElements;
       },
-      error: (error) => {
+      error: (error: any) => {
         console.log(error);
       }
     })

@@ -49,7 +49,7 @@ export class RecruiterProfileCompletionComponent {
 
     if (!this.registerForm.invalid) {
       this.profileService.register(formData).subscribe({
-        next: (data) => {
+        next: (data: any) => {
           // console.log(data);
           Swal.fire({
             title: 'Registeration Successful!',
@@ -58,7 +58,7 @@ export class RecruiterProfileCompletionComponent {
           })
           this.route.navigate(['login']);
         },
-        error: (error) => {
+        error: (error: any) => {
           console.log(error);
         }
       });

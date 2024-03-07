@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 const appRoute: Routes = [
   {
     path: "", component: ViewCompanyComponent
@@ -23,7 +23,8 @@ const appRoute: Routes = [
     datePipe,
     FormsModule,
     MatButtonModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    FontAwesomeModule
   ],
   // exports: [RouterModule]
 })

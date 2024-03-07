@@ -31,7 +31,7 @@ export class JobApplyComponent {
     //   }
     // })
     this.loginService.getUser().subscribe({
-      next: (details) => {
+      next: (details: { name: any; email: any; phoneno: any; skills: any; _id: any; }) => {
         this.jobApplicationForm = this.fb.group({
           name: [details.name, Validators.required],
           email: [details.email, [Validators.email, Validators.required]],
@@ -72,13 +72,13 @@ export class JobApplyComponent {
     formData.append('resume', this.file || '');
     if (!this.jobApplicationForm.invalid) {
       this.jobService.apply(formData).subscribe({
-        next: (data) => {
+        next: (data: any) => {
           Swal.fire({
             title: 'Application sent successfully',
             icon: 'success'
           })
         },
-        error: (error) => {
+        error: (error: any) => {
           console.log(error);
         },
       });

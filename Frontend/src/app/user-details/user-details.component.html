@@ -6,8 +6,8 @@
         <span><b>Name:</b> {{user.name}}</span>
         <span><b>Email:</b> {{user.email}}</span>
         <span *ngIf="role=='RECRUITER'"><b>Employees:</b> {{user.empCount}}</span>
-        <span><b>Phone no:</b> {{user.phoneno}}</span>
-        <span><b>Location:</b> {{user.location}}</span>
+        <span *ngIf="role=='RECRUITER'||role=='JOBSEEKER'"><b>Phone no:</b> {{user.phoneno}}</span>
+        <span *ngIf="role=='RECRUITER'||role=='JOBSEEKER'"><b>Location:</b> {{user.location}}</span>
         <span *ngIf="role=='JOBSEEKER'"><b>DOB:</b> {{user.dob|toDate|date:'medium'}}</span>
         <span *ngIf="role=='JOBSEEKER'"><b>Headline:</b> {{user.headline}}</span>
         <span *ngIf="role=='JOBSEEKER'"><b>School:</b> {{user.schoolName}}</span>
@@ -17,4 +17,8 @@
         <span *ngIf="role=='JOBSEEKER'"><b>Current position:</b> {{user.currentPosition}}</span>
         <span *ngIf="role=='JOBSEEKER'"><b>Skills:</b> {{user.skills}}</span>
     </div>
+    <button mat-raised-button *ngIf="role=='JOBSEEKER'" color="primary" class="button"
+        (click)="getJobs(user.email)">View jobs</button>
+    <button mat-raised-button *ngIf="role=='RECRUITER'" color="primary" class="button"
+        (click)="getPosts(user.email)">View posts</button>
 </div>

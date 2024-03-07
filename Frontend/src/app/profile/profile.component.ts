@@ -67,7 +67,7 @@ export class ProfileComponent {
 
   getUser() {
     this.loginService.getUser().subscribe({
-      next: (details) => {
+      next: (details: any) => {
         this.profileImage = details.image;
         this.userForm = this.fb.group({
           _id: [details._id],
@@ -105,7 +105,7 @@ export class ProfileComponent {
           this.addIndustry();
         }
       },
-      error: (error) => {
+      error: (error: any) => {
         console.log(error);
       }
     });

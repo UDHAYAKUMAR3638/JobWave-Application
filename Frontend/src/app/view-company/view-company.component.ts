@@ -7,6 +7,7 @@ import { List } from 'lodash';
 import { JobPageService } from '../job-page/job-page.service';
 import { JobApplication } from '../job-apply/job-apply.service';
 import { PageEvent } from '@angular/material/paginator';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-view-company',
@@ -15,6 +16,13 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class ViewCompanyComponent {
 
+  rating: number = 0;
+  setRating(value: number) {
+    if (this.readonly) return;
+    this.rating = value;
+  }
+  readonly = false;
+  faStar = faStar;
   company: Recruiter = {
     _id: '',
     name: '',
@@ -55,7 +63,7 @@ export class ViewCompanyComponent {
 
   ngOnInit() {
     this.companyService.getCompany(this.route.snapshot.paramMap.get('id') || '').subscribe({
-      next: (response) => {
+      next: (response: Recruiter) => {
         this.company = response;
         this.getCompanyPost();
       }
@@ -72,11 +80,11 @@ export class ViewCompanyComponent {
 
   getCompanyPost() {
     this.companyService.getCompanyPosts(this.company._id, this.pageIndex, this.pageSize).subscribe({
-      next: (posts) => {
+      next: (posts: { content: Post[]; totalElements: number; }) => {
         this.companyPosts = posts.content;
         this.length = posts.totalElements;
         this.jobPageService.getMyJobs().subscribe({
-          next: (data) => {
+          next: (data: JobApplication[]) => {
             data.forEach((element: JobApplication) => {
               this.myJobPosts.push(element.postId._id);
             });

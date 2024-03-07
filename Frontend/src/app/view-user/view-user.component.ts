@@ -4,7 +4,6 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDetailsComponent } from '../user-details/user-details.component';
 import Swal from 'sweetalert2';
-
 @Component({
   selector: 'app-appointment',
   templateUrl: './view-user.component.html',
@@ -31,7 +30,7 @@ export class ViewUserComponent {
 
   getDetails(role: string, email: string) {
     this.userService.getDetails(role, email).subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.matDialog.open(UserDetailsComponent, {
           data: { data, role },
           height: '550px',
@@ -50,7 +49,7 @@ export class ViewUserComponent {
 
   getUsers(): void {
     this.userService.getItems(this.pageIndex, this.pageSize)
-      .subscribe(response => {
+      .subscribe((response: { totalElements: number; content: any; }) => {
         this.length = response.totalElements;
         this.users = response.content;
       });
@@ -65,7 +64,7 @@ export class ViewUserComponent {
         });
         this.getUsers();
       },
-      error: (error) => {
+      error: (error: any) => {
         console.log(error);
       }
     });
