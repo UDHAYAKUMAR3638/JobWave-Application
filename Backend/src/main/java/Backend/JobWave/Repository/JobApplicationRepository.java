@@ -22,4 +22,4 @@ public interface JobApplicationRepository extends MongoRepository<JobApplication
 
         List<JobApplication> findByEmail(String email);
 
-}
+} 
