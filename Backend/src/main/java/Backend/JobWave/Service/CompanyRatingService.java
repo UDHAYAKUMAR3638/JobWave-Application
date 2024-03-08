@@ -10,7 +10,7 @@ import Backend.JobWave.Model.Recruiter;
 @Service
 public interface CompanyRatingService {
 
-   public CompanyRating addRating(CompanyRating rating);
+    public CompanyRating addRating(CompanyRating rating);
 
-   public UpdateResult avgRating(Recruiter recruiter);
+    public UpdateResult avgRating(Recruiter recruiter);
 }

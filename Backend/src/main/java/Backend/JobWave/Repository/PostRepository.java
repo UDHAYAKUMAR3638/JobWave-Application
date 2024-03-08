@@ -1,6 +1,5 @@
 package Backend.JobWave.Repository;
 
-
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -32,10 +31,10 @@ public interface PostRepository extends MongoRepository<Post, String> {
     Page<Post> findByLocation(String location, PageRequest pageRequest);
 
     @Query("{$and:[{'role':/?0/}, {'jobType': /?1/}, {'status':Open}]")
-    Page<Post> findByRoleType(String role, String jobType,PageRequest pageRequest);
+    Page<Post> findByRoleType(String role, String jobType, PageRequest pageRequest);
 
     @Query("{$and:[{'role':/?0/}, {'location': /?1/},{'status':Open}]")
-    Page<Post> findByRoleLocation(String role, String location,PageRequest pageRequest);
+    Page<Post> findByRoleLocation(String role, String location, PageRequest pageRequest);
 
     @Query("{$and:[{'jobType':/?0/}, {'location': /?1/}, {'status':Open}]")
     Page<Post> findByTypeLocation(String jobType, String location, PageRequest pageRequest);

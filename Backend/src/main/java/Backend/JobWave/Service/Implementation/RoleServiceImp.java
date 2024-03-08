@@ -11,8 +11,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImp implements RoleService {
+
     @Autowired
     private RoleRepository roleRepo;
+
     public Role getRole(String role) {
         return roleRepo.findByRole(role);
     }

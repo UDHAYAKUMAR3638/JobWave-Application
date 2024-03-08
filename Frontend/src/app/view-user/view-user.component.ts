@@ -3,18 +3,20 @@ import { UserService } from './view-user.service';
 import { PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDetailsComponent } from '../user-details/user-details.component';
-import Swal from 'sweetalert2';
-import { Subject, debounceTime, switchMap } from 'rxjs';
+import { Subject, Subscription, debounceTime, switchMap } from 'rxjs';
+import { AlertService } from '../service/alert.service';
 @Component({
   selector: 'app-appointment',
   templateUrl: './view-user.component.html',
   styleUrls: ['./view-user.component.scss'],
 })
+
 export class ViewUserComponent {
 
   constructor(
     private userService: UserService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private alertService: AlertService
   ) { }
 
   inp: string = '';
@@ -24,24 +26,28 @@ export class ViewUserComponent {
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
+  updateStatusApi: Subscription = new Subscription();
+  detailsApi: Subscription = new Subscription();
+  searchApi: Subscription = new Subscription();
+  itemsApi: Subscription = new Subscription();
   displayedColumns: string[] = ['Name', 'Email', 'Role', 'Edit', 'Profile'];
   private searchText$ = new Subject<string>();
 
   ngOnInit(): void {
-    this.searchText$.pipe(debounceTime(500), switchMap(() => this.userService.getItems(this.inp, this.pageIndex, this.pageSize))).subscribe({
+
+    this.searchApi = this.searchText$.pipe(debounceTime(500), switchMap(() => this.userService.getItems(this.inp, this.pageIndex, this.pageSize))).subscribe({
       next: (response: any) => {
         this.users = response.content;
         this.length = response.totalElements;
       },
-      error: (error: any) => {
-        console.log(error);
-      }
     });
     this.getUsers();
+
   }
 
-  getDetails(role: string, email: string) {
-    this.userService.getDetails(role, email).subscribe({
+  getDetails(role: string, email: string): void {
+
+    this.detailsApi = this.userService.getDetails(role, email).subscribe({
       next: (data: any) => {
         this.matDialog.open(UserDetailsComponent, {
           data: { data, role },
@@ -50,9 +56,10 @@ export class ViewUserComponent {
         });
       }
     });
+
   }
 
-  handlePageEvent(event: PageEvent) {
+  handlePageEvent(event: PageEvent): void {
     this.length = event.length;
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
@@ -60,29 +67,34 @@ export class ViewUserComponent {
   }
 
   getUsers(): void {
-    this.userService.getItems(this.inp, this.pageIndex, this.pageSize)
+
+    this.itemsApi = this.userService.getItems(this.inp, this.pageIndex, this.pageSize)
       .subscribe((response: { totalElements: number; content: any; }) => {
         this.length = response.totalElements;
         this.users = response.content;
       });
+
   }
 
-  updateStatus(id: string, status: string) {
-    this.userService.updateStatus(id, status).subscribe({
+  updateStatus(id: string, status: string): void {
+
+    this.updateStatusApi = this.userService.updateStatus(id, status).subscribe({
       next: () => {
-        Swal.fire({
-          title: `User status updated as ${status}`,
-          icon: 'success',
-        });
+        this.alertService.alertMessage(`User status updated as ${status}`, '', 'success')
         this.getUsers();
       },
-      error: (error: any) => {
-        console.log(error);
-      }
     });
+
   }
 
-  search() {
+  search(): void {
     this.searchText$.next('');
+  }
+
+  ngOnDestroy(): void {
+    this.updateStatusApi.unsubscribe();
+    this.detailsApi.unsubscribe();
+    this.itemsApi.unsubscribe();
+    this.searchApi.unsubscribe();
   }
 }

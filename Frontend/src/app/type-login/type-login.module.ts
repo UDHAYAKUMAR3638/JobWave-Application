@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { TypeLoginComponent } from './type-login.component';
 import { MatButtonModule } from '@angular/material/button';
+
 const appRoute: Routes = [
     {
         path: "", component: TypeLoginComponent
@@ -18,4 +19,5 @@ const appRoute: Routes = [
     ],
     exports: [RouterModule]
 })
+
 export class TypeLoginModule { }

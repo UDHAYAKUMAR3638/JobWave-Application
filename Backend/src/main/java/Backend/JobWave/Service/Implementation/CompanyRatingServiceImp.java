@@ -29,7 +29,7 @@ public class CompanyRatingServiceImp implements CompanyRatingService {
     public CompanyRating addRating(CompanyRating rating) {
         return companyRatingRepository.save(rating);
     }
-   
+
     @Override
     public UpdateResult avgRating(Recruiter recruiter) {
         List<CompanyRating> rating = companyRatingRepository.findByCompanyId(recruiter);

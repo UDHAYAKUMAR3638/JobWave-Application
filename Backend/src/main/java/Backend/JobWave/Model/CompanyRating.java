@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "companyRating")
-public class CompanyRating{
+public class CompanyRating {
     @Id
     private String _id;
     @DocumentReference(collection = "recruiter")

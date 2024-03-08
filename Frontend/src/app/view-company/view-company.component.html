@@ -1,8 +1,13 @@
 <div class="container-main">
+
     <div class="head">
+
         <img [src]="company.image">
+
         <div class="head-box">
+
             <h2>{{company.companyName}}</h2>
+
             <div class="star" [class.readOnly]="readonly">
                 <fa-icon [class.rated]="companyRating >= 5" [icon]="faStar"></fa-icon>
                 <fa-icon [class.rated]="companyRating >= 4" [icon]="faStar"></fa-icon>
@@ -10,28 +15,40 @@
                 <fa-icon [class.rated]="companyRating >= 2" [icon]="faStar"></fa-icon>
                 <fa-icon [class.rated]="companyRating >= 1" [icon]="faStar"></fa-icon>
             </div>
+
             <span>{{company.companyType}}</span>
             <span>{{company.location}}</span>
+
         </div>
+
         <div>
+
             <div class="container" [class.readOnly]="readonly">
+
                 <fa-icon [class.rated]="rating >= 5" [icon]="faStar" (click)="setRating(5)"></fa-icon>
                 <fa-icon [class.rated]="rating >= 4" [icon]="faStar" (click)="setRating(4)"></fa-icon>
                 <fa-icon [class.rated]="rating >= 3" [icon]="faStar" (click)="setRating(3)"></fa-icon>
                 <fa-icon [class.rated]="rating >= 2" [icon]="faStar" (click)="setRating(2)"></fa-icon>
                 <fa-icon [class.rated]="rating >= 1" [icon]="faStar" (click)="setRating(1)"></fa-icon>
+
             </div>
+
             <div class="action-buttons">
                 <button mat-raised-button (click)="updateRating()" mat-dialog-close color="primary">Submit</button>
             </div>
+
         </div>
+
     </div>
+
     <div class="content">
+
         <h3>About the company</h3>
         <p>{{company.about}}</p>
         <h3>Job openings:</h3>
 
         <div class="posts">
+
             <div *ngFor="let post of companyPosts" class="post">
 
                 <div class="boxHead">
@@ -55,12 +72,18 @@
                 </div>
 
             </div>
+
         </div>
+
     </div>
+
     <div class="paginator">
+
         <mat-paginator (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
             [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex"
             aria-label="Select page">
         </mat-paginator>
+
     </div>
+
 </div>

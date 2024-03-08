@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { FormGroup } from '@angular/forms';
-import Swal from 'sweetalert2';
+import { Observable, Subscription } from 'rxjs';
+import { AlertService } from '../service/alert.service';
 
 export interface User {
   _id: string,
@@ -32,9 +31,15 @@ export interface User {
 })
 
 export class ProfileService {
-  constructor(private http: HttpClient) { }
 
-  update(user: any, form: FormData) {
+  constructor(
+    private http: HttpClient,
+    private alertService: AlertService
+  ) { }
+
+  jobApi: Subscription = new Subscription();
+
+  update(user: any, form: FormData): Subscription {
 
     if (sessionStorage.getItem('role') === "JOBSEEKER") {
       form.append('id', user._id);
@@ -54,23 +59,17 @@ export class ProfileService {
 
       return this.http.put(`${environment.jobseekerUrl}/update`, form).subscribe({
         next: () => {
-          this.http.put(`${environment.jobseekerUrl}/update-industry/${user._id}`, user.jobseekerIndustries).subscribe({
+          this.jobApi = this.http.put(`${environment.jobseekerUrl}/update-industry/${user._id}`, user.jobseekerIndustries).subscribe({
             next: () => {
-              Swal.fire({
-                title: 'Profile Updated',
-                text: 'Successfully',
-                icon: 'success',
-              });
+              this.alertService.alertMessage('Profile Updation', 'Successfully', 'success');
             },
             error: () => {
-              Swal.fire({
-                title: 'Profile Updated',
-                text: 'Failed',
-                icon: 'error',
-              });
+              this.alertService.alertMessage('Profile Updation', 'Failed', 'error');
             }
+
           })
         }
+
       });
     }
     else if (sessionStorage.getItem('role') === "RECRUITER") {
@@ -86,18 +85,10 @@ export class ProfileService {
       form.append('about', user.about);
       return this.http.put(`${environment.recruiterUrl}/update`, form).subscribe({
         next: () => {
-          Swal.fire({
-            title: 'Profile Updated',
-            text: 'Successfully',
-            icon: 'success',
-          });
+          this.alertService.alertMessage('Profile Updation', 'Successfully', 'success');
         },
         error: () => {
-          Swal.fire({
-            title: 'Profile Updated',
-            text: 'Failed',
-            icon: 'error',
-          });
+          this.alertService.alertMessage('Profile Updation', 'Failed', 'error');
         }
       })
     }
@@ -109,21 +100,17 @@ export class ProfileService {
       form.append('role', 'ADMIN');
       return this.http.put(`${environment.userUrl}/update`, form).subscribe({
         next: () => {
-          Swal.fire({
-            title: 'Profile Updated',
-            text: 'Successfully',
-            icon: 'success',
-          });
+          this.alertService.alertMessage('Profile Updation', 'Successfully', 'success')
         },
         error: () => {
-          Swal.fire({
-            title: 'Profile Updated',
-            text: 'Failed',
-            icon: 'error',
-          });
+          this.alertService.alertMessage('Profile Updation', 'Failed', 'error')
         }
       });
     }
 
+  }
+
+  ngOnDestroy() {
+    this.jobApi.unsubscribe();
   }
 }

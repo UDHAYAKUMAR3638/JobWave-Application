@@ -1,9 +1,13 @@
 <div class="router">
+
     <div class="text" id="text">
         <h2 class="head">Your job posts</h2>
     </div>
+
     <div class="container">
+
         <div class="left">
+
             <div *ngFor="let post of myPost" class="post" (click)="rightBox(post._id)">
                 <div class="boxHead">
                     <img [src]=post.recruiterId.image class="logo">
@@ -23,12 +27,17 @@
                 <div class="button-box" *ngIf="post.status==='Close'">
                     <button mat-raised-button color="primary" class="button" (click)="open(post)">Open</button>
                 </div>
+
             </div>
+
         </div>
+
         <div class="right" id="right">
+
             <h2 class="head" *ngIf="flag">Candidates applied for post</h2>
             <h2 class="head" *ngIf="!flag">No candidates applied for post</h2>
             <div class="change-box">
+
                 <div *ngFor="let applicant of myPostApplicants" class="applicant">
                     <img [src]="applicant.userId.image" class="image">
                     <span><b>{{applicant.name}}</b></span>
@@ -36,13 +45,18 @@
                     <button mat-raised-button color="primary" class="button"
                         (click)="openDialog(applicant)">View</button>
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
     <div class="paginator">
         <mat-paginator (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
             [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex"
             aria-label="Select page">
         </mat-paginator>
     </div>
+
 </div>

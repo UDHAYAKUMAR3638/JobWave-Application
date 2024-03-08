@@ -7,18 +7,22 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root'
 })
 export class PermissionService {
+
   permissions!: any;
+
   constructor(private http: HttpClient) {
-    if (localStorage.getItem('isLogged') === "true")
+
+    if (localStorage.getItem('isLogged') === "true") {
       this.getPermission().subscribe({
-        next: (data) => {
+        next: (data: Array<String>) => {
           localStorage.setItem('permissions', JSON.stringify(data));
           this.permissions = localStorage.getItem('permissions');
         }
       })
+    }
   }
 
-  getPermission(): Observable<any> {
-    return this.http.get<any>(environment.permUrl + `/getPermissions/${sessionStorage.getItem('role')}`);
+  getPermission(): Observable<string[]> {
+    return this.http.get<string[]>(environment.permUrl + `/getPermissions/${sessionStorage.getItem('role')}`);
   }
 }

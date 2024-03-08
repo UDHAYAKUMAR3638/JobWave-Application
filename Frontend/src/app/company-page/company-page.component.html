@@ -1,26 +1,32 @@
 <div class="content">
+
     <div class="search" id="search">
         <input type="text" [(ngModel)]="inp" placeholder="Company name" class="input" (input)="search()">
     </div>
+
     <div class="text" id="text">
         <h2 class="head">Top companies</h2>
     </div>
+
     <div class="container">
         <div class="company" *ngFor="let company of companies">
             <img [src]="company.image" class="image">
             <div class="company-box">
                 <strong>{{company.companyName}}</strong>
                 <span>{{company.companyType}}</span>
-                <span>{{company.empCount}}+ employees</span>
+                <span>{{company.empCount}} + employees</span>
                 <span>{{company.location}}</span>
-                <button mat-raised-button color="primary" class="button" (click)="redirect(company._id)">View</button>
+                <button mat-raised-button color="primary" class="button"
+                    (click)="redirectToPage(company._id)">View</button>
             </div>
         </div>
     </div>
+
     <div class="paginator">
         <mat-paginator (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
             [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex"
             aria-label="Select page">
         </mat-paginator>
     </div>
+
 </div>

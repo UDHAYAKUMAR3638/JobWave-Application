@@ -1,6 +1,5 @@
 package Backend.JobWave.Model;
 
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
@@ -15,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Document(collection = "jobApplication")
 public class JobApplication {
-    
+
     @Id
     private String _id;
     private String name;
@@ -24,9 +23,9 @@ public class JobApplication {
     private String skills;
     private String resume;
     private String experience;
-    @DocumentReference(collection="post")
+    @DocumentReference(collection = "post")
     private Post postId;
-    @DocumentReference(collection="jobseeker")
+    @DocumentReference(collection = "jobseeker")
     private Jobseeker userId;
     private String status;
 
@@ -41,5 +40,5 @@ public class JobApplication {
         this.setPostId(new Post(jobApplication.getPostId()));
         this.setUserId(new Jobseeker(jobApplication.getUserId()));
         this.setStatus(jobApplication.getStatus());
-    } 
+    }
 }

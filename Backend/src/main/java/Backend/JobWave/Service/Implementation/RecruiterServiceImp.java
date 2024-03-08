@@ -25,7 +25,7 @@ import Backend.JobWave.Repository.UserRepository;
 import Backend.JobWave.Service.RecruiterService;
 
 @Service
-public class RecruiterServiceImp implements RecruiterService{
+public class RecruiterServiceImp implements RecruiterService {
 
     @Autowired
     RecruiterRepository recruiterRepo;
@@ -49,7 +49,7 @@ public class RecruiterServiceImp implements RecruiterService{
 
     @Override
     public Recruiter registerRecruiter(RecruiterDto Recruiter) throws java.io.IOException {
-        Recruiter recruiter=new Recruiter(Recruiter, fileService.imageConvet(Recruiter.getImage()));
+        Recruiter recruiter = new Recruiter(Recruiter, fileService.imageConvet(Recruiter.getImage()));
         userRepository.save(new User(recruiter, roleRepository.findByRole("RECRUITER"),
                 passwordEncoder.encode(Recruiter.getPassword())));
         return recruiterRepo.save(recruiter);
@@ -57,22 +57,22 @@ public class RecruiterServiceImp implements RecruiterService{
 
     @Override
     public Recruiter updateRecruiter(RecruiterDto recruiter) throws IOException {
-        Recruiter Recruiter=new Recruiter();
-    
-        if(!recruiter.getImage().isEmpty())
-        Recruiter=new Recruiter(recruiter, fileService.imageConvet(recruiter.getImage()));
+        Recruiter Recruiter = new Recruiter();
+
+        if (!recruiter.getImage().isEmpty())
+            Recruiter = new Recruiter(recruiter, fileService.imageConvet(recruiter.getImage()));
         else
-        Recruiter=new Recruiter(recruiter,recruiterRepo.findById(recruiter.getId()).get().getImage());
-        
-        User user= userRepository.findByEmail(recruiterRepo.findById(Recruiter.get_id()).get().getEmail());
+            Recruiter = new Recruiter(recruiter, recruiterRepo.findById(recruiter.getId()).get().getImage());
+
+        User user = userRepository.findByEmail(recruiterRepo.findById(Recruiter.get_id()).get().getEmail());
         user.setEmail(Recruiter.getEmail());
         user.setPassword(passwordEncoder.encode(Recruiter.getPassword()));
         user.setName(Recruiter.getName());
         user.setImage(Recruiter.getImage());
         userRepository.save(user);
-       
+
         return recruiterRepo.save(Recruiter);
-        
+
     }
 
     @Override
@@ -86,8 +86,8 @@ public class RecruiterServiceImp implements RecruiterService{
     }
 
     @Override
-    public Page<Post> getPost(String id,int page,int size) {
-        return postRepository.findByRecruiterId(new ObjectId(id),PageRequest.of(page, size));
+    public Page<Post> getPost(String id, int page, int size) {
+        return postRepository.findByRecruiterId(new ObjectId(id), PageRequest.of(page, size));
     }
 
     @Override
@@ -101,8 +101,8 @@ public class RecruiterServiceImp implements RecruiterService{
     }
 
     @Override
-    public Page<Recruiter>getAll(String name,int page,int size) {
-        return  recruiterRepo.findByCompanyName(name,PageRequest.of(page, size,Sort.by(Order.desc("rating"))));
+    public Page<Recruiter> getAll(String name, int page, int size) {
+        return recruiterRepo.findByCompanyName(name, PageRequest.of(page, size, Sort.by(Order.desc("rating"))));
     }
 
     @Override

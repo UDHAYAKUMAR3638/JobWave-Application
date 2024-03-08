@@ -1,6 +1,5 @@
 package Backend.JobWave.Controller;
 
-
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,38 +41,40 @@ public class UserController {
 
     @GetMapping("/getEmail/{email}")
     public ResponseEntity<?> getEmail(@PathVariable String email) {
-        return new ResponseEntity<User>(userService.getEmail(email),HttpStatus.OK);
+        return new ResponseEntity<User>(userService.getEmail(email), HttpStatus.OK);
     }
 
     @PostMapping("/register/jobseeker")
     public ResponseEntity<Jobseeker> registerJobseeker(@RequestBody UserDto user) throws IOException {
-        return new ResponseEntity<Jobseeker>(JobseekerService.registerJobseeker(new JobseekerDto(user)),HttpStatus.OK);
+        return new ResponseEntity<Jobseeker>(JobseekerService.registerJobseeker(new JobseekerDto(user)), HttpStatus.OK);
     }
 
     @PostMapping("/register/recruiter")
     public ResponseEntity<Recruiter> registerRecruiter(@RequestBody UserDto user) throws IOException {
-        return new ResponseEntity<Recruiter>(RecruiterService.registerRecruiter(new RecruiterDto(user)),HttpStatus.OK);
+        return new ResponseEntity<Recruiter>(RecruiterService.registerRecruiter(new RecruiterDto(user)), HttpStatus.OK);
     }
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@ModelAttribute UserDto user) throws IOException {
-        return new ResponseEntity<User>(userService.register(user),HttpStatus.OK);
+        return new ResponseEntity<User>(userService.register(user), HttpStatus.OK);
     }
 
     @PutMapping("/update")
     public ResponseEntity<User> update(@ModelAttribute UserDto user) throws IOException {
-        return new ResponseEntity<User>(userService.update(user),HttpStatus.OK);
+        return new ResponseEntity<User>(userService.update(user), HttpStatus.OK);
     }
 
     @PutMapping("/update-status/{id}/{status}")
-    public ResponseEntity<Boolean> updateStatus(@PathVariable String id,@PathVariable String status) throws IOException {
-        return new ResponseEntity<Boolean>(userService.updateStatus(id,status),HttpStatus.OK);
+    public ResponseEntity<Boolean> updateStatus(@PathVariable String id, @PathVariable String status)
+            throws IOException {
+        return new ResponseEntity<Boolean>(userService.updateStatus(id, status), HttpStatus.OK);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<Page<User>> getItems(@RequestParam(value = "search") String key,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
-    Page<User> user=userService.getItems(key,page,size);
-    return new ResponseEntity<Page<User>>(user,HttpStatus.OK);
+    public ResponseEntity<Page<User>> getItems(@RequestParam(value = "search") String key,
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Page<User> user = userService.getItems(key, page, size);
+        return new ResponseEntity<Page<User>>(user, HttpStatus.OK);
     }
 
 }

@@ -27,7 +27,7 @@ public class SecurityConfig {
 
                 http.csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests(requests -> requests
-                                                .requestMatchers("**","static/**")
+                                                .requestMatchers("**", "static/**")
                                                 .permitAll()
                                                 .anyRequest()
                                                 .authenticated())
@@ -35,13 +35,6 @@ public class SecurityConfig {
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .authenticationProvider(authenticationProvider)
                                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-                                // .logout(logout -> logout
-                                //                 .logoutUrl("/api/auth/logout")
-                                //                 .addLogoutHandler(logoutHandler)
-                                //                 .logoutSuccessHandler(
-                                //                                 (request, response,
-                                //                                                 authentication) -> SecurityContextHolder
-                                //                                                                 .clearContext()));
                 return http.build();
         }
 }

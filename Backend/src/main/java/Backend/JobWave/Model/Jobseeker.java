@@ -59,13 +59,13 @@ public class Jobseeker {
         this.setImage(imageConvet);
     }
 
-    public Jobseeker(String id){
-        this._id=id;
+    public Jobseeker(String id) {
+        this._id = id;
     }
 
     public Jobseeker(User user) {
-      this.name=user.getName();
-      this.email=user.getEmail();
-      this.password=user.getPassword();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
     }
 }

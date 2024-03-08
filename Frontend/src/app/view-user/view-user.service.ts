@@ -2,37 +2,40 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { Page } from '../service/data.service';
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
 
+  url: string = '';
+
   constructor(private http: HttpClient) { }
 
-  getItems(search: string, page: number, size: number): Observable<any> {
+  getItems(search: string, page: number, size: number): Observable<Page> {
+
     const params = new HttpParams()
       .set('search', search)
       .set('page', page.toString())
       .set('size', size.toString());
-    return this.http.get<any>(environment.userUrl + '/getAll', { params });
+    return this.http.get<Page>(environment.userUrl + '/getAll', { params });
+
   }
 
-  getDetails(role: string, email: string) {
+  getDetails(role: string, email: string): Observable<any> {
+
     if (role === 'JOBSEEKER')
-      return this.http.get<any>(
-        `${environment.jobseekerUrl}/getEmail/${email}`);
+      this.url = environment.jobseekerUrl;
     else if (role === 'RECRUITER')
-      return this.http.get<any>(
-        `${environment.recruiterUrl}/getEmail/${email}`);
+      this.url = environment.recruiterUrl;
     else
-      return this.http.get<any>(
-        `${environment.userUrl}/getEmail/${email}`);
+      this.url = environment.userUrl;
+
+    return this.http.get<any>(`${this.url}/getEmail/${email}`);
+
   }
 
-  updateStatus(id: string, status: string) {
-    const params = new HttpParams()
-      .set('id', id)
-      .set('status', status);
-    return this.http.put<any>(`${environment.userUrl}/update-status/${id}/${status}`, { params });
+  updateStatus(id: string, status: string): Observable<Page> {
+    return this.http.put<Page>(`${environment.userUrl}/update-status/${id}/${status}`, '');
   }
 }

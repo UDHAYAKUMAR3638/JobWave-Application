@@ -2,9 +2,9 @@ import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { JobPageService } from './job-page.service';
 import { Post } from '../post-page/post-page.service';
 import { List } from 'lodash';
-import { DataService } from '../service/data.service';
+import { DataService, Page } from '../service/data.service';
 import { Router } from '@angular/router';
-import { Subject, debounceTime, switchMap } from 'rxjs';
+import { Subject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -14,10 +14,9 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class JobPageComponent {
 
-  @ViewChild('applyButton') applyButton!: ElementRef;
-
   constructor(private jobPageService: JobPageService, private router: Router) { }
 
+  @ViewChild('applyButton') applyButton!: ElementRef;
   jobPosts!: Array<Post>;
   selectedPost: Post = {
     _id: '',
@@ -45,51 +44,53 @@ export class JobPageComponent {
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
+  postApi: Subscription = new Subscription();
+  applicationApi: Subscription = new Subscription();
+  searchApi: Subscription = new Subscription();
+
 
   private searchText$ = new Subject<string>();
 
   ngOnInit() {
-    this.searchText$.pipe(debounceTime(500), switchMap(() => this.jobPageService.getAllPosts(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize))).subscribe({
+    this.searchApi = this.searchText$.pipe(debounceTime(500), switchMap(() => this.jobPageService.getAllPosts(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize))).subscribe({
       next: (data: { content: Post[]; totalElements: number; }) => {
         this.jobPosts = data.content;
         this.rightBox(this.jobPosts[0]);
         this.length = data.totalElements;
       },
-      error: (error: any) => {
-        console.log(error);
-      }
+
     });
     this.getPost();
   }
 
-  search() {
+  search(): void {
     this.searchText$.next('');
   }
 
-  handlePageEvent(event: PageEvent) {
+  handlePageEvent(event: PageEvent): void {
     this.length = event.length;
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
     this.getPost();
   }
 
-  getPost() {
-    this.jobPageService.getAllPosts(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize).subscribe({
+  getPost(): void {
+    this.postApi = this.jobPageService.getAllPosts(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize).subscribe({
       next: (data: { content: Post[]; totalElements: number; }) => {
         this.jobPosts = data.content;
         this.length = data.totalElements;
         this.rightBox(this.jobPosts[0]);
       },
-      error: (error: any) => {
-        console.log(error);
-      }
+
     });
   }
 
-  rightBox(currPost: Post) {
+  rightBox(currPost: Post): void {
+
     this.selectedPost = currPost;
-    this.jobPageService.getApplication(this.selectedPost._id, sessionStorage.getItem('email') || '').subscribe({
-      next: (data: null) => {
+
+    this.applicationApi = this.jobPageService.getApplication(this.selectedPost._id, sessionStorage.getItem('email') || '').subscribe({
+      next: (data: Page) => {
         if (data != null) {
           this.applyButton.nativeElement.disabled = true;
         }
@@ -98,10 +99,11 @@ export class JobPageComponent {
         }
       }
     })
+
   }
 
   @HostListener('window:scroll', [])
-  OnWindowScroll() {
+  OnWindowScroll(): void {
 
     const rightbox: any = document.getElementById('right');
     const searchbox: any = document.getElementById('search');
@@ -110,15 +112,22 @@ export class JobPageComponent {
 
     if (boxHeight.top < 0) {
       rightbox.classList.add('right-fixed');
-    } else if (searchHeight.top > -150) {
+    }
+    else if (searchHeight.top > -150) {
       rightbox.classList.remove('right-fixed');
     }
+
   }
 
-  apply(postId: string) {
+  apply(postId: string): void {
     // this.dataService.messageSource.next(postId);
     this.router.navigate(['jobApply', postId]);
   }
 
+  ngOnDestroy() {
+    this.searchApi.unsubscribe();
+    this.applicationApi.unsubscribe();
+    this.postApi.unsubscribe();
+  }
 
 }

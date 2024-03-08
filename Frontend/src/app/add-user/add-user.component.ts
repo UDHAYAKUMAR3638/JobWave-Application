@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import Swal from 'sweetalert2';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AddUserService, User } from './add-user.service';
+import { Subscription } from 'rxjs';
+import { AlertService } from '../service/alert.service';
 
 @Component({
   selector: 'app-user',
@@ -13,36 +14,38 @@ import { AddUserService, User } from './add-user.service';
 export class UserComponent {
 
   constructor(
-    private fb: FormBuilder,
-    private addUserService: AddUserService
+    private formBuilder: FormBuilder,
+    private addUserService: AddUserService,
+    private alertService: AlertService
   ) { }
 
-  addUserForm = this.fb.group({
+  userApi: Subscription = new Subscription();
+
+  addUserForm = this.formBuilder.group({
     name: ['', Validators.required],
     email: ['', [Validators.email, Validators.required]],
     password: ['', Validators.required],
     role: ['', Validators.required],
   });
 
-  register() {
-    if (!this.addUserForm.invalid) {
 
-      this.addUserService.addUser(<User>this.addUserForm.value).subscribe({
+  register(): void {
+
+    if (!this.addUserForm.invalid) {
+      this.userApi = this.addUserService.addUser(<User>this.addUserForm.value).subscribe({
         next: () => {
-          Swal.fire({
-            title: 'New User AddedSuccessfully',
-            icon: 'success'
-          })
+          this.alertService.alertMessage('New User AddedSuccessfully', '', 'success');
         },
         error: () => {
-          Swal.fire({
-            title: "Enter Valid User Details!",
-            text: "Try again",
-            icon: "error",
-          });
+          this.alertService.alertMessage('Enter Valid User Details!', 'Try again', 'error');
         },
       });
     }
+
+  }
+
+  ngOnDestroy() {
+    this.userApi.unsubscribe();
   }
 
 }

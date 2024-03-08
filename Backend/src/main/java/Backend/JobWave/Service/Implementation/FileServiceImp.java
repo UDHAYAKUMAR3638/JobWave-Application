@@ -10,6 +10,7 @@ import io.jsonwebtoken.io.IOException;
 
 @Service
 public class FileServiceImp implements FileService {
+
     public String imageConvet(MultipartFile file) throws java.io.IOException {
         if (!file.isEmpty()) {
             String url = "";
@@ -32,6 +33,7 @@ public class FileServiceImp implements FileService {
     }
 
     public String pdfConvet(MultipartFile file) throws java.io.IOException {
+        
         String url = "";
         String a = file.getContentType();
         if (a != null && a.endsWith("pdf")) {

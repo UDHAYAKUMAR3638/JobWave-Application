@@ -30,4 +30,5 @@ const appRoute: Routes = [
     MatPaginatorModule
   ]
 })
+
 export class JobModule { }

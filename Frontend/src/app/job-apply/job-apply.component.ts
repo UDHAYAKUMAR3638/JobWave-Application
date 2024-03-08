@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { JobApplyService, JobApplication } from './job-apply.service';
-import Swal from 'sweetalert2';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../service/data.service';
 import { LoginService } from '../login/login.service';
+import { Subscription } from 'rxjs';
+import { AlertService } from '../service/alert.service';
 
 @Component({
   selector: 'app-job-apply',
@@ -14,25 +15,25 @@ import { LoginService } from '../login/login.service';
 
 
 export class JobApplyComponent {
+
   postId!: string;
   file: File | null = null;
-  constructor(private fb: FormBuilder,
+  loginApi: Subscription = new Subscription();
+  jobApi: Subscription = new Subscription();
+
+  constructor(private formBuilder: FormBuilder,
     private jobService: JobApplyService,
     private loginService: LoginService,
-    private dataService: DataService,
     private route: ActivatedRoute,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
+
     this.postId = this.route.snapshot.paramMap.get('postId') || '';
-    // this.dataService.messageSource.subscribe({
-    //   next: (id) => {
-    //     this.postId = id;
-    //   }
-    // })
-    this.loginService.getUser().subscribe({
+    this.loginApi = this.loginService.getUser().subscribe({
       next: (details: { name: any; email: any; phoneno: any; skills: any; _id: any; }) => {
-        this.jobApplicationForm = this.fb.group({
+        this.jobApplicationForm = this.formBuilder.group({
           name: [details.name, Validators.required],
           email: [details.email, [Validators.email, Validators.required]],
           phoneno: [details.phoneno, [Validators.required, Validators.maxLength(10)]],
@@ -42,14 +43,16 @@ export class JobApplyComponent {
           userId: { _id: details._id },
         });
       }
+
     });
+
   }
 
-  upload(event: any) {
+  upload(event: any): void {
     this.file = event.target.files[0];
   }
 
-  jobApplicationForm = this.fb.group({
+  jobApplicationForm = this.formBuilder.group({
     name: ['', Validators.required],
     email: ['', [Validators.email, Validators.required]],
     phoneno: ['', [Validators.required, Validators.maxLength(10)]],
@@ -59,7 +62,8 @@ export class JobApplyComponent {
     userId: { _id: '' },
   });
 
-  apply() {
+  apply(): void {
+
     const formData: FormData = new FormData();
     formData.append('name', this.jobApplicationForm.get('name')!.value || '');
     formData.append('email', this.jobApplicationForm.get('email')?.value || '');
@@ -70,18 +74,20 @@ export class JobApplyComponent {
     formData.append('userId', this.jobApplicationForm.get('userId')?.value?._id || '');
     formData.append('status', 'Pending');
     formData.append('resume', this.file || '');
+
     if (!this.jobApplicationForm.invalid) {
-      this.jobService.apply(formData).subscribe({
-        next: (data: any) => {
-          Swal.fire({
-            title: 'Application sent successfully',
-            icon: 'success'
-          })
+      this.jobApi = this.jobService.apply(formData).subscribe({
+        next: (data: JobApplication) => {
+          this.alertService.alertMessage('Application sent successfully', ``, 'success');
         },
-        error: (error: any) => {
-          console.log(error);
-        },
+
       });
     }
   }
+
+  ngOnDestroy() {
+    this.loginApi.unsubscribe();
+    this.jobApi.unsubscribe();
+  }
+
 }

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class JobseekerDto {
-   
+
     private String id;
     private String name;
     private String email;
@@ -30,10 +30,10 @@ public class JobseekerDto {
     private List<JobseekerIndustry> industries;
     private String location;
     private MultipartFile image;
-    
+
     public JobseekerDto(UserDto user) {
-        this.email=user.getEmail();
-        this.name=user.getName();
-        this.password=user.getPassword();
+        this.email = user.getEmail();
+        this.name = user.getName();
+        this.password = user.getPassword();
     }
 }

@@ -55,8 +55,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
                                         .token(jwtToken)
                                         .user(user)
                                         .build();
-                }
-                else{
+                } else {
                         throw new AccessDeniedException("inactive user", null);
                 }
 

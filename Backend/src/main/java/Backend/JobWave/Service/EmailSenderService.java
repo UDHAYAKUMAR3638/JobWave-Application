@@ -6,5 +6,6 @@ import Backend.JobWave.Model.Email;
 
 @Service
 public interface EmailSenderService {
-    public Boolean sendEmail(Email data ) ;
+    
+    public Boolean sendEmail(Email data);
 }

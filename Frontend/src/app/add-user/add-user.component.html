@@ -3,7 +3,6 @@
         <div class="registerBox">
                 <h1 class="head">Add user</h1>
                 <form class="form" [formGroup]="addUserForm">
-
                         <label class="labels">Enter name :</label>
                         <input class="inputs" placeholder="Enter name" formControlName="name">
                         <mat-error *ngIf="addUserForm.get('name')?.invalid &&

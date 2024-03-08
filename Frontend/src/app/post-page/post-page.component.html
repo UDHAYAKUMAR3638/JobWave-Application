@@ -1,28 +1,31 @@
 <div class="container">
+
     <img class="image" src="../../assets/image/post.png">
     <div class="postBox">
+
         <h1 class="head"> Create an job post</h1>
         <form class="form" [formGroup]="postForm">
+
             <label class="labels">Job role</label>
             <input class="inputs" placeholder="Enter jo role" formControlName="role">
-            <!-- <mat-error *ngIf="postForm.get('role')?.invalid &&
+            <mat-error *ngIf="postForm.get('role')?.invalid &&
     (postForm.get('role')?.dirty ||
     postForm.get('role')?.touched)">
-                role is required!</mat-error> -->
+                role is required!</mat-error>
 
             <label class="labels">Location of work</label>
             <input matInput class="inputs" placeholder="Enter location of work" formControlName="location">
-            <!-- <mat-error *ngIf="postForm.get('location')?.invalid &&
+            <mat-error *ngIf="postForm.get('location')?.invalid &&
     (postForm.get('location')?.dirty ||
      postForm.get('location')?.touched)">
-                location is required!</mat-error> -->
+                location is required!</mat-error>
 
             <label class="labels">Job salary</label>
             <input class="inputs" placeholder="Enter salary" formControlName="salary">
-            <!-- <mat-error *ngIf="postForm.get('salary')?.invalid &&
+            <mat-error *ngIf="postForm.get('salary')?.invalid &&
     (postForm.get('salary')?.dirty ||
      postForm.get('salary')?.touched)">
-                salary is required!</mat-error> -->
+                salary is required!</mat-error>
 
 
             <label class="labels">Job skills</label>
@@ -37,10 +40,10 @@
                 <option>Temporary</option>
                 <option>Freelance</option>
             </select>
-            <!-- <mat-error *ngIf="postForm.get('jobType')?.invalid &&
+            <mat-error *ngIf="postForm.get('jobType')?.invalid &&
     (postForm.get('jobType')?.dirty ||
      postForm.get('jobType')?.touched)">
-                Job type is Required!</mat-error> -->
+                Job type is Required!</mat-error>
 
 
             <label class="labels">Job work schedule</label>
@@ -52,24 +55,24 @@
                 <option>Monday to Friday</option>
                 <option>Weekend availability</option>
             </select>
-            <!-- <mat-error *ngIf="postForm.get('schedule')?.invalid &&
+            <mat-error *ngIf="postForm.get('schedule')?.invalid &&
     (postForm.get('schedule')?.dirty ||
      postForm.get('schedule')?.touched)">
-                schedule is required!</mat-error> -->
+                schedule is required!</mat-error>
 
             <label class="labels">Job description</label>
             <input matInput class="inputs" placeholder="Enter content" formControlName="content">
-            <!-- <mat-error *ngIf="postForm.get('content')?.invalid &&
+            <mat-error *ngIf="postForm.get('content')?.invalid &&
     (postForm.get('content')?.dirty ||
      postForm.get('content')?.touched)">
-                password is required!</mat-error> -->
+                password is required!</mat-error>
 
             <label class="labels">Education requirement</label>
             <input matInput class="inputs" placeholder="Enter education" formControlName="education">
-            <!-- <mat-error *ngIf="postForm.get('education')?.invalid &&
+            <mat-error *ngIf="postForm.get('education')?.invalid &&
     (postForm.get('education')?.dirty ||
      postForm.get('education')?.touched)">
-                education is required!</mat-error> -->
+                education is required!</mat-error>
 
             <label class="labels">Job benifits</label>
             <input type="text" class="inputs" placeholder="Enter benifits" formControlName="benifits">
@@ -81,6 +84,7 @@
                     class="pi pi-check-circle"></i></button>
 
         </form>
+
     </div>
 
 </div>

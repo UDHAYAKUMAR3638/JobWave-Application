@@ -1,8 +1,9 @@
 import { Component, HostListener } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { RecruiterProfileCompletionService } from './recruiter-profile-completion.service';
+import { Recruiter, RecruiterProfileCompletionService } from './recruiter-profile-completion.service';
+import { Subscription } from 'rxjs';
+import { AlertService } from '../service/alert.service';
 
 @Component({
   selector: 'app-recruiter-profile-completion',
@@ -12,9 +13,17 @@ import { RecruiterProfileCompletionService } from './recruiter-profile-completio
 
 export class RecruiterProfileCompletionComponent {
 
-  constructor(private fb: FormBuilder, private profileService: RecruiterProfileCompletionService, private route: Router) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private profileService: RecruiterProfileCompletionService,
+    private route: Router,
+    private alertService: AlertService
+  ) { }
+
   private file: File | null = null;
-  registerForm = this.fb.group({
+  registerApi: Subscription = new Subscription();
+
+  registerForm = this.formBuilder.group({
     _id: '',
     companyName: ['', Validators.required],
     empCount: ['', Validators.required],
@@ -28,41 +37,39 @@ export class RecruiterProfileCompletionComponent {
     about: ''
   });
 
-  upload(event: any) {
+  upload(event: any): void {
     this.file = event.target.files[0];
   }
 
-  register() {
-
-    const formData: FormData = new FormData();
-    formData.append('_id', this.registerForm.get('_id')!.value || "");
-    formData.append('companyName', this.registerForm.get('companyName')?.value || "");
-    formData.append('empCount', this.registerForm.get('empCount')?.value || "");
-    formData.append('name', this.registerForm.get('name')?.value || "");
-    formData.append('phoneno', this.registerForm.get('phoneno')?.value || "");
-    formData.append('email', this.registerForm.get('email')?.value || "");
-    formData.append('password', this.registerForm.get('password')?.value || "");
-    formData.append('companyType', this.registerForm.get('companyType')?.value || "");
-    formData.append('location', this.registerForm.get('location')?.value || "");
-    formData.append('image', this.file || "");
-    formData.append('about', this.registerForm.get('about')?.value || "");
+  register(): void {
 
     if (!this.registerForm.invalid) {
-      this.profileService.register(formData).subscribe({
-        next: (data: any) => {
-          // console.log(data);
-          Swal.fire({
-            title: 'Registeration Successful!',
-            text: 'redirected to login',
-            icon: 'success'
-          })
+      const formData: FormData = new FormData();
+      formData.append('_id', this.registerForm.get('_id')!.value || "");
+      formData.append('companyName', this.registerForm.get('companyName')?.value || "");
+      formData.append('empCount', this.registerForm.get('empCount')?.value || "");
+      formData.append('name', this.registerForm.get('name')?.value || "");
+      formData.append('phoneno', this.registerForm.get('phoneno')?.value || "");
+      formData.append('email', this.registerForm.get('email')?.value || "");
+      formData.append('password', this.registerForm.get('password')?.value || "");
+      formData.append('companyType', this.registerForm.get('companyType')?.value || "");
+      formData.append('location', this.registerForm.get('location')?.value || "");
+      formData.append('image', this.file || "");
+      formData.append('about', this.registerForm.get('about')?.value || "");
+
+      this.registerApi = this.profileService.register(formData).subscribe({
+        next: (data: Recruiter) => {
+          this.alertService.alertMessage('Registeration Successful', 'redirected to login', 'success')
           this.route.navigate(['login']);
         },
-        error: (error: any) => {
-          console.log(error);
-        }
+
       });
     }
+
+  }
+
+  ngOnDestroy(): void {
+    this.registerApi.unsubscribe();
   }
 
 }

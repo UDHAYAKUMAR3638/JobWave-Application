@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { head } from 'lodash';
+import { Page } from '../service/data.service';
 
 export interface Industry {
     industryName: string,
@@ -30,18 +31,19 @@ export interface Jobseeker {
 @Injectable({
     providedIn: 'root'
 })
-export class FindApplicantService {
-    constructor(private http: HttpClient) {
-    }
 
-    getAllSeekers(headline: string, skills: string, location: string, pageIndex: number, pageSize: number): Observable<any> {
+export class FindApplicantService {
+
+    constructor(private http: HttpClient) { }
+
+    getAllSeekers(headline: string, skills: string, location: string, pageIndex: number, pageSize: number): Observable<Page> {
         const params = new HttpParams()
             .set('headline', headline)
             .set('skills', skills)
             .set('location', location)
             .set('pageIndex', pageIndex)
             .set('pageSize', pageSize);
-        return this.http.get<Array<Jobseeker>>(environment.jobseekerUrl + `/getAll`, { params });
+        return this.http.get<Page>(environment.jobseekerUrl + `/getAll`, { params });
     }
 
 }

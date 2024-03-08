@@ -23,11 +23,12 @@ import Backend.JobWave.Service.PaymentService;
 public class PaymentContoller {
     @Autowired
     PaymentService paymentService;
+
     @GetMapping("/createTransaction/{amount}")
     public ResponseEntity<TransactionDetails> createTransaction(@PathVariable double amount) {
         try {
             TransactionDetails response = paymentService.createTransaction(amount);
-            return new ResponseEntity<>(response,HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -35,21 +36,22 @@ public class PaymentContoller {
     }
 
     @GetMapping("/bills")
-    public ResponseEntity<Page<Payment>> getBills(@RequestParam(value="email") String email,@RequestParam(value="pageIndex") int page,@RequestParam(value="pageSize") int size) {
-           return new ResponseEntity<Page<Payment>>(paymentService.getBills(email,page,size), HttpStatus.OK) ;
+    public ResponseEntity<Page<Payment>> getBills(@RequestParam(value = "email") String email,
+            @RequestParam(value = "pageIndex") int page, @RequestParam(value = "pageSize") int size) {
+        return new ResponseEntity<Page<Payment>>(paymentService.getBills(email, page, size), HttpStatus.OK);
     }
 
     @GetMapping("/getAllBills")
-    public ResponseEntity<Page<Payment>> getAllBills(@RequestParam(value="pageIndex") int page,@RequestParam(value="pageSize") int size) {
-           return new ResponseEntity<Page<Payment>>(paymentService.getAllBills(page,size), HttpStatus.OK) ;
+    public ResponseEntity<Page<Payment>> getAllBills(@RequestParam(value = "pageIndex") int page,
+            @RequestParam(value = "pageSize") int size) {
+        return new ResponseEntity<Page<Payment>>(paymentService.getAllBills(page, size), HttpStatus.OK);
     }
-
 
     @PostMapping("/save")
     public ResponseEntity<Payment> savePayment(@RequestBody Payment payment) {
         try {
             Payment response = paymentService.savePayment(payment);
-            return new ResponseEntity<>(response,HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -9,7 +9,7 @@ import Backend.JobWave.Model.CompanyRating;
 import Backend.JobWave.Model.Recruiter;
 
 @Repository
-public interface CompanyRatingRepository extends MongoRepository<CompanyRating,String> {
+public interface CompanyRatingRepository extends MongoRepository<CompanyRating, String> {
 
     List<CompanyRating> findByCompanyId(Recruiter id);
 

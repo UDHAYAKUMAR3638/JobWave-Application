@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Jobseeker } from '../find-applicant/find-applicant.service';
 import { Post } from '../post-page/post-page.service';
+import { Page } from '../service/data.service';
 export interface JobApplication {
     name: string,
     email: string,
@@ -21,11 +22,10 @@ export interface JobApplication {
 
 export class JobApplyService {
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) { }
 
-    apply(data: FormData): Observable<any> {
-        return this.http.post<any>(environment.jobseekerUrl + "/apply", data);
+    apply(data: FormData): Observable<JobApplication> {
+        return this.http.post<JobApplication>(environment.jobseekerUrl + "/apply", data);
     }
 
 

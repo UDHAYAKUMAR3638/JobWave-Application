@@ -1,12 +1,14 @@
 import { Component, HostListener } from '@angular/core';
-import { Applicant, MyPostService } from './my-post.service';
+import { MyPostService } from './my-post.service';
 import { ApplicantComponent } from '../applicant/applicant.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../service/data.service';
 import { LoginService } from '../login/login.service';
-import Swal from 'sweetalert2';
 import { Post } from '../post-page/post-page.service';
 import { PageEvent } from '@angular/material/paginator';
+import { Subscription } from 'rxjs';
+import { AlertService } from '../service/alert.service';
+import { JobApplication } from '../job-apply/job-apply.service';
 
 @Component({
   selector: 'app-my-post',
@@ -16,7 +18,7 @@ import { PageEvent } from '@angular/material/paginator';
 export class MyPostComponent {
 
   myPost!: Array<Post>;
-  myPostApplicants!: Array<Applicant>;
+  myPostApplicants!: Array<JobApplication>;
   flag = false;
   userDetails!: any;
   length = 40;
@@ -24,13 +26,22 @@ export class MyPostComponent {
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
+  userApi: Subscription = new Subscription();
+  postApi: Subscription = new Subscription();
+  applicantApi: Subscription = new Subscription();
+  updateApi: Subscription = new Subscription();
 
-  constructor(private myPostService: MyPostService,
-    public dialog: MatDialog, private loginService: LoginService
+
+  constructor(
+    private myPostService: MyPostService,
+    public dialog: MatDialog,
+    private loginService: LoginService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
-    this.loginService.getUser().subscribe({
+
+    this.userApi = this.loginService.getUser().subscribe({
       next: (data: any) => {
         this.userDetails = data;
         this.getPost();
@@ -39,40 +50,41 @@ export class MyPostComponent {
 
   }
 
-  handlePageEvent(event: PageEvent) {
+  handlePageEvent(event: PageEvent): void {
     this.length = event.length;
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
     this.getPost();
   }
 
-  getPost() {
-    this.myPostService.MyPosts(this.userDetails._id, this.pageIndex, this.pageSize).subscribe({
+  getPost(): void {
+
+    this.postApi = this.myPostService.MyPosts(this.userDetails._id, this.pageIndex, this.pageSize).subscribe({
       next: (data: { content: Post[]; totalElements: number; }) => {
         this.myPost = data.content;
         this.length = data.totalElements;
         this.rightBox(this.myPost[0]._id);
       },
-      error: (error: any) => {
-        console.log(error);
-      }
+
     });
 
   }
 
-  rightBox(postId: string) {
-    this.myPostService.MyPostSeekers(postId).subscribe({
-      next: (data: Array<Applicant>) => {
+  rightBox(postId: string): void {
+
+    this.applicantApi = this.myPostService.MyPostSeekers(postId).subscribe({
+      next: (data: Array<JobApplication>) => {
         this.myPostApplicants = data;
+
         if (data.length > 0)
           this.flag = true;
         else
           this.flag = false;
+
       },
-      error: (error: any) => {
-        console.log(error);
-      }
+
     });
+
   }
 
   openDialog(details: any): void {
@@ -84,39 +96,47 @@ export class MyPostComponent {
   }
 
   @HostListener('window:scroll', [])
-  OnWindowScroll() {
+  OnWindowScroll(): void {
     const rightbox: any = document.getElementById('right');
     const text: any = document.getElementById('text');
     const textHeight = text.getBoundingClientRect();
+
     if (textHeight.top < -67) {
       rightbox.classList.add('right-fixed');
-    } else if (textHeight.top > -71) {
+    }
+    else if (textHeight.top > -71) {
       rightbox.classList.remove('right-fixed');
     }
+
   }
 
-  open(post: Post) {
+  open(post: Post): void {
+
     post.status = 'Open';
-    this.myPostService.updatePost(post).subscribe({
+    this.updateApi = this.myPostService.updatePost(post).subscribe({
       next: () => {
-        Swal.fire({
-          title: 'Post updated Successfully',
-          icon: 'success'
-        })
+        this.alertService.alertMessage('Post opened', '', 'success');
       }
     })
+
   }
 
-  close(post: Post) {
+  close(post: Post): void {
+
     post.status = 'Close';
-    this.myPostService.updatePost(post).subscribe({
+    this.updateApi = this.myPostService.updatePost(post).subscribe({
       next: () => {
-        Swal.fire({
-          title: 'Post updated Successfully',
-          icon: 'success'
-        })
+        this.alertService.alertMessage('Post closed', '', 'success');
       }
-    })
+    });
+
+  }
+
+  ngOnDestroy() {
+    this.userApi.unsubscribe();
+    this.updateApi.unsubscribe();
+    this.postApi.unsubscribe();
+    this.applicantApi.unsubscribe();
   }
 
 }

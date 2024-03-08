@@ -9,19 +9,19 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-@Document(collection= "payment")
+@Document(collection = "payment")
 public class Payment {
-    
- @Id
- private String _id;
- @DocumentReference(collection = "post")
- private Post postId;
- @DocumentReference(collection = "recruiter")
- private Recruiter recruiterId;
- private String paymentId;
- private String orderId;
- private String name;
- private String email;
- private Double amount;
- 
+
+    @Id
+    private String _id;
+    @DocumentReference(collection = "post")
+    private Post postId;
+    @DocumentReference(collection = "recruiter")
+    private Recruiter recruiterId;
+    private String paymentId;
+    private String orderId;
+    private String name;
+    private String email;
+    private Double amount;
+
 }

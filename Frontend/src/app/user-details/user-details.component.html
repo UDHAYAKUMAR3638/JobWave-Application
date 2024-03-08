@@ -1,6 +1,9 @@
 <div class="container">
+
     <img [src]="user.image" class="image">
+
     <div class="detail">
+
         <span *ngIf="role=='RECRUITER'"><b>Company name:</b> {{user.companyName}}</span>
         <span *ngIf="role=='RECRUITER'"><b>Company type:</b> {{user.companyType}}</span>
         <span><b>Name:</b> {{user.name}}</span>
@@ -16,9 +19,13 @@
         <span *ngIf="role=='JOBSEEKER'"><b>College Completetion year:</b>{{user.clgPassedOutYear}}</span>
         <span *ngIf="role=='JOBSEEKER'"><b>Current position:</b> {{user.currentPosition}}</span>
         <span *ngIf="role=='JOBSEEKER'"><b>Skills:</b> {{user.skills}}</span>
+
     </div>
+
     <button mat-raised-button *ngIf="role=='JOBSEEKER'" color="primary" class="button"
         (click)="getJobs(user.email)">View jobs</button>
+
     <button mat-raised-button *ngIf="role=='RECRUITER'" color="primary" class="button"
         (click)="getPosts(user.email)">View posts</button>
+
 </div>

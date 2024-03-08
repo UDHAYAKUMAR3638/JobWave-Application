@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { PostPageService } from './post-page.service';
 import { LoginService } from '../login/login.service';
+import { Subscription } from 'rxjs';
+import { AlertService } from '../service/alert.service';
 declare const Razorpay: any;
 
 @Component({
@@ -13,26 +14,32 @@ declare const Razorpay: any;
 })
 export class PostPageComponent {
 
-  constructor(private fb: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
     private postService: PostPageService,
-    private loginService: LoginService) { }
+    private loginService: LoginService,
+    private alertService: AlertService
+  ) { }
 
-  paymentDetails!: any;
-  perPostCost = 900;
-  userDetails!: any;
+  ngOnInit(): void {
 
-  ngOnInit() {
-    this.loginService.getUser().subscribe({
+    this.loginApi = this.loginService.getUser().subscribe({
       next: (data: any) => {
         this.userDetails = data;
         this.postForm.get('companyName')?.setValue(this.userDetails.companyName);
         this.postForm.get('location')?.setValue(this.userDetails.location);
         this.postForm.get('recruiterId')?.setValue({ _id: this.userDetails._id });
       }
-    })
+    });
+
   }
 
-  postForm = this.fb.group({
+  paymentDetails!: any;
+  perPostCost = 900;
+  userDetails!: any;
+  postApi: Subscription = new Subscription();
+  orderApi: Subscription = new Subscription();
+  loginApi: Subscription = new Subscription();
+  postForm = this.formBuilder.group({
     companyName: '',
     role: ['', Validators.required],
     location: [, Validators.required],
@@ -49,27 +56,23 @@ export class PostPageComponent {
     status: 'Open'
   });
 
-  payment() {
+  payment(): void {
+
     if (!this.postForm.invalid) {
-      this.postService.createOrder(this.perPostCost).subscribe({
+      this.orderApi = this.postService.createOrder(this.perPostCost).subscribe({
         next: (data: any) => {
           // console.log(data);
           this.openTransactionModel(data);
         },
-        error: (error: any) => {
-          console.log(error);
-        }
+
       })
     }
     else {
-      Swal.fire({
-        title: 'Complete all fields',
-        icon: 'error'
-      })
+      this.alertService.alertMessage('Complete all fields', '', 'error');
     }
   }
 
-  openTransactionModel(response: any) {
+  openTransactionModel(response: any): void {
 
     const options = {
       order_id: response.orderId,
@@ -112,31 +115,30 @@ export class PostPageComponent {
 
   }
 
-  processResponse(response: any) {
+  processResponse(response: any): void {
 
     this.paymentDetails = response;
-
     this.register();
+
   }
 
-  register() {
+  register(): void {
 
     this.postForm.get('date')?.setValue(new Date());
-
-    this.postService.post(this.postForm.value).subscribe({
+    this.postApi = this.postService.post(this.postForm.value).subscribe({
       next: (data: { _id: string; }) => {
         this.postService.savePayment(data._id, this.paymentDetails, this.userDetails, this.perPostCost);
-        Swal.fire({
-          title: 'Post added Successfully',
-          icon: 'success'
-        })
+        this.alertService.alertMessage('Post added Successfully', '', 'success');
       },
 
-      error: (error: any) => {
-        console.log(error);
-      }
-
     });
+
+  }
+
+  ngOnDestroy(): void {
+    this.loginApi.unsubscribe();
+    this.orderApi.unsubscribe();
+    this.postApi.unsubscribe();
   }
 
 }

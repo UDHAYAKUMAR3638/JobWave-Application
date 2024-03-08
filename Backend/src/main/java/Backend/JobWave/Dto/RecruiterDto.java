@@ -6,12 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecruiterDto { 
-   
+public class RecruiterDto {
+
     private String id;
     private String companyName;
     private Integer empCount;
@@ -26,9 +25,9 @@ public class RecruiterDto {
     private double rating;
 
     public RecruiterDto(UserDto user) {
-        this.email=user.getEmail();
-        this.name=user.getName();
-        this.password=user.getPassword();
+        this.email = user.getEmail();
+        this.name = user.getName();
+        this.password = user.getPassword();
     }
 
 }

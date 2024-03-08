@@ -20,21 +20,21 @@ import Backend.JobWave.Service.CompanyRatingService;
 @RequestMapping("/rating")
 @CrossOrigin
 public class CompanyRatingController {
-    
+
     @Autowired
     CompanyRatingService companyRatingService;
 
     @PostMapping("/post")
-    public ResponseEntity<UpdateResult> addRating(@RequestBody CompanyRating rating){
-        CompanyRating updatedRating=companyRatingService.addRating(rating);
-        return new ResponseEntity<UpdateResult>(companyRatingService.avgRating(updatedRating.getCompanyId()), HttpStatus.OK);
+    public ResponseEntity<UpdateResult> addRating(@RequestBody CompanyRating rating) {
+        CompanyRating updatedRating = companyRatingService.addRating(rating);
+        return new ResponseEntity<UpdateResult>(companyRatingService.avgRating(updatedRating.getCompanyId()),
+                HttpStatus.OK);
 
     }
-    
+
     @PutMapping("/updateRating")
-    public void updateRating(@RequestBody Recruiter recruiter){
+    public void updateRating(@RequestBody Recruiter recruiter) {
         companyRatingService.avgRating(recruiter);
     }
 
-    
 }

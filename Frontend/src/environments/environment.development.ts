@@ -1,6 +1,5 @@
 export const environment = {
     baseUrl: "http://localhost:8080/api/auth",
-    appUrl: "http://localhost:8080/appointment",
     userUrl: "http://localhost:8080/user",
     permUrl: "http://localhost:8080/permission",
     jobseekerUrl: "http://localhost:8080/jobseeker",
@@ -11,3 +10,7 @@ export const environment = {
     ratingUrl: "http://localhost:8080/rating",
 
 };
+
+// export ip = http://localhost:8080;
+
+// have slash at the end of the url

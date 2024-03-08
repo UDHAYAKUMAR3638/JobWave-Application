@@ -4,13 +4,16 @@ import { Post } from '../post-page/post-page.service';
 import { LoginService } from '../login/login.service';
 import { Jobseeker } from '../find-applicant/find-applicant.service';
 import { PageEvent } from '@angular/material/paginator';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-my-job',
   templateUrl: './my-job.component.html',
   styleUrls: ['./my-job.component.scss']
 })
+
 export class MyJobComponent {
+
   userDetails: Jobseeker = {
     _id: '',
     email: '',
@@ -28,6 +31,7 @@ export class MyJobComponent {
     location: '',
     image: ''
   };
+
   status!: string;
   posts: Array<Post> = [];
   class!: string;
@@ -36,59 +40,75 @@ export class MyJobComponent {
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
+  applicationApi: Subscription = new Subscription();
+  jobApi: Subscription = new Subscription();
+  userApi: Subscription = new Subscription();
 
-  constructor(private myJobService: MyJobService, private loginService: LoginService) {
-  }
+
+  constructor(
+    private myJobService: MyJobService,
+    private loginService: LoginService
+  ) { }
 
   ngOnInit() {
     this.getUser();
   }
 
-  handlePageEvent(event: PageEvent) {
+  handlePageEvent(event: PageEvent): void {
     this.length = event.length;
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
     this.getUser();
   }
 
-  rightBox(postId: string) {
-    this.myJobService.getApplication(postId, this.userDetails.email).subscribe({
+  rightBox(postId: string): void {
+    this.applicationApi = this.myJobService.getApplication(postId, this.userDetails.email).subscribe({
       next: (data: { status: string; }) => {
         this.status = data.status;
       }
     });
   }
 
-  getUser() {
-    this.loginService.getUser().subscribe({
+  getUser(): void {
+
+    this.userApi = this.loginService.getUser().subscribe({
       next: (data: Jobseeker) => {
         this.userDetails = data;
-        this.myJobService.getJobs(this.userDetails.email, this.pageIndex, this.pageSize).subscribe({
-          next: (data: { content: any[]; totalElements: number; }) => {
+        this.jobApi = this.myJobService.getJobs(this.userDetails.email, this.pageIndex, this.pageSize).subscribe({
+          next: (data: { content: Jobseeker[]; totalElements: number; }) => {
             data.content.forEach((value: any) => {
               this.posts.push(value.postId);
             });
             this.length = data.totalElements;
             this.rightBox(this.posts[0]._id);
           },
-          error: (error: any) => {
-            console.log(error);
-          }
         });
+
       }
+
     });
+
   }
 
   @HostListener('window:scroll', [])
-  OnWindowScroll() {
+  OnWindowScroll(): void {
     const rightbox: any = document.getElementById('right');
     const text: any = document.getElementById('text');
     const textHeight = text.getBoundingClientRect();
+
     if (textHeight.top < -67) {
       rightbox.classList.add('right-fixed');
-    } else if (textHeight.top > -71) {
+    }
+    else if (textHeight.top > -71) {
       rightbox.classList.remove('right-fixed');
     }
+
+  }
+
+  ngOnDestroy() {
+    this.userApi.unsubscribe();
+    this.jobApi.unsubscribe();
+    this.applicationApi.unsubscribe();
   }
 
 }

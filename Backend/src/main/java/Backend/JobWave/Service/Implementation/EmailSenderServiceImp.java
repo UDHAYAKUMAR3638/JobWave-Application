@@ -13,7 +13,7 @@ public class EmailSenderServiceImp implements EmailSenderService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public Boolean sendEmail(Email data ) {
+    public Boolean sendEmail(Email data) {
         System.out.println("Mail Sent successfully...");
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("udhayakumar@gmail.com");

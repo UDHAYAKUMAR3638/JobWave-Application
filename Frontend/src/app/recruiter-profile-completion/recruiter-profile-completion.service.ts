@@ -19,15 +19,16 @@ export interface Recruiter {
 @Injectable({
     providedIn: 'root'
 })
-export class RecruiterProfileCompletionService {
-    constructor(private http: HttpClient) {
-    }
 
-    register(data: FormData): Observable<any> {
+export class RecruiterProfileCompletionService {
+
+    constructor(private http: HttpClient) { }
+
+    register(data: FormData): Observable<Recruiter> {
         // data.forEach((value, key) => {
         //     console.log(key, value);
         // })
-        return this.http.post<any>(environment.recruiterUrl + "/register", data);
+        return this.http.post<Recruiter>(environment.recruiterUrl + "/register", data);
     }
 
 }

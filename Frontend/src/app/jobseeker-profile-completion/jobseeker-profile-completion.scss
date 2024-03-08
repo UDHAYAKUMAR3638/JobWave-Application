@@ -1,37 +1,40 @@
-
-.container{
+.container {
     display: flex;
     flex-direction: row;
 }
-.image{
+
+.image {
     margin-top: 6%;
     position: fixed;
     width: 40%;
     height: 70%;
 }
 
-.head{
+.head {
     margin-top: -12px;
-    color:#3F51B5;
+    color: #3F51B5;
     margin-bottom: 30px;
 }
 
+.mat-mdc-form-field-error {
+    font-size: small;
+}
 
 .registerBox {
-        width: 500px;
-        height: fit-content;
-        margin:2% 0% 2% 50%;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #fff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    height: fit-content;
+    margin: 2% 0% 2% 50%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .labels {
     display: block;
     margin-bottom: 5px;
-    color: #333;   
+    color: #333;
 }
 
 .inputs {
@@ -56,12 +59,12 @@
     cursor: pointer;
 }
 
-.input{
+.input {
     height: fit-content;
     width: fit-content;
 }
 
-.date{
+.date {
     display: grid;
     grid-template-columns: 1fr 3fr;
     align-items: center;

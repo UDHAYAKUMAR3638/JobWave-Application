@@ -1,8 +1,10 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ProfileCompletionService, Jobseeker } from './jobseeker-profile-completion.service';
-import Swal from 'sweetalert2';
+import { ProfileCompletionService } from './jobseeker-profile-completion.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AlertService } from '../service/alert.service';
+import { Jobseeker } from '../find-applicant/find-applicant.service';
 
 @Component({
   selector: 'app-jobseeker-profile-completion',
@@ -10,10 +12,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./jobseeker-profile-completion.scss']
 })
 export class JobseekerProfileCompletionComponent {
-  constructor(private fb: FormBuilder, private profileService: ProfileCompletionService, private route: Router) { }
-  private file: File | null = null;
 
-  registerForm = this.fb.group({
+  constructor(private formBuilder: FormBuilder,
+    private profileService: ProfileCompletionService,
+    private route: Router,
+    private alertService: AlertService
+  ) { }
+
+  private file: File | null = null;
+  registerApi: Subscription = new Subscription();
+
+  registerForm = this.formBuilder.group({
     name: ['', Validators.required],
     email: ['', [Validators.email, Validators.required]],
     phoneno: ['', [Validators.required, Validators.maxLength(10)]],
@@ -30,12 +39,11 @@ export class JobseekerProfileCompletionComponent {
     indusrties: [[],],
   });
 
-
-  upload(event: any) {
+  upload(event: any): void {
     this.file = event.target.files[0];
   }
 
-  register() {
+  register(): void {
 
     const formData: FormData = new FormData();
     formData.append('name', this.registerForm.get('name')!.value || "");
@@ -55,21 +63,18 @@ export class JobseekerProfileCompletionComponent {
     formData.append('image', this.file || "");
 
     if (!this.registerForm.invalid) {
-      this.profileService.register(formData).subscribe({
-        next: (data: any) => {
-          // console.log(data);
-          Swal.fire({
-            title: 'Registeration Successful!',
-            text: 'redirected to login',
-            icon: 'success'
-          })
+      this.registerApi = this.profileService.register(formData).subscribe({
+        next: (data: Jobseeker) => {
+          this.alertService.alertMessage('Registeration Successful!', `redirected to login`, 'success');
           this.route.navigate(['login']);
-
         },
-        error: (error: any) => {
-          console.log(error);
-        }
       });
     }
+
   }
+
+  ngOnDestroy() {
+    this.registerApi.unsubscribe();
+  }
+
 }

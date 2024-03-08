@@ -27,10 +27,10 @@ import Backend.JobWave.Service.RecruiterService;
 @RequestMapping("/recruiter")
 @CrossOrigin
 public class RecruiterController {
-    
+
     @Autowired
     RecruiterService recruiterService;
-    
+
     @PostMapping("/register")
     public ResponseEntity<Recruiter> registerRecruiter(@ModelAttribute RecruiterDto recruiter) throws IOException {
         return ResponseEntity.ok(recruiterService.registerRecruiter(recruiter));
@@ -41,12 +41,12 @@ public class RecruiterController {
         return ResponseEntity.ok(recruiterService.updateRecruiter(recruiter));
     }
 
-    @PostMapping("/post") 
+    @PostMapping("/post")
     public ResponseEntity<Post> postJob(@RequestBody Post post) {
         return ResponseEntity.ok(recruiterService.postJob(post));
     }
 
-    @PutMapping("/update-post") 
+    @PutMapping("/update-post")
     public ResponseEntity<Post> updatePost(@RequestBody Post post) {
         return ResponseEntity.ok(recruiterService.postJob(post));
     }
@@ -57,9 +57,9 @@ public class RecruiterController {
     }
 
     @GetMapping("/getPosts")
-    public ResponseEntity<Page<Post>> getPost(@RequestParam(value="id") String id,
-    @RequestParam(value = "pageIndex") int page,@RequestParam(value = "pageSize") int size) {
-        return ResponseEntity.ok(recruiterService.getPost(id,page,size));
+    public ResponseEntity<Page<Post>> getPost(@RequestParam(value = "id") String id,
+            @RequestParam(value = "pageIndex") int page, @RequestParam(value = "pageSize") int size) {
+        return ResponseEntity.ok(recruiterService.getPost(id, page, size));
     }
 
     @GetMapping("/getEmail/{email}")
@@ -78,9 +78,9 @@ public class RecruiterController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<Page<Recruiter>> getAll(@RequestParam(value="companyName") String name,
-    @RequestParam(value = "pageIndex") int page,@RequestParam(value = "pageSize") int size) {
-        return ResponseEntity.ok(recruiterService.getAll(name,page,size));
+    public ResponseEntity<Page<Recruiter>> getAll(@RequestParam(value = "companyName") String name,
+            @RequestParam(value = "pageIndex") int page, @RequestParam(value = "pageSize") int size) {
+        return ResponseEntity.ok(recruiterService.getAll(name, page, size));
     }
 
 }

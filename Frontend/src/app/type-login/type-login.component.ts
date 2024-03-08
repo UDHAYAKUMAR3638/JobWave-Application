@@ -7,11 +7,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./type-login.component.scss']
 })
 export class TypeLoginComponent {
+
   constructor(private route: Router) { }
-  registerSeeker() {
+
+  registerSeeker(): void {
     this.route.navigate(['jobseekerRegister']);
   }
-  registerRecruiter() {
+
+  registerRecruiter(): void {
     this.route.navigate(['recruiterRegister']);
   }
 

@@ -9,6 +9,7 @@
   </div>
 
   <div class="body">
+
     <mat-table [dataSource]="users" class="mat-elevation-z8">
 
       <ng-container matColumnDef="Name">
@@ -50,13 +51,18 @@
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
     </mat-table>
+
   </div>
+
   <div>
+
     <mat-paginator (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
       [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex"
       aria-label="Select page">
     </mat-paginator>
+
   </div>
 
 </div>

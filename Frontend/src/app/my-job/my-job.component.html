@@ -2,7 +2,9 @@
     <div class="text" id="text">
         <h2 class="head">Your job applications</h2>
     </div>
+
     <div class="container">
+
         <div class="left">
             <div *ngFor="let post of posts" class="post" (click)="rightBox(post._id)">
                 <div class="boxHead">
@@ -19,19 +21,25 @@
             </div>
             <div *ngIf="posts?.length==0">No job applied</div>
         </div>
+
     </div>
+
     <div class="right" id="right">
+
         <div class="applicant">
             <img [src]="userDetails.image" class="image">
             <span><b>Application status</b></span>
             <span>Application submited: Status <span
                     [ngClass]="status=='Pending'?'yellow':status=='Rejected'?'red':'green'">{{status}}</span></span>
         </div>
+
     </div>
+
     <div class="paginator">
         <mat-paginator (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
             [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex"
             aria-label="Select page">
         </mat-paginator>
     </div>
+
 </div>

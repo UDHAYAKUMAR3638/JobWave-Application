@@ -1,6 +1,5 @@
 package Backend.JobWave.Repository;
 
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -15,7 +14,8 @@ public interface JobseekerRepository extends MongoRepository<Jobseeker, String> 
     Jobseeker findByEmail(String email);
 
     @Query("{$and:[{'headline':/?0/}, {'skills': /?1/},{'location':/?2/}]}")
-    Page<Jobseeker> findByheadlineOrskillsAndLocation(String headline, String skills, String location, PageRequest pageRequest);
+    Page<Jobseeker> findByheadlineOrskillsAndLocation(String headline, String skills, String location,
+            PageRequest pageRequest);
 
     @Query("$and:[{'headline':/?0/} ]")
     Page<Jobseeker> findByheadline(String headline, PageRequest pageRequest);
@@ -34,5 +34,5 @@ public interface JobseekerRepository extends MongoRepository<Jobseeker, String> 
 
     @Query("{$and:[{'skills':/?0/}, {'location': /?1/} ]")
     Page<Jobseeker> findByTypeLocation(String skills, String location, PageRequest pageRequest);
-    
+
 }

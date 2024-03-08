@@ -26,14 +26,14 @@ public interface RecruiterService {
 
     public List<Post> getAllPost();
 
-    public Page<Post> getPost(String id,int page,int size);
+    public Page<Post> getPost(String id, int page, int size);
 
     public List<JobApplication> getPostSeekers(String id);
 
     public Recruiter getEmail(String email);
 
-    public Page<Recruiter> getAll(String name,int page,int size);
+    public Page<Recruiter> getAll(String name, int page, int size);
 
     public Recruiter getById(String id);
 
-}   
+}

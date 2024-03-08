@@ -1,6 +1,5 @@
 package Backend.JobWave.Dao;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -14,10 +13,10 @@ import Backend.JobWave.Model.Recruiter;
 
 @Repository
 public class RecruiterDao {
-     @Autowired
+    @Autowired
     MongoTemplate template;
 
-    public UpdateResult updateRecruiter(String id,double rating) {
+    public UpdateResult updateRecruiter(String id, double rating) {
         Criteria criteria = Criteria.where("_id").is(id);
         Query query = new Query(criteria);
         Update update = new Update().set("rating", rating);

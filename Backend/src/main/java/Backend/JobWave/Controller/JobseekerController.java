@@ -40,9 +40,10 @@ public class JobseekerController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<Page<Jobseeker>> getAll(@RequestParam(value="headline")String headline, @RequestParam(value="skills")String skills,@RequestParam(value="location")String location,
-    @RequestParam(value = "pageIndex") int page,@RequestParam(value = "pageSize") int size) {
-        return ResponseEntity.ok(jobseekerService.getAll(headline,skills,location,page,size));
+    public ResponseEntity<Page<Jobseeker>> getAll(@RequestParam(value = "headline") String headline,
+            @RequestParam(value = "skills") String skills, @RequestParam(value = "location") String location,
+            @RequestParam(value = "pageIndex") int page, @RequestParam(value = "pageSize") int size) {
+        return ResponseEntity.ok(jobseekerService.getAll(headline, skills, location, page, size));
     }
 
     @PostMapping("/register")
@@ -62,9 +63,9 @@ public class JobseekerController {
     }
 
     @GetMapping("/myJobs")
-    public ResponseEntity<Page<JobApplication>> myJobs(@RequestParam(value="email")String email,
-    @RequestParam(value = "pageIndex") int page,@RequestParam(value = "pageSize") int size) {
-        return ResponseEntity.ok(jobseekerService.myJobs(email,page,size));
+    public ResponseEntity<Page<JobApplication>> myJobs(@RequestParam(value = "email") String email,
+            @RequestParam(value = "pageIndex") int page, @RequestParam(value = "pageSize") int size) {
+        return ResponseEntity.ok(jobseekerService.myJobs(email, page, size));
     }
 
     @GetMapping("/myJobs/{email}")
@@ -85,7 +86,6 @@ public class JobseekerController {
 
     @PutMapping("/update")
     public ResponseEntity<Jobseeker> updateJobseeker(@ModelAttribute JobseekerDto jobseeker) throws IOException {
-        System.out.println(jobseeker);
         return ResponseEntity.ok(jobseekerService.updateJobseeker(jobseeker));
     }
 

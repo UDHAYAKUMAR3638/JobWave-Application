@@ -1,6 +1,10 @@
 <div class="header">
 
-    <img src="../../assets/image/images.png">
+    <div class="title-box">
+        <img src="../../assets/image/cv.png">
+        <label class="title"><strong>Job Wave</strong></label>
+    </div>
+
     <div class="head1">
         <span routerLink="">Home</span>
         <span recruiterShow routerLink="findApplicant">Find applicants</span>
@@ -12,8 +16,10 @@
         <span adminShow routerLink="viewUser">View users</span>
         <span adminShow routerLink="addUser">Add user</span>
         <span adminShow routerLink="payment">Transactions</span>
-        <span appLoginShow routerLink="profile" class="profile">{{name}}<img class="image" [src]="profile"></span>
         <span appLoginHide (click)="login()">Sign in</span>
+        <span appLoginShow routerLink="profile" class="profile">{{name}}<img class="profile-image" appLoginShow
+                [src]="profile"></span>
     </div>
+
 </div>
 <router-outlet></router-outlet>

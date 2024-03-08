@@ -23,6 +23,21 @@
     column-gap: 10px;
 }
 
+
+.title-box {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    column-gap: 5px;
+}
+
+.title {
+    color: white;
+    font-size: medium;
+    cursor: pointer;
+    width: fit-content;
+}
+
 span {
     color: white;
     font-size: medium;
@@ -47,9 +62,12 @@ span:hover {
 }
 
 img {
-    border-radius: 50%;
     width: 60px;
     height: 10vh;
+}
+
+.profile-image {
+    border-radius: 50%;
 }
 
 .buttons:hover {

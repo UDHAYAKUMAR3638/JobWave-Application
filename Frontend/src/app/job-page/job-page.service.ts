@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
+import { JobApplication } from '../job-apply/job-apply.service';
+import { List } from 'lodash';
+import { Observable } from 'rxjs';
+import { Page } from '../service/data.service';
 
 @Injectable({
     providedIn: 'root',
@@ -8,10 +12,9 @@ import { environment } from 'src/environments/environment.development';
 
 export class JobPageService {
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) { }
 
-    getAllPosts(role: string, jobType: string, location: string, pageIndex: number, pageSize: number) {
+    getAllPosts(role: string, jobType: string, location: string, pageIndex: number, pageSize: number): Observable<Page> {
         const params = new HttpParams()
             .set('role', role)
             .set('jobType', jobType)
@@ -19,14 +22,14 @@ export class JobPageService {
             .set('pageIndex', pageIndex)
             .set('pageSize', pageSize);
 
-        return this.http.get<any>(`${environment.postUrl}/getPost`, { params });
+        return this.http.get<Page>(`${environment.postUrl}/getPost`, { params });
     }
 
-    getApplication(postId: string, email: string) {
-        return this.http.get<any>(`${environment.jobseekerUrl}/myJobs/${postId}/${email}`);
+    getApplication(postId: string, email: string): Observable<Page> {
+        return this.http.get<Page>(`${environment.jobseekerUrl}/myJobs/${postId}/${email}`);
     }
 
-    getMyJobs() {
-        return this.http.get<any>(`${environment.jobseekerUrl}/myJobs/${sessionStorage.getItem('email')}`);
+    getMyJobs(): Observable<JobApplication[]> {
+        return this.http.get<JobApplication[]>(`${environment.jobseekerUrl}/myJobs/${sessionStorage.getItem('email')}`);
     }
 }

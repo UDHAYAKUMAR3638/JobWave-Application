@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment.development';
 import { Post } from '../post-page/post-page.service';
 import { Observable } from 'rxjs';
 import { Recruiter } from '../recruiter-profile-completion/recruiter-profile-completion.service';
+import { Page } from '../service/data.service';
 
 export interface Bill {
 
@@ -26,18 +27,18 @@ export class BillsPageService {
 
   constructor(private http: HttpClient) { }
 
-  getBills(pageIndex: number, pageSize: number): Observable<any> {
+  getBills(pageIndex: number, pageSize: number): Observable<Page> {
     const params = new HttpParams()
       .set('email', sessionStorage.getItem('email') || '')
       .set('pageIndex', pageIndex)
       .set('pageSize', pageSize);
-    return this.http.get(`${environment.paymentUrl}/bills`, { params });
+    return this.http.get<any>(`${environment.paymentUrl}/bills`, { params });
   }
 
-  getAllBills(pageIndex: number, pageSize: number): Observable<any> {
+  getAllBills(pageIndex: number, pageSize: number): Observable<Page> {
     const params = new HttpParams()
       .set('pageIndex', pageIndex)
       .set('pageSize', pageSize);
-    return this.http.get(`${environment.paymentUrl}/getAllBills`, { params });
+    return this.http.get<Page>(`${environment.paymentUrl}/getAllBills`, { params });
   }
 }

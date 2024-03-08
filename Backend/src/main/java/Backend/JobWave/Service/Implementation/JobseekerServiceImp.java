@@ -44,7 +44,6 @@ public class JobseekerServiceImp implements JobseekerService {
     @Autowired
     JobseekerDao jobseekerDao;
 
-
     @Override
     public Jobseeker getCandidateDetails(String id) {
         return jobseekerRepo.findById(id).get();
@@ -52,22 +51,22 @@ public class JobseekerServiceImp implements JobseekerService {
 
     @Override
     public Jobseeker registerJobseeker(JobseekerDto Jobseeker) throws java.io.IOException {
-        Jobseeker jobseeker=new Jobseeker(Jobseeker, fileService.imageConvet(Jobseeker.getImage()));
+        Jobseeker jobseeker = new Jobseeker(Jobseeker, fileService.imageConvet(Jobseeker.getImage()));
         userRepository.save(new User(jobseeker, roleRepository.findByRole("JOBSEEKER"),
                 passwordEncoder.encode(Jobseeker.getPassword())));
         return jobseekerRepo.save(jobseeker);
     }
- 
+
     @Override
     public Jobseeker updateJobseeker(JobseekerDto Jobseeker) throws IOException {
-        Jobseeker jobseeker=new Jobseeker();
-    
-        if(!Jobseeker.getImage().isEmpty())
-        jobseeker=new Jobseeker(Jobseeker, fileService.imageConvet(Jobseeker.getImage()));
-        else
-        jobseeker=new Jobseeker(Jobseeker,jobseekerRepo.findById(Jobseeker.getId()).get().getImage());
+        Jobseeker jobseeker = new Jobseeker();
 
-        User user= userRepository.findByEmail(jobseekerRepo.findById(Jobseeker.getId()).get().getEmail());
+        if (!Jobseeker.getImage().isEmpty())
+            jobseeker = new Jobseeker(Jobseeker, fileService.imageConvet(Jobseeker.getImage()));
+        else
+            jobseeker = new Jobseeker(Jobseeker, jobseekerRepo.findById(Jobseeker.getId()).get().getImage());
+
+        User user = userRepository.findByEmail(jobseekerRepo.findById(Jobseeker.getId()).get().getEmail());
         user.setEmail(jobseeker.getEmail());
         user.setPassword(passwordEncoder.encode(jobseeker.getPassword()));
         user.setName(jobseeker.getName());
@@ -75,55 +74,57 @@ public class JobseekerServiceImp implements JobseekerService {
         userRepository.save(user);
 
         return jobseekerRepo.save(jobseeker);
-       
+
     }
 
     @Override
-    public Boolean updateJobseekerIndustries(String id,List<JobseekerIndustry> industry) {
-        jobseekerDao.updateIndustry(id,industry);
+    public Boolean updateJobseekerIndustries(String id, List<JobseekerIndustry> industry) {
+        jobseekerDao.updateIndustry(id, industry);
         return true;
     }
 
     @Override
     public JobApplication jobApply(JobApplicationDto jobApplication) throws IOException {
-        if(!jobApplication.getResume().isEmpty())
-        return jobApplicationRepository.save(new JobApplication(jobApplication, fileService.pdfConvet(jobApplication.getResume())));
+        if (!jobApplication.getResume().isEmpty())
+            return jobApplicationRepository
+                    .save(new JobApplication(jobApplication, fileService.pdfConvet(jobApplication.getResume())));
         else
-        return jobApplicationRepository.save(new JobApplication(jobApplication,jobApplicationRepository.findById(jobApplication.get_id()).get().getResume()));
+            return jobApplicationRepository.save(new JobApplication(jobApplication,
+                    jobApplicationRepository.findById(jobApplication.get_id()).get().getResume()));
     }
 
     @Override
-    public Page<JobApplication> myJobs(String email,int page,int size) {
-         return jobApplicationRepository.findByEmail(email,PageRequest.of(page, size));
+    public Page<JobApplication> myJobs(String email, int page, int size) {
+        return jobApplicationRepository.findByEmail(email, PageRequest.of(page, size));
     }
-   
 
     @Override
-    public Page<Jobseeker> getAll(String headline, String skills, String location,int page,int size) {
+    public Page<Jobseeker> getAll(String headline, String skills, String location, int page, int size) {
 
-        if(headline!=null&&skills!=null&&location!=null)
-        return jobseekerRepo.findByheadlineOrskillsAndLocation(headline, skills, location,PageRequest.of(page, size));
+        if (headline != null && skills != null && location != null)
+            return jobseekerRepo.findByheadlineOrskillsAndLocation(headline, skills, location,
+                    PageRequest.of(page, size));
 
-        else if(headline!=null&&skills!=null&&location==null)
-        return jobseekerRepo.findByheadlineType(headline, skills,PageRequest.of(page, size));
+        else if (headline != null && skills != null && location == null)
+            return jobseekerRepo.findByheadlineType(headline, skills, PageRequest.of(page, size));
 
-        else if(headline!=null&&skills==null&&location!=null)
-        return jobseekerRepo.findByheadlineLocation(headline, location,PageRequest.of(page, size));
+        else if (headline != null && skills == null && location != null)
+            return jobseekerRepo.findByheadlineLocation(headline, location, PageRequest.of(page, size));
 
-        else if(headline==null&&skills!=null&&location!=null)
-        return jobseekerRepo.findByTypeLocation(skills,location,PageRequest.of(page, size));
+        else if (headline == null && skills != null && location != null)
+            return jobseekerRepo.findByTypeLocation(skills, location, PageRequest.of(page, size));
 
-        else if(headline!=null)
-        return jobseekerRepo.findByheadline(headline,PageRequest.of(page, size));
+        else if (headline != null)
+            return jobseekerRepo.findByheadline(headline, PageRequest.of(page, size));
 
-         else if(skills!=null)
-        return jobseekerRepo.findByskills(skills,PageRequest.of(page, size));
+        else if (skills != null)
+            return jobseekerRepo.findByskills(skills, PageRequest.of(page, size));
 
-        else if(location!=null)
-        return jobseekerRepo.findByLocation(location,PageRequest.of(page, size));
+        else if (location != null)
+            return jobseekerRepo.findByLocation(location, PageRequest.of(page, size));
 
-        else 
-        return jobseekerRepo.findAll(PageRequest.of(page, size));
+        else
+            return jobseekerRepo.findAll(PageRequest.of(page, size));
     }
 
     @Override
@@ -133,16 +134,16 @@ public class JobseekerServiceImp implements JobseekerService {
 
     @Override
     public JobApplication myJobsDetails(Post postId, String email) {
-       return jobApplicationRepository.findByEmailAndPostId(email,postId);
+        return jobApplicationRepository.findByEmailAndPostId(email, postId);
     }
 
     @Override
     public JobApplication updateApplication(JobApplication jobApplication) {
-       return jobApplicationRepository.save(jobApplication);
+        return jobApplicationRepository.save(jobApplication);
     }
 
     @Override
-    public List<JobApplication> getMyJobs(String email){
+    public List<JobApplication> getMyJobs(String email) {
         return jobApplicationRepository.findByEmail(email);
     }
 }

@@ -42,9 +42,9 @@ public class Recruiter {
     }
 
     public Recruiter(User user) {
-        this.name=user.getName();
-        this.email=user.getEmail();
-        this.password=user.getPassword();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
     }
 
 }

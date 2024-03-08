@@ -6,46 +6,35 @@ import { Post } from '../post-page/post-page.service';
 import { Jobseeker } from '../find-applicant/find-applicant.service';
 import { JobApplication } from '../job-apply/job-apply.service';
 import { List } from 'lodash';
+import { Page } from '../service/data.service';
 
-
-export interface Applicant {
-    _id: string,
-    email: string,
-    name: string,
-    phoneno: string,
-    resume: string,
-    skills: string,
-    experience: string,
-    postId: Post,
-    userId: Jobseeker
-    status: string;
-}
 
 @Injectable({
     providedIn: 'root'
 })
-export class MyPostService {
-    constructor(private http: HttpClient) {
-    }
 
-    MyPosts(id: string, pageIndex: number, pageSize: number): Observable<any> {
+export class MyPostService {
+
+    constructor(private http: HttpClient) { }
+
+    MyPosts(id: string, pageIndex: number, pageSize: number): Observable<Page> {
         const params = new HttpParams()
             .set('id', id)
             .set('pageIndex', pageIndex)
             .set('pageSize', pageSize);
-        return this.http.get<Array<Post>>(environment.recruiterUrl + `/getPosts`, { params });
+        return this.http.get<Page>(environment.recruiterUrl + `/getPosts`, { params });
     }
 
-    MyPostSeekers(id: string): Observable<any> {
-        return this.http.get<List<JobApplication>>(environment.recruiterUrl + `/getPostSeekers/${id}`);
+    MyPostSeekers(id: string): Observable<Array<JobApplication>> {
+        return this.http.get<Array<JobApplication>>(environment.recruiterUrl + `/getPostSeekers/${id}`);
     }
 
-    updatePost(post: Post): Observable<any> {
-        return this.http.put<any>(`${environment.recruiterUrl}/update-post`, post);
+    updatePost(post: Post): Observable<Post> {
+        return this.http.put<Post>(`${environment.recruiterUrl}/update-post`, post);
     }
 
-    getUserId(email: string) {
-        return this.http.get<any>(
+    getUserId(email: string): Observable<Post> {
+        return this.http.get<Post>(
             `${environment.recruiterUrl}/getEmail/${email}`);
     }
 

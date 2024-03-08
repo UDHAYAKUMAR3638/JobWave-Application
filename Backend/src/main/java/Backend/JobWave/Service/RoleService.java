@@ -7,5 +7,5 @@ import Backend.JobWave.Model.Role;
 @Service
 public interface RoleService {
 
-    public Role getRole(String role) ;
+    public Role getRole(String role);
 }

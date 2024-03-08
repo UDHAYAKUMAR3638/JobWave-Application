@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ProfileService, User } from './profile.service';
 import { LoginService } from '../login/login.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -14,12 +15,16 @@ export class ProfileComponent {
   file: File | string = "";
   userForm!: FormGroup;
   profileImage!: string;
+  loginApi: Subscription = new Subscription();
+  jobApi: Subscription = new Subscription();
+
   constructor(private profileService: ProfileService, private router: Router,
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private loginService: LoginService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+
     this.userForm = new FormGroup({
       _id: new FormControl(['']),
       name: new FormControl(['', Validators.required]),
@@ -39,21 +44,24 @@ export class ProfileComponent {
       skills: new FormControl(['', Validators.required]),
       location: new FormControl(['', Validators.required]),
       about: new FormControl(['', Validators.required]),
-      jobseekerIndustries: this.fb.array([]),
+      jobseekerIndustries: this.formBuilder.array([]),
     });
     this.getUser();
+
   }
 
   addIndustry(): void {
-    const industry = this.fb.group({
+
+    const industry = this.formBuilder.group({
       industryName: ['', Validators.required],
       role: ['', Validators.required],
       duration: ['', Validators.required]
     });
     this.jobseekerIndustries.push(industry);
+
   }
 
-  removeIndustry(index: number) {
+  removeIndustry(index: number): void {
     this.jobseekerIndustries.removeAt(index);
   }
 
@@ -61,15 +69,16 @@ export class ProfileComponent {
     return this.userForm.get('jobseekerIndustries') as FormArray;
   }
 
-  image(event: any) {
+  image(event: any): void {
     this.file = event.target.files[0];
   }
 
-  getUser() {
-    this.loginService.getUser().subscribe({
+  getUser(): void {
+
+    this.loginApi = this.loginService.getUser().subscribe({
       next: (details: any) => {
         this.profileImage = details.image;
-        this.userForm = this.fb.group({
+        this.userForm = this.formBuilder.group({
           _id: [details._id],
           name: [details.name, Validators.required],
           email: [details.email, Validators.required],
@@ -88,12 +97,12 @@ export class ProfileComponent {
           skills: [details.skills, Validators.required],
           location: [details.location, Validators.required],
           about: [details.about, Validators.required],
-          jobseekerIndustries: this.fb.array([]),
+          jobseekerIndustries: this.formBuilder.array([]),
         });
 
         if (details.industries !== null) {
           for (let x of details.industries) {
-            const industry = this.fb.group({
+            const industry = this.formBuilder.group({
               industryName: [x.industryName, Validators.required],
               role: [x.role, Validators.required],
               duration: [x.duration, Validators.required]
@@ -104,23 +113,27 @@ export class ProfileComponent {
         else {
           this.addIndustry();
         }
+
       },
-      error: (error: any) => {
-        console.log(error);
-      }
+
     });
+
   }
 
-  update() {
+  update(): void {
     const formData: FormData = new FormData();
     formData.append('image', this.file === "" ? new Blob([]) : this.file);
-    this.profileService.update(this.userForm.value, formData);
+    this.jobApi = this.profileService.update(this.userForm.value, formData);
   }
 
-  logout() {
+  logout(): void {
     localStorage.clear();
     sessionStorage.clear();
     this.router.navigate(['login']);
   }
 
+  ngOnDestroy(): void {
+    this.loginApi.unsubscribe();
+    this.jobApi.unsubscribe();
+  }
 }

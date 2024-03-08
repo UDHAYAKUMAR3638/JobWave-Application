@@ -26,6 +26,23 @@
     border-radius: 10px;
 }
 
+.button-accept {
+    width: fit-content;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    background-color: rgb(69, 230, 69);
+}
+
+.button-reject {
+    width: fit-content;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    background-color: red;
+
+}
+
 .red {
     color: red;
 }

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 const appRoute: Routes = [
   {
     path: '', loadChildren: () =>
       import('./home/home.module').then((d) => d.HomeModule),
+    // redirectTo
   },
 
   {
@@ -19,7 +19,7 @@ const appRoute: Routes = [
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoute), FormsModule],
+  imports: [RouterModule.forRoot(appRoute)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

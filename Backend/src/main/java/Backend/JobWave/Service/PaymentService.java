@@ -9,11 +9,11 @@ import Backend.JobWave.Model.TransactionDetails;
 @Service
 public interface PaymentService {
 
-    public TransactionDetails createTransaction(double amount) ;
+    public TransactionDetails createTransaction(double amount);
 
-    public Payment savePayment(Payment payment) ;
+    public Payment savePayment(Payment payment);
 
-    public Page<Payment> getBills(String email,int page,int size) ;
+    public Page<Payment> getBills(String email, int page, int size);
 
     public Page<Payment> getAllBills(int page, int size);
 }
