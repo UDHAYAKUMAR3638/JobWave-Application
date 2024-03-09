@@ -22,14 +22,10 @@ export class JobPageService {
             .set('pageIndex', pageIndex)
             .set('pageSize', pageSize);
 
-        return this.http.get<Page>(`${environment.postUrl}/getPost`, { params });
-    }
-
-    getApplication(postId: string, email: string): Observable<Page> {
-        return this.http.get<Page>(`${environment.jobseekerUrl}/myJobs/${postId}/${email}`);
+        return this.http.get<Page>(`${environment.postUrl}getPost`, { params });
     }
 
     getMyJobs(): Observable<JobApplication[]> {
-        return this.http.get<JobApplication[]>(`${environment.jobseekerUrl}/myJobs/${sessionStorage.getItem('email')}`);
+        return this.http.get<JobApplication[]>(`${environment.jobseekerUrl}myJobs/${sessionStorage.getItem('email')}`);
     }
 }

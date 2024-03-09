@@ -37,7 +37,7 @@ export class AddUserService {
     else
       this.path = 'register';
 
-    return this.http.post<User>(`${environment.userUrl}/${this.path}`, userData);
+    return this.http.post<User>(`${environment.userUrl}${this.path}`, userData);
 
   }
 

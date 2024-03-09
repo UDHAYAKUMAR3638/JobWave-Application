@@ -15,7 +15,7 @@ export class ViewCompanyService {
   constructor(private http: HttpClient) { }
 
   getCompany(id: String): Observable<Recruiter> {
-    return this.http.get<Recruiter>(`${environment.recruiterUrl}/getById/${id}`);
+    return this.http.get<Recruiter>(`${environment.recruiterUrl}getById/${id}`);
   }
 
   getCompanyPosts(id: string, pageIndex: number, pageSize: number): Observable<Page> {
@@ -23,10 +23,10 @@ export class ViewCompanyService {
       .set('id', id)
       .set('pageIndex', pageIndex)
       .set('pageSize', pageSize);
-    return this.http.get<Page>(`${environment.recruiterUrl}/getPosts`, { params });
+    return this.http.get<Page>(`${environment.recruiterUrl}getPosts`, { params });
   }
 
   updateCompany(companyId: string, jobseekerEmail: string, rating: number): Observable<any> {
-    return this.http.post<any>(`${environment.ratingUrl}/post`, { companyId: { _id: companyId }, jobseekerEmail, rating });
+    return this.http.post<any>(`${environment.ratingUrl}post`, { companyId: { _id: companyId }, jobseekerEmail, rating });
   }
 }

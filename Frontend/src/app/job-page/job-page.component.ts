@@ -6,6 +6,8 @@ import { DataService, Page } from '../service/data.service';
 import { Router } from '@angular/router';
 import { Subject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
+import { LoginService } from '../login/login.service';
+import { JobApplication } from '../job-apply/job-apply.service';
 
 @Component({
   selector: 'app-job-page',
@@ -14,10 +16,15 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class JobPageComponent {
 
-  constructor(private jobPageService: JobPageService, private router: Router) { }
+  constructor(
+    private jobPageService: JobPageService,
+    private router: Router,
+    private loginService: LoginService
+  ) { }
 
   @ViewChild('applyButton') applyButton!: ElementRef;
   jobPosts!: Array<Post>;
+  myJobs: string[] = [];
   selectedPost: Post = {
     _id: '',
     role: '',
@@ -61,6 +68,7 @@ export class JobPageComponent {
 
     });
     this.getPost();
+    this.getApplicantJobs();
   }
 
   search(): void {
@@ -86,20 +94,27 @@ export class JobPageComponent {
   }
 
   rightBox(currPost: Post): void {
-
     this.selectedPost = currPost;
 
-    this.applicationApi = this.jobPageService.getApplication(this.selectedPost._id, sessionStorage.getItem('email') || '').subscribe({
-      next: (data: Page) => {
-        if (data != null) {
-          this.applyButton.nativeElement.disabled = true;
-        }
-        else {
-          this.applyButton.nativeElement.disabled = false;
-        }
-      }
-    })
+    if (this.myJobs.includes(currPost._id)) {
+      this.applyButton.nativeElement.disabled = true;
+    }
+    else {
+      this.applyButton.nativeElement.disabled = false;
+    }
 
+  }
+
+  getApplicantJobs(): void {
+    if (sessionStorage.getItem('role') === 'JOBSEEKER') {
+      this.applicationApi = this.jobPageService.getMyJobs().subscribe({
+        next: (data: JobApplication[]) => {
+          for (let val of data) {
+            this.myJobs.push(val.postId._id);
+          }
+        }
+      });
+    }
   }
 
   @HostListener('window:scroll', [])
@@ -120,7 +135,6 @@ export class JobPageComponent {
   }
 
   apply(postId: string): void {
-    // this.dataService.messageSource.next(postId);
     this.router.navigate(['jobApply', postId]);
   }
 

@@ -32,13 +32,13 @@ export class BillsPageService {
       .set('email', sessionStorage.getItem('email') || '')
       .set('pageIndex', pageIndex)
       .set('pageSize', pageSize);
-    return this.http.get<any>(`${environment.paymentUrl}/bills`, { params });
+    return this.http.get<any>(`${environment.paymentUrl}bills`, { params });
   }
 
   getAllBills(pageIndex: number, pageSize: number): Observable<Page> {
     const params = new HttpParams()
       .set('pageIndex', pageIndex)
       .set('pageSize', pageSize);
-    return this.http.get<Page>(`${environment.paymentUrl}/getAllBills`, { params });
+    return this.http.get<Page>(`${environment.paymentUrl}getAllBills`, { params });
   }
 }

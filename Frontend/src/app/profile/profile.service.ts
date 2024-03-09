@@ -57,9 +57,9 @@ export class ProfileService {
       form.append('currentPosition', user.currentPosition);
       form.append('location', user.location);
 
-      return this.http.put(`${environment.jobseekerUrl}/update`, form).subscribe({
+      return this.http.put(`${environment.jobseekerUrl}update`, form).subscribe({
         next: () => {
-          this.jobApi = this.http.put(`${environment.jobseekerUrl}/update-industry/${user._id}`, user.jobseekerIndustries).subscribe({
+          this.jobApi = this.http.put(`${environment.jobseekerUrl}update-industry/${user._id}`, user.jobseekerIndustries).subscribe({
             next: () => {
               this.alertService.alertMessage('Profile Updation', 'Successfully', 'success');
             },
@@ -83,7 +83,7 @@ export class ProfileService {
       form.append('companyType', user.companyType);
       form.append('location', user.location);
       form.append('about', user.about);
-      return this.http.put(`${environment.recruiterUrl}/update`, form).subscribe({
+      return this.http.put(`${environment.recruiterUrl}update`, form).subscribe({
         next: () => {
           this.alertService.alertMessage('Profile Updation', 'Successfully', 'success');
         },
@@ -98,7 +98,7 @@ export class ProfileService {
       form.append('email', user.email);
       form.append('password', user.password);
       form.append('role', 'ADMIN');
-      return this.http.put(`${environment.userUrl}/update`, form).subscribe({
+      return this.http.put(`${environment.userUrl}update`, form).subscribe({
         next: () => {
           this.alertService.alertMessage('Profile Updation', 'Successfully', 'success')
         },
@@ -110,7 +110,7 @@ export class ProfileService {
 
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.jobApi.unsubscribe();
   }
 }

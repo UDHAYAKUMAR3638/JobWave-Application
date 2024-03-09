@@ -18,11 +18,11 @@ export class MyJobService {
             .set('email', email)
             .set('pageIndex', pageIndex)
             .set('pageSize', pageSize);
-        return this.http.get<Page>(environment.jobseekerUrl + `/myJobs`, { params });
+        return this.http.get<Page>(`${environment.jobseekerUrl}myJobs`, { params });
     }
 
     getApplication(postId: string, email: string): Observable<JobApplication> {
-        return this.http.get<JobApplication>(environment.jobseekerUrl + `/myJobs/${postId}/${email}`);
+        return this.http.get<JobApplication>(`${environment.jobseekerUrl}myJobs/${postId}/${email}`);
     }
 
 }

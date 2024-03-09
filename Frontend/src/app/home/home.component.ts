@@ -17,13 +17,14 @@ export class HomeComponent {
   constructor(private router: Router, private loginService: LoginService) { }
 
   ngOnInit() {
-
-    this.loginApi = this.loginService.getUser().subscribe({
-      next: (data: { image: string; name: string; }) => {
-        this.profile = data.image;
-        this.name = data.name;
-      }
-    })
+    if (this.loginService.isAuthencticate()) {
+      this.loginApi = this.loginService.getUser().subscribe({
+        next: (data: { image: string; name: string; }) => {
+          this.profile = data.image;
+          this.name = data.name;
+        }
+      });
+    }
 
   }
 

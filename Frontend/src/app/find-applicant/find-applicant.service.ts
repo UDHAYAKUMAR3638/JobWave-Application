@@ -43,7 +43,7 @@ export class FindApplicantService {
             .set('location', location)
             .set('pageIndex', pageIndex)
             .set('pageSize', pageSize);
-        return this.http.get<Page>(environment.jobseekerUrl + `/getAll`, { params });
+        return this.http.get<Page>(`${environment.jobseekerUrl}getAll`, { params });
     }
 
 }

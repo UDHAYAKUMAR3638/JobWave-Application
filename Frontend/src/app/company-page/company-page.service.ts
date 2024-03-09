@@ -17,6 +17,6 @@ export class CompanyPageService {
       .set('companyName', companyName)
       .set('pageIndex', pageIndex)
       .set('pageSize', pageSize);
-    return this.http.get<Page>(`${environment.recruiterUrl}/getAll`, { params });
+    return this.http.get<Page>(`${environment.recruiterUrl}getAll`, { params });
   }
 }

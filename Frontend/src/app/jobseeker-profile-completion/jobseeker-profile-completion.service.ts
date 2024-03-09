@@ -16,7 +16,7 @@ export class ProfileCompletionService {
         // data.forEach((value, key) => {
         //     console.log(key, value);
         // })
-        return this.http.post<Jobseeker>(environment.jobseekerUrl + "/register", data);
+        return this.http.post<Jobseeker>(`${environment.jobseekerUrl}register`, data);
     }
 
 }

@@ -18,7 +18,7 @@ export class UserService {
       .set('search', search)
       .set('page', page.toString())
       .set('size', size.toString());
-    return this.http.get<Page>(environment.userUrl + '/getAll', { params });
+    return this.http.get<Page>(`${environment.userUrl}getAll`, { params });
 
   }
 
@@ -31,11 +31,11 @@ export class UserService {
     else
       this.url = environment.userUrl;
 
-    return this.http.get<any>(`${this.url}/getEmail/${email}`);
+    return this.http.get<any>(`${this.url}getEmail/${email}`);
 
   }
 
   updateStatus(id: string, status: string): Observable<Page> {
-    return this.http.put<Page>(`${environment.userUrl}/update-status/${id}/${status}`, '');
+    return this.http.put<Page>(`${environment.userUrl}update-status/${id}/${status}`, '');
   }
 }

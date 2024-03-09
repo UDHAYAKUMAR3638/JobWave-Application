@@ -16,7 +16,7 @@ export class ApplicantService {
     ) { }
 
     updateApplication(user: JobApplication): Observable<JobApplication> {
-        return this.http.put<JobApplication>(`${environment.jobseekerUrl}/update-application`, user);
+        return this.http.put<JobApplication>(`${environment.jobseekerUrl}update-application`, user);
     }
 
     sendMail(postDetails: Post, user: JobApplication, val: boolean): Observable<Boolean> {

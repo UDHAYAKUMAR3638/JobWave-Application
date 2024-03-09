@@ -22,20 +22,20 @@ export class MyPostService {
             .set('id', id)
             .set('pageIndex', pageIndex)
             .set('pageSize', pageSize);
-        return this.http.get<Page>(environment.recruiterUrl + `/getPosts`, { params });
+        return this.http.get<Page>(`${environment.recruiterUrl}getPosts`, { params });
     }
 
     MyPostSeekers(id: string): Observable<Array<JobApplication>> {
-        return this.http.get<Array<JobApplication>>(environment.recruiterUrl + `/getPostSeekers/${id}`);
+        return this.http.get<Array<JobApplication>>(`${environment.recruiterUrl}getPostSeekers/${id}`);
     }
 
     updatePost(post: Post): Observable<Post> {
-        return this.http.put<Post>(`${environment.recruiterUrl}/update-post`, post);
+        return this.http.put<Post>(`${environment.recruiterUrl}update-post`, post);
     }
 
     getUserId(email: string): Observable<Post> {
         return this.http.get<Post>(
-            `${environment.recruiterUrl}/getEmail/${email}`);
+            `${environment.recruiterUrl}getEmail/${email}`);
     }
 
 }

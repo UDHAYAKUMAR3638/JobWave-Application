@@ -67,7 +67,8 @@ const homeRoute: Routes = [
             },
 
             {
-                path: 'company', canActivate: [AuthGuard, RoleGuard], data: { roles: ['JOBSEEKER'] },
+                // path: 'company', canActivate: [AuthGuard, RoleGuard], data: { roles: ['JOBSEEKER'] },
+                path: 'company',
                 loadChildren: () =>
                     import('../company-page/company-page.module').then((d) => d.CompanyPageModule)
             },

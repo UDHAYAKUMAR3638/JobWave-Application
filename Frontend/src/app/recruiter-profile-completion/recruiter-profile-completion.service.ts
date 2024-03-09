@@ -28,7 +28,7 @@ export class RecruiterProfileCompletionService {
         // data.forEach((value, key) => {
         //     console.log(key, value);
         // })
-        return this.http.post<Recruiter>(environment.recruiterUrl + "/register", data);
+        return this.http.post<Recruiter>(`${environment.recruiterUrl}register`, data);
     }
 
 }

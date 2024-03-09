@@ -27,17 +27,17 @@ export class PostPageService {
     constructor(private http: HttpClient) { }
 
     post(data: any): Observable<any> {
-        return this.http.post<any>(environment.recruiterUrl + "/post", data);
+        return this.http.post<any>(`${environment.recruiterUrl}post`, data);
     }
 
     createOrder(amount: number): Observable<any> {
-        return this.http.get(`${environment.paymentUrl}/createTransaction/${amount}`);
+        return this.http.get(`${environment.paymentUrl}createTransaction/${amount}`);
     }
 
     savePayment(postId: string, paymentDetails: any, userDetails: any, price: number) {
 
         const payment = { postId: { _id: postId }, paymentId: paymentDetails.razorpay_payment_id, orderId: paymentDetails.razorpay_order_id, name: userDetails.name, email: userDetails.email, amount: price };
-        this.http.post(`${environment.paymentUrl}/save`, payment).subscribe({
+        this.http.post(`${environment.paymentUrl}save`, payment).subscribe({
             next: (data: any) => {
                 // console.log(data);
             },
