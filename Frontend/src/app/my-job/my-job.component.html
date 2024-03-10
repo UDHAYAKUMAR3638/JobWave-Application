@@ -19,17 +19,17 @@
                 <p>{{post.content.substring(0,100)+"..."}}</p>
                 <p>{{(post.date | toDate | date:'medium')}}</p>
             </div>
-            <div *ngIf="posts?.length==0">No job applied</div>
+            <h2 class="head" *ngIf="posts?.length==0">No jobs applied</h2>
         </div>
 
     </div>
 
-    <div class="right" id="right">
+    <div class="right" id="right" *ngIf="posts?.length!==0">
 
         <div class="applicant">
             <img [src]="userDetails.image" class="image">
             <span><b>Application status</b></span>
-            <span>Application submited: Status <span
+            <span>Job applied: Status <span
                     [ngClass]="status=='Pending'?'yellow':status=='Rejected'?'red':'green'">{{status}}</span></span>
         </div>
 

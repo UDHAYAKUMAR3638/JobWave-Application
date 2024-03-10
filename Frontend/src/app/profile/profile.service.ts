@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { Observable, Subscription } from 'rxjs';
 import { AlertService } from '../service/alert.service';
+import { Jobseeker } from '../find-applicant/find-applicant.service';
 
 export interface User {
   _id: string,
@@ -34,14 +35,12 @@ export class ProfileService {
 
   constructor(
     private http: HttpClient,
-    private alertService: AlertService
   ) { }
 
-  jobApi: Subscription = new Subscription();
-
-  update(user: any, form: FormData): Subscription {
+  update(user: any, form: FormData): Observable<any> {
 
     if (sessionStorage.getItem('role') === "JOBSEEKER") {
+
       form.append('id', user._id);
       form.append('name', user.name);
       form.append('email', user.email);
@@ -57,20 +56,7 @@ export class ProfileService {
       form.append('currentPosition', user.currentPosition);
       form.append('location', user.location);
 
-      return this.http.put(`${environment.jobseekerUrl}update`, form).subscribe({
-        next: () => {
-          this.jobApi = this.http.put(`${environment.jobseekerUrl}update-industry/${user._id}`, user.jobseekerIndustries).subscribe({
-            next: () => {
-              this.alertService.alertMessage('Profile Updation', 'Successfully', 'success');
-            },
-            error: () => {
-              this.alertService.alertMessage('Profile Updation', 'Failed', 'error');
-            }
-
-          })
-        }
-
-      });
+      return this.http.put(`${environment.jobseekerUrl}update`, form);
     }
     else if (sessionStorage.getItem('role') === "RECRUITER") {
       form.append('id', user._id);
@@ -83,14 +69,8 @@ export class ProfileService {
       form.append('companyType', user.companyType);
       form.append('location', user.location);
       form.append('about', user.about);
-      return this.http.put(`${environment.recruiterUrl}update`, form).subscribe({
-        next: () => {
-          this.alertService.alertMessage('Profile Updation', 'Successfully', 'success');
-        },
-        error: () => {
-          this.alertService.alertMessage('Profile Updation', 'Failed', 'error');
-        }
-      })
+
+      return this.http.put(`${environment.recruiterUrl}update`, form);
     }
     else {
       form.append('_id', user._id);
@@ -98,19 +78,14 @@ export class ProfileService {
       form.append('email', user.email);
       form.append('password', user.password);
       form.append('role', 'ADMIN');
-      return this.http.put(`${environment.userUrl}update`, form).subscribe({
-        next: () => {
-          this.alertService.alertMessage('Profile Updation', 'Successfully', 'success')
-        },
-        error: () => {
-          this.alertService.alertMessage('Profile Updation', 'Failed', 'error')
-        }
-      });
+
+      return this.http.put(`${environment.userUrl}update`, form);
     }
 
   }
 
-  ngOnDestroy(): void {
-    this.jobApi.unsubscribe();
+  updateIndustry(user: any): Observable<any> {
+    return this.http.put(`${environment.jobseekerUrl}update-industry/${user._id}`, user.jobseekerIndustries);
   }
+
 }

@@ -4,6 +4,7 @@ import { ProfileService, User } from './profile.service';
 import { LoginService } from '../login/login.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { AlertService } from '../service/alert.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,6 +22,7 @@ export class ProfileComponent {
   constructor(private profileService: ProfileService, private router: Router,
     private formBuilder: FormBuilder,
     private loginService: LoginService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +53,6 @@ export class ProfileComponent {
   }
 
   addIndustry(): void {
-
     const industry = this.formBuilder.group({
       industryName: ['', Validators.required],
       role: ['', Validators.required],
@@ -86,7 +87,7 @@ export class ProfileComponent {
           companyType: [details.companyType, Validators.required],
           empCount: [details.empCount, Validators.required],
           phoneno: [details.phoneno, Validators.required],
-          dob: [details.dob, Validators.required],
+          dob: [new Date(details.dob), Validators.required],
           headline: [details.headline, Validators.required],
           schoolName: [details.schoolName, Validators.required],
           schlPassedOutYear: [details.schlPassedOutYear, Validators.required],
@@ -99,7 +100,7 @@ export class ProfileComponent {
           jobseekerIndustries: this.formBuilder.array([]),
         });
 
-        if (details.industries !== null) {
+        if (details?.industries !== null) {
           for (let x of details.industries) {
             const industry = this.formBuilder.group({
               industryName: [x.industryName, Validators.required],
@@ -121,7 +122,30 @@ export class ProfileComponent {
   update(): void {
     const formData: FormData = new FormData();
     formData.append('image', this.file === "" ? new Blob([]) : this.file);
-    this.jobApi = this.profileService.update(this.userForm.value, formData);
+    this.jobApi = this.profileService.update(this.userForm.value, formData).subscribe({
+      next: () => {
+
+        if (this.userForm.get('jobseekerIndustries') !== null)
+          this.updateIndustry();
+        else
+          this.alertService.alertMessage('Profile Updation', 'Successfully', 'success');
+
+      },
+      error: () => {
+        this.alertService.alertMessage('Profile Updation', 'Failed', 'error');
+      }
+    });
+  }
+
+  updateIndustry(): void {
+    this.profileService.updateIndustry(this.userForm.value).subscribe({
+      next: () => {
+        this.alertService.alertMessage('Profile Updation', 'Successfully', 'success');
+      },
+      error: () => {
+        this.alertService.alertMessage('Profile Updation', 'Failed', 'error');
+      }
+    })
   }
 
   logout(): void {
