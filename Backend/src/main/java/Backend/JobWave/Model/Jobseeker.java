@@ -1,7 +1,5 @@
 package Backend.JobWave.Model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -42,11 +40,7 @@ public class Jobseeker {
         this.setName(jobseeker.getName());
         this.setEmail(jobseeker.getEmail());
         this.setPhoneno(jobseeker.getPhoneno());
-        try {
-            this.setDob((new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss 'GMT'Z (Z)").parse(jobseeker.getDob())));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        this.setDob(new Date(jobseeker.getDob()));
         this.setPassword(jobseeker.getPassword());
         this.setHeadline(jobseeker.getHeadline());
         this.setSchoolName(jobseeker.getSchoolName());

@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,11 +32,6 @@ public class JobseekerController {
 
     @Autowired
     JobseekerService jobseekerService;
-
-    @GetMapping("/view")
-    public ResponseEntity<String> getJobseeker() {
-        return new ResponseEntity<>("jobseeker", HttpStatus.OK);
-    }
 
     @GetMapping("/getAll")
     public ResponseEntity<Page<Jobseeker>> getAll(@RequestParam(value = "headline") String headline,

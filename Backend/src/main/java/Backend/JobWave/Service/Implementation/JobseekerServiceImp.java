@@ -65,7 +65,7 @@ public class JobseekerServiceImp implements JobseekerService {
             jobseeker = new Jobseeker(Jobseeker, fileService.imageConvet(Jobseeker.getImage()));
         else
             jobseeker = new Jobseeker(Jobseeker, jobseekerRepo.findById(Jobseeker.getId()).get().getImage());
-
+            
         User user = userRepository.findByEmail(jobseekerRepo.findById(Jobseeker.getId()).get().getEmail());
         user.setEmail(jobseeker.getEmail());
         user.setPassword(passwordEncoder.encode(jobseeker.getPassword()));
