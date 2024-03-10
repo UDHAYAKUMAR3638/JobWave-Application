@@ -18,6 +18,7 @@ export class ProfileComponent {
   profileImage!: string;
   loginApi: Subscription = new Subscription();
   jobApi: Subscription = new Subscription();
+  updateApi: Subscription = new Subscription();
 
   constructor(private profileService: ProfileService, private router: Router,
     private formBuilder: FormBuilder,
@@ -78,26 +79,25 @@ export class ProfileComponent {
     this.loginApi = this.loginService.getUser().subscribe({
       next: (details: any) => {
         this.profileImage = details.image;
-        this.userForm = this.formBuilder.group({
-          _id: [details._id],
-          name: [details.name, Validators.required],
-          email: [details.email, Validators.required],
-          password: [details.password, Validators.required],
-          companyName: [details.companyName, Validators.required],
-          companyType: [details.companyType, Validators.required],
-          empCount: [details.empCount, Validators.required],
-          phoneno: [details.phoneno, Validators.required],
-          dob: [new Date(details.dob), Validators.required],
-          headline: [details.headline, Validators.required],
-          schoolName: [details.schoolName, Validators.required],
-          schlPassedOutYear: [details.schlPassedOutYear, Validators.required],
-          collegeName: [details.collegeName, Validators.required],
-          clgPassedOutYear: [details.clgPassedOutYear, Validators.required],
-          currentPosition: [details.currentPosition, Validators.required],
-          skills: [details.skills, Validators.required],
-          location: [details.location, Validators.required],
-          about: [details.about, Validators.required],
-          jobseekerIndustries: this.formBuilder.array([]),
+        this.userForm.patchValue({
+          _id: details._id,
+          name: details.name,
+          email: details.email,
+          password: details.password,
+          companyName: details.companyName,
+          companyType: details.companyType,
+          empCount: details.empCount,
+          phoneno: details.phoneno,
+          dob: new Date(details.dob),
+          headline: details.headline,
+          schoolName: details.schoolName,
+          schlPassedOutYear: details.schlPassedOutYear,
+          collegeName: details.collegeName,
+          clgPassedOutYear: details.clgPassedOutYear,
+          currentPosition: details.currentPosition,
+          skills: details.skills,
+          location: details.location,
+          about: details.about,
         });
 
         if (details?.industries !== null) {
@@ -109,9 +109,6 @@ export class ProfileComponent {
             });
             this.jobseekerIndustries.push(industry);
           }
-        }
-        else {
-          this.addIndustry();
         }
 
       },
@@ -130,6 +127,7 @@ export class ProfileComponent {
         else
           this.alertService.alertMessage('Profile Updation', 'Successfully', 'success');
 
+        this.getUser();
       },
       error: () => {
         this.alertService.alertMessage('Profile Updation', 'Failed', 'error');
@@ -138,7 +136,7 @@ export class ProfileComponent {
   }
 
   updateIndustry(): void {
-    this.profileService.updateIndustry(this.userForm.value).subscribe({
+    this.updateApi = this.profileService.updateIndustry(this.userForm.value).subscribe({
       next: () => {
         this.alertService.alertMessage('Profile Updation', 'Successfully', 'success');
       },
@@ -157,5 +155,6 @@ export class ProfileComponent {
   ngOnDestroy(): void {
     this.loginApi.unsubscribe();
     this.jobApi.unsubscribe();
+    this.updateApi.unsubscribe();
   }
 }

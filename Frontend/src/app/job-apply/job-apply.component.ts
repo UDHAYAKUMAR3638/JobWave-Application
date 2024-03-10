@@ -6,6 +6,7 @@ import { DataService } from '../service/data.service';
 import { LoginService } from '../login/login.service';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../service/alert.service';
+import { Jobseeker } from '../find-applicant/find-applicant.service';
 
 @Component({
   selector: 'app-job-apply',
@@ -32,12 +33,12 @@ export class JobApplyComponent {
 
     this.postId = this.route.snapshot.paramMap.get('postId') || '';
     this.loginApi = this.loginService.getUser().subscribe({
-      next: (details: { name: any; email: any; phoneno: any; skills: any; _id: any; }) => {
-        this.jobApplicationForm = this.formBuilder.group({
-          name: [details.name, Validators.required],
-          email: [details.email, [Validators.email, Validators.required]],
-          phoneno: [details.phoneno, [Validators.required, Validators.maxLength(10)]],
-          skills: [details.skills, [Validators.required,]],
+      next: (details: Jobseeker) => {
+        this.jobApplicationForm.patchValue({
+          name: details.name,
+          email: details.email,
+          phoneno: details.phoneno,
+          skills: details.skills,
           experience: '',
           postId: { _id: this.postId },
           userId: { _id: details._id },

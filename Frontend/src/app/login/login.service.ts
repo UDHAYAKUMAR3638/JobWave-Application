@@ -35,6 +35,7 @@ export class LoginService {
       this.urlPath = environment.recruiterUrl;
     else
       this.urlPath = environment.userUrl
+
     return this.http.get<any>(`${this.urlPath}getEmail/${sessionStorage.getItem('email')}`);
 
   }
