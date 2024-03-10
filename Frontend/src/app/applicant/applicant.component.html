@@ -8,14 +8,14 @@
         <span>Skills: {{applicantData.skills}}</span>
         <span>Resume: <a [href]="applicantData.resume" target="blank">{{applicantData.name}}.pdf</a></span>
         <span>Status:
-            <span [ngClass]="status=='Pending'?'yellow':status=='Rejected'?'red':'green'">{{applicantData.status}}
+            <span [ngClass]="status==='Pending'?'yellow':status==='Rejected'?'red':'green'">{{applicantData.status}}
             </span>
         </span>
     </div>
     <div class="buttons">
-        <button *ngIf="status=='Pending'" mat-raised-button color="primary" class="button-accept"
+        <button *ngIf="status==='Pending'" mat-raised-button color="primary" class="button-accept"
             (click)="accept()">Accept</button>
-        <button *ngIf="status=='Pending'" mat-raised-button color="primary" class="button-reject"
+        <button *ngIf="status==='Pending'" mat-raised-button color="primary" class="button-reject"
             (click)="reject()">Reject</button>
         <button mat-raised-button color="primary" class="button" (click)="close()">Back</button>
     </div>

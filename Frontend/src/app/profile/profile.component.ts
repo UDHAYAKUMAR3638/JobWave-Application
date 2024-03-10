@@ -74,7 +74,6 @@ export class ProfileComponent {
   }
 
   getUser(): void {
-
     this.loginApi = this.loginService.getUser().subscribe({
       next: (details: any) => {
         this.profileImage = details.image;
@@ -115,7 +114,6 @@ export class ProfileComponent {
         }
 
       },
-
     });
 
   }

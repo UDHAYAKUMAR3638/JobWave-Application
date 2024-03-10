@@ -4,6 +4,7 @@ import { ApplicantService } from './applicant.service';
 import { AlertService } from '../service/alert.service';
 import { Subscription } from 'rxjs';
 import { JobApplication } from '../job-apply/job-apply.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-applicant',
   templateUrl: './applicant.component.html',
@@ -54,10 +55,10 @@ export class ApplicantComponent {
   sendEmail(val: boolean): void {
     this.emailApi = this.applicantService.sendMail(this.applicantData.postId, this.applicantData, val).subscribe({
       next: () => {
-        this.alertService.alertMessage('Mail sent successfully', '', 'success');
-        this.status = this.applicantData.status;
       }
     });
+    this.alertService.alertMessage('Mail sent successfully', '', 'success');
+    this.status = this.applicantData.status;
   }
 
   ngOnDestroy() {

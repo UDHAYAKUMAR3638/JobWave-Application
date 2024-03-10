@@ -3,12 +3,10 @@
   <div class="header">
 
     <div class="profile-container">
-      <div class="profile-div">
-        <div class="profile">
-          <img [src]="profileImage" class="image">
-        </div>
+      <div class="profile">
+        <img [src]="profileImage" (click)="uploadInp.click()" class="image">
       </div>
-      <input type="file" placeholder (change)="image($event)">
+      <input style="display: none;" #uploadInp type="file" placeholder (change)="image($event)">
     </div>
 
     <button mat-raised-button color="primary" class="navbuttons" (click)="logout()">Logout<i

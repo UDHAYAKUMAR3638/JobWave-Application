@@ -60,20 +60,13 @@
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 4%;
 }
 
 .profile-container {
     display: grid;
-    grid-template-rows: 1fr 0.3fr;
     align-items: center;
     justify-content: center;
-}
-
-.profile-div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-right: 30px;
 }
 
 .buttons {
@@ -99,7 +92,7 @@
     flex-direction: row;
     justify-content: end;
     margin-top: 2%;
-    margin-bottom: 2%;
+    margin-bottom: 4%;
 }
 
 .image {

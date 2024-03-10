@@ -40,7 +40,6 @@ export class MyPostComponent {
   ) { }
 
   ngOnInit() {
-
     this.userApi = this.loginService.getUser().subscribe({
       next: (data: any) => {
         this.userDetails = data;
@@ -58,7 +57,6 @@ export class MyPostComponent {
   }
 
   getPost(): void {
-
     this.postApi = this.myPostService.MyPosts(this.userDetails._id, this.pageIndex, this.pageSize).subscribe({
       next: (data: { content: Post[]; totalElements: number; }) => {
         this.myPost = data.content;
@@ -67,11 +65,9 @@ export class MyPostComponent {
       },
 
     });
-
   }
 
   rightBox(postId: string): void {
-
     this.applicantApi = this.myPostService.MyPostSeekers(postId).subscribe({
       next: (data: Array<JobApplication>) => {
         this.myPostApplicants = data;
@@ -84,7 +80,6 @@ export class MyPostComponent {
       },
 
     });
-
   }
 
   openDialog(details: any): void {
