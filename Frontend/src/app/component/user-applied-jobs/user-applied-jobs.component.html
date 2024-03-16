@@ -1,0 +1,59 @@
+<div class="content">
+
+    <div class="text" id="text">
+        <h2 class="head">Jobs applied</h2>
+    </div>
+
+    <div class="body">
+
+        <mat-table [dataSource]="jobs" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="Job title">
+                <mat-header-cell *matHeaderCellDef> Job title </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.postId.role}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Company name">
+                <mat-header-cell *matHeaderCellDef> Company name </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.postId.companyName}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Name">
+                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.name}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Email">
+                <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.email}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Resume">
+                <mat-header-cell *matHeaderCellDef> Resume </mat-header-cell>
+                <mat-cell *matCellDef="let element"><a [href]="element.resume" traget="blank">{{element.name}}.pdf</a>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Status">
+                <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                <mat-cell *matCellDef="let element"
+                    [ngClass]="element.status=='Pending'?'yellow':element.status=='Rejected'?'red':'green'">{{element.status}}
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+    </div>
+
+    <div>
+        <mat-paginator (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
+            [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex"
+            aria-label="Select page">
+        </mat-paginator>
+    </div>
+
+    <button mat-raised-button color="primary" class="button" (click)="close()">Back</button>
+
+</div>
