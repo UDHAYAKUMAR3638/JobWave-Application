@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import Backend.JobWave.Dao.JobseekerDao;
 import Backend.JobWave.Dto.JobApplicationDto;
 import Backend.JobWave.Dto.JobseekerDto;
+import Backend.JobWave.Exception.EmailAlreadyExistsException;
 import Backend.JobWave.Model.JobApplication;
 import Backend.JobWave.Model.Jobseeker;
 import Backend.JobWave.Model.JobseekerIndustry;
@@ -51,21 +52,30 @@ public class JobseekerServiceImp implements JobseekerService {
 
     @Override
     public Jobseeker registerJobseeker(JobseekerDto Jobseeker) throws java.io.IOException {
-        Jobseeker jobseeker = new Jobseeker(Jobseeker, fileService.imageConvet(Jobseeker.getImage()));
-        userRepository.save(new User(jobseeker, roleRepository.findByRole("JOBSEEKER"),
-                passwordEncoder.encode(Jobseeker.getPassword())));
-        return jobseekerRepo.save(jobseeker);
+
+        try {
+            if (userRepository.findByEmail(Jobseeker.getEmail()) == null) {
+                Jobseeker jobseeker = new Jobseeker(Jobseeker, fileService.imageConvet(Jobseeker.getImage()));
+                userRepository.save(new User(jobseeker, roleRepository.findByRole("JOBSEEKER"),
+                        passwordEncoder.encode(Jobseeker.getPassword())));
+                return jobseekerRepo.save(jobseeker);
+            } else
+                throw new EmailAlreadyExistsException(null);
+        } catch (Exception e) {
+            throw new EmailAlreadyExistsException("Try another email");
+        }
+
     }
 
     @Override
     public Jobseeker updateJobseeker(JobseekerDto Jobseeker) throws IOException {
         Jobseeker jobseeker = new Jobseeker();
 
-        if (!Jobseeker.getImage().isEmpty())
+        if (Jobseeker.getImage() != null && !(Jobseeker.getImage().isEmpty()))
             jobseeker = new Jobseeker(Jobseeker, fileService.imageConvet(Jobseeker.getImage()));
         else
             jobseeker = new Jobseeker(Jobseeker, jobseekerRepo.findById(Jobseeker.getId()).get().getImage());
-            
+
         User user = userRepository.findByEmail(jobseekerRepo.findById(Jobseeker.getId()).get().getEmail());
         user.setEmail(jobseeker.getEmail());
         user.setPassword(passwordEncoder.encode(jobseeker.getPassword()));

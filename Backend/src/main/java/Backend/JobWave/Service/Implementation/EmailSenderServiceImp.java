@@ -14,13 +14,13 @@ public class EmailSenderServiceImp implements EmailSenderService {
     private JavaMailSender mailSender;
 
     public Boolean sendEmail(Email data) {
-        System.out.println("Mail Sent successfully...");
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("udhayakumar@gmail.com");
+        message.setFrom("udhayakumar1220@gmail.com");
         message.setTo(data.getToEmail());
         message.setText(data.getBody());
         message.setSubject(data.getSubject());
         mailSender.send(message);
+        System.out.println("Mail Sent successfully...");
         return true;
     }
 }

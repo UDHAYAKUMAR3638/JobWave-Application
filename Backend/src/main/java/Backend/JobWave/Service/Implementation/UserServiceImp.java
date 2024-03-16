@@ -1,6 +1,7 @@
 package Backend.JobWave.Service.Implementation;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import Backend.JobWave.Dao.UserDao;
 import Backend.JobWave.Dto.UserDto;
+import Backend.JobWave.Exception.EmailAlreadyExistsException;
+import Backend.JobWave.Model.RegistrationMonth;
 import Backend.JobWave.Model.User;
 import Backend.JobWave.Repository.RoleRepository;
 import Backend.JobWave.Repository.UserRepository;
@@ -40,9 +43,15 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User register(UserDto user) throws IOException {
-        System.out.println(user);
-        return userRepo.save(new User(user, roleRepository.findByRole(user.getRole()),
-                passwordEncoder.encode(user.getPassword()), fileService.imageConvet(user.getImage())));
+        try {
+            if (userRepo.findByEmail(user.getEmail()) == null)
+                return userRepo.save(new User(user, roleRepository.findByRole(user.getRole()),
+                        passwordEncoder.encode(user.getPassword()), fileService.imageConvet(user.getImage())));
+            else
+                throw new EmailAlreadyExistsException(null);
+        } catch (Exception e) {
+            throw new EmailAlreadyExistsException("Try another email");
+        }
     }
 
     @Override
@@ -66,4 +75,15 @@ public class UserServiceImp implements UserService {
         return userDao.updateStatus(id, status);
     }
 
+    @Override
+    public RegistrationMonth getByMonth(int year) {
+        List<User> data = userRepo.findAll();
+        RegistrationMonth months = new RegistrationMonth();
+        data.stream().forEach(val -> {
+            if (val.getRegistration_time().getYear() == year)
+                months.getMonths().put(val.getRegistration_time().getMonth().toString(),
+                        months.getMonths().get(val.getRegistration_time().getMonth().toString()) + 1);
+        });
+        return months;
+    }
 }

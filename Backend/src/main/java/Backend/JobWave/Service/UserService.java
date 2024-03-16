@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import Backend.JobWave.Dto.UserDto;
+import Backend.JobWave.Model.RegistrationMonth;
 import Backend.JobWave.Model.User;
 
 @Service
@@ -20,5 +21,7 @@ public interface UserService {
     public Page<User> getItems(String key, int page, int size);
 
     public Boolean updateStatus(String id, String status);
+
+    public RegistrationMonth getByMonth(int year);
 
 }

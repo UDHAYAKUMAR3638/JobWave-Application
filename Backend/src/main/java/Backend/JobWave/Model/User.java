@@ -1,5 +1,6 @@
 package Backend.JobWave.Model;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class User implements UserDetails {
     private String password;
     private String image;
     private String status;
+    private LocalDateTime registration_time;
     @DocumentReference(collection = "role")
     private Role role;
 
@@ -71,6 +73,7 @@ public class User implements UserDetails {
         this.setRole(role);
         this.setImage(jobseeker.getImage());
         this.setStatus("active");
+        this.setRegistration_time(LocalDateTime.now());
     }
 
     public User(Recruiter recruiter, Role role, String password) {
@@ -80,7 +83,7 @@ public class User implements UserDetails {
         this.setRole(role);
         this.setImage(recruiter.getImage());
         this.setStatus("active");
-
+        this.setRegistration_time(LocalDateTime.now());
     }
 
     public User(UserDto user, Role role, String password, String image) {
@@ -89,5 +92,6 @@ public class User implements UserDetails {
         this.setPassword(password);
         this.setRole(role);
         this.setImage(image);
+        this.setRegistration_time(LocalDateTime.now());
     }
 }

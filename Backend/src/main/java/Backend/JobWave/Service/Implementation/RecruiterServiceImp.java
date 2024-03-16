@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import Backend.JobWave.Dto.RecruiterDto;
+import Backend.JobWave.Exception.EmailAlreadyExistsException;
 import Backend.JobWave.Model.JobApplication;
 import Backend.JobWave.Model.Post;
 import Backend.JobWave.Model.Recruiter;
@@ -49,10 +50,17 @@ public class RecruiterServiceImp implements RecruiterService {
 
     @Override
     public Recruiter registerRecruiter(RecruiterDto Recruiter) throws java.io.IOException {
-        Recruiter recruiter = new Recruiter(Recruiter, fileService.imageConvet(Recruiter.getImage()));
-        userRepository.save(new User(recruiter, roleRepository.findByRole("RECRUITER"),
-                passwordEncoder.encode(Recruiter.getPassword())));
-        return recruiterRepo.save(recruiter);
+        try {
+            if (userRepository.findByEmail(Recruiter.getEmail()) == null) {
+                Recruiter recruiter = new Recruiter(Recruiter, fileService.imageConvet(Recruiter.getImage()));
+                userRepository.save(new User(recruiter, roleRepository.findByRole("RECRUITER"),
+                        passwordEncoder.encode(Recruiter.getPassword())));
+                return recruiterRepo.save(recruiter);
+            } else
+                throw new EmailAlreadyExistsException(null);
+        } catch (Exception e) {
+            throw new EmailAlreadyExistsException("Try another email");
+        }
     }
 
     @Override

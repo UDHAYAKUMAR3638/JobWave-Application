@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +21,7 @@ import Backend.JobWave.Dto.RecruiterDto;
 import Backend.JobWave.Dto.UserDto;
 import Backend.JobWave.Model.Jobseeker;
 import Backend.JobWave.Model.Recruiter;
+import Backend.JobWave.Model.RegistrationMonth;
 import Backend.JobWave.Model.User;
 import Backend.JobWave.Service.UserService;
 
@@ -45,12 +45,12 @@ public class UserController {
     }
 
     @PostMapping("/register/jobseeker")
-    public ResponseEntity<Jobseeker> registerJobseeker(@RequestBody UserDto user) throws IOException {
+    public ResponseEntity<Jobseeker> registerJobseeker(@ModelAttribute UserDto user) throws IOException {
         return new ResponseEntity<Jobseeker>(JobseekerService.registerJobseeker(new JobseekerDto(user)), HttpStatus.OK);
     }
 
     @PostMapping("/register/recruiter")
-    public ResponseEntity<Recruiter> registerRecruiter(@RequestBody UserDto user) throws IOException {
+    public ResponseEntity<Recruiter> registerRecruiter(@ModelAttribute UserDto user) throws IOException {
         return new ResponseEntity<Recruiter>(RecruiterService.registerRecruiter(new RecruiterDto(user)), HttpStatus.OK);
     }
 
@@ -75,6 +75,11 @@ public class UserController {
             @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Page<User> user = userService.getItems(key, page, size);
         return new ResponseEntity<Page<User>>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-by-month/{year}")
+    public ResponseEntity<RegistrationMonth> getByMonth(@PathVariable int year){
+        return new ResponseEntity<RegistrationMonth>(userService.getByMonth(year), HttpStatus.OK);
     }
 
 }

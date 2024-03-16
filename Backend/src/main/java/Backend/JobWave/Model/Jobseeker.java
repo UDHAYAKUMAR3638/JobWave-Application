@@ -40,7 +40,7 @@ public class Jobseeker {
         this.setName(jobseeker.getName());
         this.setEmail(jobseeker.getEmail());
         this.setPhoneno(jobseeker.getPhoneno());
-        this.setDob(new Date(jobseeker.getDob()));
+        this.setDob((jobseeker.getDob()!=null)?new Date(jobseeker.getDob()):new Date());
         this.setPassword(jobseeker.getPassword());
         this.setHeadline(jobseeker.getHeadline());
         this.setSchoolName(jobseeker.getSchoolName());
