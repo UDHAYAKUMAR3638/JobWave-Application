@@ -61,7 +61,7 @@ public class JobseekerController {
             @RequestParam(value = "pageIndex") int page, @RequestParam(value = "pageSize") int size) {
         return ResponseEntity.ok(jobseekerService.myJobs(email, page, size));
     }
-
+ 
     @GetMapping("/myJobs/{email}")
     public ResponseEntity<List<JobApplication>> getMyJobs(@PathVariable String email) {
         return ResponseEntity.ok(jobseekerService.getMyJobs(email));

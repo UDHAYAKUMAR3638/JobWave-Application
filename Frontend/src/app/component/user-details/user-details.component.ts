@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { UserAppliedJobsComponent } from '../user-applied-jobs/user-applied-jobs.component';
 import { UserPostedJobsComponent } from '../user-posted-jobs/user-posted-jobs.component';
+import { User } from '../profile/profile.service';
 
 @Component({
   selector: 'app-user-details',
@@ -12,12 +13,12 @@ import { UserPostedJobsComponent } from '../user-posted-jobs/user-posted-jobs.co
 export class UserDetailsComponent {
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public details: any,
+    @Inject(MAT_DIALOG_DATA) public details: { data: User, role: string },
     public dialogRef: MatDialogRef<UserDetailsComponent>,
     private matDialog: MatDialog
   ) { }
 
-  user: any;
+  user!: User;
   role!: string;
 
   ngOnInit(): void {

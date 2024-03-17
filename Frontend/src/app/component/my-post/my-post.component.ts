@@ -9,6 +9,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../../service/alert.service';
 import { JobApplication } from '../job-apply/job-apply.service';
+import { Recruiter } from '../recruiter-profile-completion/recruiter-profile-completion.service';
 
 @Component({
   selector: 'app-my-post',
@@ -20,7 +21,7 @@ export class MyPostComponent {
   myPost!: Array<Post>;
   myPostApplicants!: Array<JobApplication>;
   flag = false;
-  userDetails!: any;
+  userDetails!: Recruiter;
   length = 40;
   pageSize = 5;
   pageIndex = 0;
@@ -41,7 +42,7 @@ export class MyPostComponent {
 
   ngOnInit() {
     this.userApi = this.loginService.getUser().subscribe({
-      next: (data: any) => {
+      next: (data: Recruiter) => {
         this.userDetails = data;
         this.getPost();
       }
@@ -82,7 +83,7 @@ export class MyPostComponent {
     });
   }
 
-  openDialog(details: any): void {
+  openDialog(details: JobApplication): void {
     const dialogRef = this.dialog.open(ApplicantComponent, {
       data: details,
       height: '450px',

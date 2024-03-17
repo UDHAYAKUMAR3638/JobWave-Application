@@ -24,4 +24,6 @@ public class JobseekerDao {
         Update update = new Update().set("industries", industry);
         template.updateFirst(query, update, Jobseeker.class);
     }
+
+
 }

@@ -5,6 +5,7 @@ import { LoginService } from '../login/login.service';
 import { Jobseeker } from '../find-applicant/find-applicant.service';
 import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
+import { JobApplication } from '../job-apply/job-apply.service';
 
 @Component({
   selector: 'app-my-job',
@@ -75,8 +76,9 @@ export class MyJobComponent {
       next: (data: Jobseeker) => {
         this.userDetails = data;
         this.jobApi = this.myJobService.getJobs(this.userDetails.email, this.pageIndex, this.pageSize).subscribe({
-          next: (data: { content: Jobseeker[]; totalElements: number; }) => {
-            data.content.forEach((value: any) => {
+          next: (data: { content: JobApplication[]; totalElements: number; }) => {
+            this.posts = [];
+            data.content.forEach((value: JobApplication) => {
               this.posts.push(value.postId);
             });
             this.length = data.totalElements;

@@ -49,9 +49,9 @@ export class ViewCompanyComponent {
   }
 
   length = 40;
-  pageSize = 5;
+  pageSize = 3;
   pageIndex = 0;
-  pageSizeOptions = [5, 10, 25];
+  pageSizeOptions = [3, 6, 12];
   showFirstLastButtons = true;
   companyApi: Subscription = new Subscription();
   postApi: Subscription = new Subscription();
@@ -103,9 +103,10 @@ export class ViewCompanyComponent {
 
   }
 
-  setRating(value: number): any {
+  setRating(value: number): void {
 
-    if (this.readonly) return;
+    if (this.readonly)
+      return;
     this.rating = value;
 
   }

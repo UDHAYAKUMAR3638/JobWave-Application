@@ -10,7 +10,20 @@ import Chart from 'chart.js/auto';
 
 export class RegistrationComponent {
   chart: any;
-  registrations: any;
+  registrations!: {
+    APRIL: number,
+    AUGUST: number,
+    DECEMBER: number,
+    FEBRUARY: number
+    JANUARY: number
+    JULY: number,
+    JUNE: number,
+    MARCH: number
+    MAY: number,
+    NOVEMBER: number,
+    OCTOBER: number,
+    SEPTEMBER: number,
+  };
   year: number = 2024;
   @ViewChild("select")
   selectButton!: ElementRef;

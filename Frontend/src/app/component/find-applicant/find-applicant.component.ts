@@ -73,7 +73,7 @@ export class FindApplicantComponent {
 
   getApplicant(): void {
     this.applicantApi = this.findApplicantService.getAllSeekers(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize).subscribe({
-      next: (data: Page) => {
+      next: (data: { content: Array<Jobseeker>, totalElements: number }) => {
         this.applicants = data.content;
         this.selectedApplicant = this.applicants[0];
         this.length = data.totalElements;

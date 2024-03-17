@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Page } from '../../service/data.service';
+import { User } from '../profile/profile.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,7 +23,7 @@ export class UserService {
 
   }
 
-  getDetails(role: string, email: string): Observable<any> {
+  getDetails(role: string, email: string): Observable<User> {
 
     if (role === 'JOBSEEKER')
       this.url = environment.jobseekerUrl;
@@ -31,7 +32,7 @@ export class UserService {
     else
       this.url = environment.userUrl;
 
-    return this.http.get<any>(`${this.url}getEmail/${email}`);
+    return this.http.get<User>(`${this.url}getEmail/${email}`);
 
   }
 

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-export interface User {
+export interface AddUser {
   email: string | null,
   name: string | null,
   password: string | null,
@@ -20,7 +20,7 @@ export class AddUserService {
 
   path: string = '';
 
-  addUser(user: User): Observable<User> {
+  addUser(user: AddUser): Observable<AddUser> {
     const userData = new FormData();
     userData.append('name', user.name || '');
     userData.append('email', user.email || '');
@@ -37,7 +37,7 @@ export class AddUserService {
     else
       this.path = 'register';
 
-    return this.http.post<User>(`${environment.userUrl}${this.path}`, userData);
+    return this.http.post<AddUser>(`${environment.userUrl}${this.path}`, userData);
 
   }
 

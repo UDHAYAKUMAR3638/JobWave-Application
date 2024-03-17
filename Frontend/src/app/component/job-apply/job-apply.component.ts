@@ -26,6 +26,7 @@ export class JobApplyComponent {
     private jobService: JobApplyService,
     private loginService: LoginService,
     private route: ActivatedRoute,
+    private router: Router,
     private alertService: AlertService
   ) { }
 
@@ -80,6 +81,7 @@ export class JobApplyComponent {
       this.jobApi = this.jobService.apply(formData).subscribe({
         next: (data: JobApplication) => {
           this.alertService.alertMessage('Application sent successfully', ``, 'success');
+          this.router.navigate(['myJob']);
         },
 
       });

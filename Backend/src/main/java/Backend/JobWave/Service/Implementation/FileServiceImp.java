@@ -14,7 +14,6 @@ public class FileServiceImp implements FileService {
     public String imageConvet(MultipartFile file) throws java.io.IOException {
 
         if (file != null && !(file.isEmpty())) {
-            System.out.println("inside");
             String url = "";
             String a = file.getContentType();
             if (a != null && a.startsWith("image")) {

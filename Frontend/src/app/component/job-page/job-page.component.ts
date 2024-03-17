@@ -1,8 +1,6 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { JobPageService } from './job-page.service';
 import { Post } from '../post-page/post-page.service';
-import { List } from 'lodash';
-import { DataService, Page } from '../../service/data.service';
 import { Router } from '@angular/router';
 import { Subject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
@@ -39,6 +37,18 @@ export class JobPageComponent {
     date: new Date(),
     skills: '',
     recruiterId: {
+      _id: '',
+      name: '',
+      companyName: '',
+      empCount: 0,
+      companyType: '',
+      email: '',
+      phoneno: '',
+      password: '',
+      location: '',
+      image: '',
+      about: '',
+      rating: 0
     },
     status: ''
   };
@@ -68,8 +78,8 @@ export class JobPageComponent {
       },
 
     });
-    this.getPost();
     this.getApplicantJobs();
+    this.getPost();
   }
 
   search(): void {

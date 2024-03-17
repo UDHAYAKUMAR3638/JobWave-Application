@@ -46,7 +46,7 @@ export class LoginComponent {
           }
 
         },
-        error: (error: any) => {
+        error: (error) => {
           this.alertService.alertMessage('Enter Valid User Details!', 'Try again', 'error');
         },
         complete: () => {

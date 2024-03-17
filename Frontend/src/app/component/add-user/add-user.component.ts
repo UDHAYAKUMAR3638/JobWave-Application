@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AddUserService, User } from './add-user.service';
+import { AddUserService, AddUser } from './add-user.service';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../../service/alert.service';
 
@@ -32,9 +32,15 @@ export class UserComponent {
   register(): void {
 
     if (!this.addUserForm.invalid) {
-      this.userApi = this.addUserService.addUser(<User>this.addUserForm.value).subscribe({
+      this.userApi = this.addUserService.addUser(<AddUser>this.addUserForm.value).subscribe({
         next: () => {
           this.alertService.alertMessage('New User AddedSuccessfully', '', 'success');
+          this.addUserForm = this.formBuilder.group({
+            name: ['', Validators.required],
+            email: ['', [Validators.email, Validators.required]],
+            password: ['', Validators.required],
+            role: ['', Validators.required],
+          });
         },
         error: () => {
           this.alertService.alertMessage('Enter Valid User Details!', 'Try again', 'error');

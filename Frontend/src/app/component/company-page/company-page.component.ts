@@ -31,7 +31,7 @@ export class CompanyPageComponent {
   ngOnInit() {
 
     this.searchApi = this.searchText$.pipe(debounceTime(500), switchMap(() => this.companyService.getCompany(this.inp, this.pageIndex, this.pageSize))).subscribe({
-      next: (response: Page) => {
+      next: (response: { content: Array<Recruiter>, totalElements: number }) => {
         this.companies = response.content;
         this.length = response.totalElements;
       },
@@ -42,7 +42,7 @@ export class CompanyPageComponent {
 
   getCompany(): void {
     this.companyApi = this.companyService.getCompany(this.inp, this.pageIndex, this.pageSize).subscribe({
-      next: (response: Page) => {
+      next: (response: { content: Array<Recruiter>, totalElements: number }) => {
         this.companies = response.content;
         this.length = response.totalElements;
       },

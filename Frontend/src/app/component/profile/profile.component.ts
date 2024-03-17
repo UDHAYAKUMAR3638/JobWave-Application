@@ -77,7 +77,7 @@ export class ProfileComponent {
 
   getUser(): void {
     this.loginApi = this.loginService.getUser().subscribe({
-      next: (details: any) => {
+      next: (details: User) => {
         this.profileImage = details.image;
         this.userForm.patchValue({
           _id: details._id,
@@ -101,7 +101,7 @@ export class ProfileComponent {
         });
 
         if (details?.industries !== null) {
-          for (let x of details.industries) {
+          details.industries.forEach(x => {
             const industry = this.formBuilder.group({
               industryName: [x.industryName, Validators.required],
               role: [x.role, Validators.required],
@@ -109,6 +109,7 @@ export class ProfileComponent {
             });
             this.jobseekerIndustries.push(industry);
           }
+          );
         }
 
       },
@@ -129,6 +130,7 @@ export class ProfileComponent {
 
         this.getUser();
       },
+
       error: () => {
         this.alertService.alertMessage('Profile Updation', 'Failed', 'error');
       }

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PostPageService } from './post-page.service';
+import { Order, PostForm, PostPageService, RazorPay } from './post-page.service';
 import { LoginService } from '../login/login.service';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../../service/alert.service';
-import Swal from 'sweetalert2';
+import { Recruiter } from '../recruiter-profile-completion/recruiter-profile-completion.service';
+import { Bill } from '../bills-page/bills-page.service';
 declare const Razorpay: any;
 
 @Component({
@@ -25,7 +26,7 @@ export class PostPageComponent {
   ngOnInit(): void {
 
     this.loginApi = this.loginService.getUser().subscribe({
-      next: (data: any) => {
+      next: (data: Recruiter) => {
         this.userDetails = data;
         this.postForm.get('companyName')?.setValue(this.userDetails.companyName);
         this.postForm.get('location')?.setValue(this.userDetails.location);
@@ -35,16 +36,16 @@ export class PostPageComponent {
 
   }
 
-  paymentDetails!: any;
+  paymentDetails!: RazorPay;
   perPostCost = 900;
-  userDetails!: any;
+  userDetails!: Recruiter;
   postApi: Subscription = new Subscription();
   orderApi: Subscription = new Subscription();
   loginApi: Subscription = new Subscription();
   postForm = this.formBuilder.group({
     companyName: '',
     role: ['', Validators.required],
-    location: [, Validators.required],
+    location: ['', Validators.required],
     salary: ['', Validators.required],
     jobType: ['Select job type', Validators.required],
     schedule: ['Select work schedule', Validators.required],
@@ -62,11 +63,9 @@ export class PostPageComponent {
 
     if (!this.postForm.invalid) {
       this.orderApi = this.postService.createOrder(this.perPostCost).subscribe({
-        next: (data: any) => {
-          // console.log(data);
+        next: (data: Order) => {
           this.openTransactionModel(data);
         },
-
       })
     }
     else {
@@ -74,7 +73,7 @@ export class PostPageComponent {
     }
   }
 
-  openTransactionModel(response: any): void {
+  openTransactionModel(response: Order): void {
 
     const options = {
       order_id: response.orderId,
@@ -89,11 +88,12 @@ export class PostPageComponent {
         email: "udhaya@gmail.com" || this.userDetails.email,
       },
 
-      handler: (response: any) => {
+      handler: (response: RazorPay) => {
+
         if (response != null && response.razorpay_payment_id != null)
           this.processResponse(response);
         else
-          alert('Payment failed..');
+          this.alertService.alertMessage('Payment failed', '', 'error');
       },
 
       notes: {
@@ -106,7 +106,7 @@ export class PostPageComponent {
 
       modal: {
         ondismiss: () => {
-          console.log('dismissed');
+          this.alertService.alertMessage('Payment cancelled', '', 'warning');
         }
       }
 
@@ -117,7 +117,7 @@ export class PostPageComponent {
 
   }
 
-  processResponse(response: any): void {
+  processResponse(response: RazorPay): void {
     this.paymentDetails = response;
     this.register();
 
@@ -125,9 +125,12 @@ export class PostPageComponent {
 
   register(): void {
     this.postForm.get('date')?.setValue(new Date());
-    this.postApi = this.postService.post(this.postForm.value).subscribe({
+    this.postApi = this.postService.post(<PostForm>this.postForm.value).subscribe({
       next: (data: { _id: string; }) => {
-        this.postService.savePayment(data._id, this.paymentDetails, this.userDetails, this.perPostCost);
+        this.postService.savePayment(data._id, this.paymentDetails, this.userDetails, this.perPostCost).subscribe({
+          next: (data: Bill) => {
+          }
+        })
         this.alertService.alertMessage('Post added Successfully', 'redirected to your posts', 'success');
         this.router.navigate(['myPost']);
       },

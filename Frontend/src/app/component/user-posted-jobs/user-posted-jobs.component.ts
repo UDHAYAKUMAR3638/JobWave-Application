@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 export class UserPostedJobsComponent {
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public details: any,
+    @Inject(MAT_DIALOG_DATA) public details: { email: string },
     public dialogRef: MatDialogRef<UserPostedJobsComponent>,
     private myPostService: MyPostService
   ) { }

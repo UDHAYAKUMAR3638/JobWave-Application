@@ -21,7 +21,7 @@ export class DataService {
 
   constructor() { }
 
-  changeMessage(data: any): void {
+  changeMessage(data: string): void {
     this.messageSource.next(data);
   }
 }

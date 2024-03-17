@@ -18,6 +18,11 @@
      jobApplicationForm.get('email')?.touched)">
                 Email is Required!</mat-error>
 
+            <label class="labels">Your resume: </label>
+            <button mat-raised-button color="primary" (click)="uploadInp.click()" class="buttons">Upload <i
+                    class="pi pi-cloud-upload"></i></button>
+            <input type="file" style="display: none;" #uploadInp id="upload" (change)="upload($event)">
+
             <label class="labels">Your phoneno :</label><input class="inputs" placeholder="Enter phoneno"
                 formControlName="phoneno">
             <mat-error *ngIf="jobApplicationForm.get('phoneno')?.invalid &&
@@ -31,11 +36,7 @@
             <label class="labels">Your experience: </label><input type="text" class="inputs"
                 placeholder="Enter experience" formControlName="experience">
 
-            <label class="labels">Your resume: </label><input type="file" id="upload" (change)="upload($event)">
-            <br>
-            <br>
-
-            <button mat-raised-button color="primary" (click)="apply()" class="buttons">Apply<i
+            <button mat-raised-button color="primary" (click)="apply()" class="buttons">Apply <i
                     class="pi pi-check-circle"></i></button>
 
         </form>

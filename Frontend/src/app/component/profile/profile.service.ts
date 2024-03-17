@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { Observable, Subscription } from 'rxjs';
-import { AlertService } from '../../service/alert.service';
-import { Jobseeker } from '../find-applicant/find-applicant.service';
-
+import { List, intersection } from 'lodash';
 export interface User {
   _id: string,
   name: string,
@@ -14,7 +12,7 @@ export interface User {
   companyType: string,
   empCount: number,
   phoneno: string,
-  dob: string,
+  dob: Date,
   headline: string,
   schoolName: string,
   schlPassedOutYear: string,
@@ -23,8 +21,37 @@ export interface User {
   currentPosition: number,
   skills: string,
   location: string,
-  industries: [],
+  industries: Array<JobseekerIndustry>,
+  about: string,
+  image: string
+}
+
+export interface UpdateUser {
+  _id: string,
+  name: string,
+  email: string,
+  password: string,
+  companyName: string,
+  companyType: string,
+  empCount: string,
+  phoneno: string,
+  dob: string,
+  headline: string,
+  about: string,
+  schoolName: string,
+  schlPassedOutYear: string,
+  collegeName: string,
+  clgPassedOutYear: string,
+  currentPosition: string,
+  skills: string,
+  location: string,
   image: File
+}
+
+export interface JobseekerIndustry {
+  industryName: string,
+  role: string,
+  duration: string
 }
 
 @Injectable({
@@ -37,7 +64,7 @@ export class ProfileService {
     private http: HttpClient,
   ) { }
 
-  update(user: any, form: FormData): Observable<any> {
+  update(user: UpdateUser, form: FormData): Observable<any> {
 
     if (sessionStorage.getItem('role') === "JOBSEEKER") {
 
@@ -84,7 +111,7 @@ export class ProfileService {
 
   }
 
-  updateIndustry(user: any): Observable<any> {
+  updateIndustry(user: { _id: string, jobseekerIndustries: List<JobseekerIndustry> }): Observable<any> {
     return this.http.put(`${environment.jobseekerUrl}update-industry/${user._id}`, user.jobseekerIndustries);
   }
 

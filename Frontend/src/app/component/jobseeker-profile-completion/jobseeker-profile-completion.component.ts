@@ -3,8 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ProfileCompletionService } from './jobseeker-profile-completion.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AlertService } from '../../service/alert.service';
 import { Jobseeker } from '../find-applicant/find-applicant.service';
+import { AlertService } from 'src/app/service/alert.service';
 
 @Component({
   selector: 'app-jobseeker-profile-completion',

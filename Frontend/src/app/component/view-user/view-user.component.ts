@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserDetailsComponent } from '../user-details/user-details.component';
 import { Subject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { AlertService } from '../../service/alert.service';
+import { User } from '../profile/profile.service';
+import { AddUser } from '../add-user/add-user.service';
 @Component({
   selector: 'app-appointment',
   templateUrl: './view-user.component.html',
@@ -20,7 +22,7 @@ export class ViewUserComponent {
   ) { }
 
   inp: string = '';
-  users: any = '';
+  users!: Array<AddUser>;
   length = 40;
   pageSize = 5;
   pageIndex = 0;
@@ -36,7 +38,7 @@ export class ViewUserComponent {
   ngOnInit(): void {
 
     this.searchApi = this.searchText$.pipe(debounceTime(500), switchMap(() => this.userService.getItems(this.inp, this.pageIndex, this.pageSize))).subscribe({
-      next: (response: any) => {
+      next: (response: { content: Array<AddUser>, totalElements: number }) => {
         this.users = response.content;
         this.length = response.totalElements;
       },
@@ -48,7 +50,7 @@ export class ViewUserComponent {
   getDetails(role: string, email: string): void {
 
     this.detailsApi = this.userService.getDetails(role, email).subscribe({
-      next: (data: any) => {
+      next: (data: User) => {
         this.matDialog.open(UserDetailsComponent, {
           data: { data, role },
           height: '550px',
@@ -69,7 +71,7 @@ export class ViewUserComponent {
   getUsers(): void {
 
     this.itemsApi = this.userService.getItems(this.inp, this.pageIndex, this.pageSize)
-      .subscribe((response: { totalElements: number; content: any; }) => {
+      .subscribe((response: { totalElements: number; content: Array<AddUser>; }) => {
         this.length = response.totalElements;
         this.users = response.content;
       });

@@ -17,7 +17,6 @@ export class BillsPageComponent {
     private billService: BillsPageService
   ) { }
 
-  users: any = '';
   length = 40;
   pageSize = 5;
   pageIndex = 0;
