@@ -6,6 +6,7 @@ import { Jobseeker } from '../find-applicant/find-applicant.service';
 import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { JobApplication } from '../job-apply/job-apply.service';
+import { User } from '../profile/profile.service';
 
 @Component({
   selector: 'app-my-job',
@@ -15,23 +16,7 @@ import { JobApplication } from '../job-apply/job-apply.service';
 
 export class MyJobComponent {
 
-  userDetails: Jobseeker = {
-    _id: '',
-    email: '',
-    name: '',
-    phoneno: '',
-    dob: new Date(),
-    headline: '',
-    schoolName: '',
-    schlPassedOutYear: 0,
-    collegeName: '',
-    clgPassedOutYear: 0,
-    currentPosition: '',
-    skills: '',
-    industries: [],
-    location: '',
-    image: ''
-  };
+  userDetails!: User;
 
   status!: string;
   posts: Array<Post> = [];
@@ -73,10 +58,10 @@ export class MyJobComponent {
   getUser(): void {
 
     this.userApi = this.loginService.getUser().subscribe({
-      next: (data: Jobseeker) => {
+      next: (data) => {
         this.userDetails = data;
         this.jobApi = this.myJobService.getJobs(this.userDetails.email, this.pageIndex, this.pageSize).subscribe({
-          next: (data: { content: JobApplication[]; totalElements: number; }) => {
+          next: (data: { content: JobApplication[], totalElements: number }) => {
             this.posts = [];
             data.content.forEach((value: JobApplication) => {
               this.posts.push(value.postId);

@@ -7,7 +7,7 @@ export interface AddUser {
   name: string | null,
   password: string | null,
   role: string | null,
-  image: File
+  image: File,
 }
 
 @Injectable({
@@ -27,6 +27,7 @@ export class AddUserService {
     userData.append('password', user.password || '');
     userData.append('role', user.role || '');
     userData.append('image', new Blob([]));
+    userData.append('status', 'active');
 
     if (user.role === 'JOBSEEKER')
       this.path = 'register/jobseeker';

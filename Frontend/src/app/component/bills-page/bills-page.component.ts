@@ -37,7 +37,7 @@ export class BillsPageComponent {
 
   getBill(): void {
     this.billAPi = this.billService.getBills(this.pageIndex, this.pageSize).subscribe({
-      next: (data: { content: Bill[]; totalElements: number; }) => {
+      next: (data: { content: Bill[], totalElements: number }) => {
         this.bills = data.content;
         this.length = data.totalElements;
       },

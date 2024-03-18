@@ -1,11 +1,26 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, finalize } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { Router } from '@angular/router';
+import { User } from '../profile/profile.service';
 export interface Login {
   email: string;
   password: string;
+}
+
+export interface UserDetails {
+  token: string,
+  user: {
+    email: string,
+    image: string,
+    name: string,
+    password: string,
+    role: { _id: string, role: string }
+    status: string,
+    username: string
+    _id: string
+
+  }
 }
 @Injectable({
   providedIn: 'root',
@@ -15,16 +30,15 @@ export class LoginService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
   ) { }
 
   urlPath: string = '';
 
-  authenticate(data: Login): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrl}authenticate`, data, { observe: 'response' });;
+  authenticate(data: Login): Observable<UserDetails> {
+    return this.http.post<UserDetails>(`${environment.baseUrl}authenticate`, data);
   }
 
-  getUser(): Observable<any> {
+  getUser(): Observable<User> {
 
     if (sessionStorage.getItem('role') === 'JOBSEEKER')
       this.urlPath = environment.jobseekerUrl;
@@ -33,7 +47,7 @@ export class LoginService {
     else
       this.urlPath = environment.userUrl
 
-    return this.http.get<any>(`${this.urlPath}getEmail/${sessionStorage.getItem('email')}`);
+    return this.http.get<User>(`${this.urlPath}getEmail/${sessionStorage.getItem('email')}`);
 
   }
 

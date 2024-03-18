@@ -34,7 +34,7 @@ export class JobApplyComponent {
 
     this.postId = this.route.snapshot.paramMap.get('postId') || '';
     this.loginApi = this.loginService.getUser().subscribe({
-      next: (details: Jobseeker) => {
+      next: (details) => {
         this.jobApplicationForm.patchValue({
           name: details.name,
           email: details.email,

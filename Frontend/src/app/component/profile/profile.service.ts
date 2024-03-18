@@ -15,15 +15,16 @@ export interface User {
   dob: Date,
   headline: string,
   schoolName: string,
-  schlPassedOutYear: string,
+  schlPassedOutYear: number,
   collegeName: string,
   clgPassedOutYear: number,
-  currentPosition: number,
+  currentPosition: String,
   skills: string,
   location: string,
   industries: Array<JobseekerIndustry>,
   about: string,
-  image: string
+  image: string,
+  rating: number
 }
 
 export interface UpdateUser {
@@ -64,7 +65,7 @@ export class ProfileService {
     private http: HttpClient,
   ) { }
 
-  update(user: UpdateUser, form: FormData): Observable<any> {
+  update(user: UpdateUser, form: FormData): Observable<User> {
 
     if (sessionStorage.getItem('role') === "JOBSEEKER") {
 
@@ -83,7 +84,7 @@ export class ProfileService {
       form.append('currentPosition', user.currentPosition);
       form.append('location', user.location);
 
-      return this.http.put(`${environment.jobseekerUrl}update`, form);
+      return this.http.put<User>(`${environment.jobseekerUrl}update`, form);
     }
     else if (sessionStorage.getItem('role') === "RECRUITER") {
       form.append('id', user._id);
@@ -97,7 +98,7 @@ export class ProfileService {
       form.append('location', user.location);
       form.append('about', user.about);
 
-      return this.http.put(`${environment.recruiterUrl}update`, form);
+      return this.http.put<User>(`${environment.recruiterUrl}update`, form);
     }
     else {
       form.append('_id', user._id);
@@ -106,13 +107,13 @@ export class ProfileService {
       form.append('password', user.password);
       form.append('role', 'ADMIN');
 
-      return this.http.put(`${environment.userUrl}update`, form);
+      return this.http.put<User>(`${environment.userUrl}update`, form);
     }
 
   }
 
-  updateIndustry(user: { _id: string, jobseekerIndustries: List<JobseekerIndustry> }): Observable<any> {
-    return this.http.put(`${environment.jobseekerUrl}update-industry/${user._id}`, user.jobseekerIndustries);
+  updateIndustry(user: { _id: string, jobseekerIndustries: List<JobseekerIndustry> }): Observable<User> {
+    return this.http.put<User>(`${environment.jobseekerUrl}update-industry/${user._id}`, user.jobseekerIndustries);
   }
 
 }

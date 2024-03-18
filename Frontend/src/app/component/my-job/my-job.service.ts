@@ -13,12 +13,12 @@ export class MyJobService {
 
     constructor(private http: HttpClient) { }
 
-    getJobs(email: string, pageIndex: number, pageSize: number): Observable<Page> {
+    getJobs(email: string, pageIndex: number, pageSize: number): Observable<{ content: JobApplication[]; totalElements: number; }> {
         const params = new HttpParams()
             .set('email', email)
             .set('pageIndex', pageIndex)
             .set('pageSize', pageSize);
-        return this.http.get<Page>(`${environment.jobseekerUrl}myJobs`, { params });
+        return this.http.get<{ content: JobApplication[]; totalElements: number; }>(`${environment.jobseekerUrl}myJobs`, { params });
     }
 
     getApplication(postId: string, email: string): Observable<JobApplication> {

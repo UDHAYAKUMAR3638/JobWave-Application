@@ -19,7 +19,7 @@ export class CompanyPageComponent {
   length = 40;
   pageSize = 6;
   pageIndex = 0;
-  pageSizeOptions = [6, 10, 25];
+  pageSizeOptions = [6, 12, 18];
   showFirstLastButtons = true;
   searchApi: Subscription = new Subscription();
   companyApi: Subscription = new Subscription();
@@ -29,7 +29,6 @@ export class CompanyPageComponent {
   constructor(private companyService: CompanyPageService, private router: Router) { }
 
   ngOnInit() {
-
     this.searchApi = this.searchText$.pipe(debounceTime(500), switchMap(() => this.companyService.getCompany(this.inp, this.pageIndex, this.pageSize))).subscribe({
       next: (response: { content: Array<Recruiter>, totalElements: number }) => {
         this.companies = response.content;

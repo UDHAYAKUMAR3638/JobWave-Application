@@ -93,5 +93,6 @@ public class User implements UserDetails {
         this.setRole(role);
         this.setImage(image);
         this.setRegistration_time(LocalDateTime.now());
+        this.setStatus("active");
     }
 }

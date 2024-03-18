@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { AlertService } from '../../service/alert.service';
 import { Recruiter } from '../recruiter-profile-completion/recruiter-profile-completion.service';
 import { Bill } from '../bills-page/bills-page.service';
+import { User } from '../profile/profile.service';
 declare const Razorpay: any;
 
 @Component({
@@ -26,7 +27,7 @@ export class PostPageComponent {
   ngOnInit(): void {
 
     this.loginApi = this.loginService.getUser().subscribe({
-      next: (data: Recruiter) => {
+      next: (data: User) => {
         this.userDetails = data;
         this.postForm.get('companyName')?.setValue(this.userDetails.companyName);
         this.postForm.get('location')?.setValue(this.userDetails.location);
@@ -38,7 +39,7 @@ export class PostPageComponent {
 
   paymentDetails!: RazorPay;
   perPostCost = 900;
-  userDetails!: Recruiter;
+  userDetails!: User;
   postApi: Subscription = new Subscription();
   orderApi: Subscription = new Subscription();
   loginApi: Subscription = new Subscription();

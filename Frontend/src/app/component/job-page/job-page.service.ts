@@ -5,6 +5,7 @@ import { JobApplication } from '../job-apply/job-apply.service';
 import { List } from 'lodash';
 import { Observable } from 'rxjs';
 import { Page } from '../../service/data.service';
+import { Post } from '../post-page/post-page.service';
 
 @Injectable({
     providedIn: 'root',
@@ -14,7 +15,7 @@ export class JobPageService {
 
     constructor(private http: HttpClient) { }
 
-    getAllPosts(role: string, jobType: string, location: string, pageIndex: number, pageSize: number): Observable<Page> {
+    getAllPosts(role: string, jobType: string, location: string, pageIndex: number, pageSize: number): Observable<{ content: Array<Post>, totalElements: number }> {
         const params = new HttpParams()
             .set('role', role)
             .set('jobType', jobType)
@@ -22,7 +23,7 @@ export class JobPageService {
             .set('pageIndex', pageIndex)
             .set('pageSize', pageSize);
 
-        return this.http.get<Page>(`${environment.postUrl}getPost`, { params });
+        return this.http.get<{ content: Array<Post>, totalElements: number }>(`${environment.postUrl}getPost`, { params });
     }
 
     getMyJobs(): Observable<JobApplication[]> {

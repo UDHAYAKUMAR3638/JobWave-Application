@@ -57,18 +57,18 @@ export class PostPageService {
 
     constructor(private http: HttpClient) { }
 
-    post(data: PostForm): Observable<any> {
-        return this.http.post<any>(`${environment.recruiterUrl}post`, data);
+    post(data: PostForm): Observable<Post> {
+        return this.http.post<Post>(`${environment.recruiterUrl}post`, data);
     }
 
-    createOrder(amount: number): Observable<any> {
-        return this.http.get(`${environment.paymentUrl}createTransaction/${amount}`);
+    createOrder(amount: number): Observable<Order> {
+        return this.http.get<Order>(`${environment.paymentUrl}createTransaction/${amount}`);
     }
 
     savePayment(postId: string, paymentDetails: RazorPay, userDetails: Recruiter, price: number): Observable<Bill> {
 
         const payment = { postId: { _id: postId }, paymentId: paymentDetails.razorpay_payment_id, orderId: paymentDetails.razorpay_order_id, name: userDetails.name, email: userDetails.email, amount: price };
-        return this.http.post<any>(`${environment.paymentUrl}save`, payment);
+        return this.http.post<Bill>(`${environment.paymentUrl}save`, payment);
 
     }
 

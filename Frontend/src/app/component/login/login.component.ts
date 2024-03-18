@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { LoginService, Login } from './login.service';
+import { LoginService, Login, UserDetails } from './login.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../../service/alert.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -36,15 +37,11 @@ export class LoginComponent {
 
     if (!this.loginForm.invalid) {
       this.loginApi = this.loginService.authenticate(<Login>this.loginForm.value).subscribe({
-        next: (token: { status: number; body: { token: string; user: { email: string; role: { role: string; }; }; }; }) => {
-
-          if (token.status == 200) {
-            sessionStorage.setItem('isLogged', 'true');
-            sessionStorage.setItem('token', token.body.token);
-            sessionStorage.setItem('email', token.body.user.email);
-            sessionStorage.setItem('role', token.body.user.role.role);
-          }
-
+        next: (token: UserDetails) => {
+          sessionStorage.setItem('isLogged', 'true');
+          sessionStorage.setItem('token', token.token);
+          sessionStorage.setItem('email', token.user.email);
+          sessionStorage.setItem('role', token.user.role.role);
         },
         error: (error) => {
           this.alertService.alertMessage('Enter Valid User Details!', 'Try again', 'error');

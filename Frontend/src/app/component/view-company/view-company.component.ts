@@ -87,7 +87,7 @@ export class ViewCompanyComponent {
   getCompanyPost(): void {
 
     this.postApi = this.companyService.getCompanyPosts(this.company._id, this.pageIndex, this.pageSize).subscribe({
-      next: (posts: { content: Post[]; totalElements: number; }) => {
+      next: (posts: { content: Post[], totalElements: number }) => {
         this.companyPosts = posts.content;
         this.length = posts.totalElements;
         this.jobPageService.getMyJobs().subscribe({

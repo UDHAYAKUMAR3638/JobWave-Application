@@ -15,12 +15,12 @@ export class MyPostService {
 
     constructor(private http: HttpClient) { }
 
-    MyPosts(id: string, pageIndex: number, pageSize: number): Observable<Page> {
+    MyPosts(id: string, pageIndex: number, pageSize: number): Observable<{ content: Post[], totalElements: number }> {
         const params = new HttpParams()
             .set('id', id)
             .set('pageIndex', pageIndex)
             .set('pageSize', pageSize);
-        return this.http.get<Page>(`${environment.recruiterUrl}getPosts`, { params });
+        return this.http.get<{ content: Post[], totalElements: number }>(`${environment.recruiterUrl}getPosts`, { params });
     }
 
     MyPostSeekers(id: string): Observable<Array<JobApplication>> {
