@@ -1,17 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
-export interface Page {
-  content: any[],
-  totalElements: number,
-  totalPages: number,
-  number: number,
-  size: number,
-  numberOfElements: number,
-  hasNext: boolean,
-  hasPrevious: boolean
-}
-
 @Injectable({
   providedIn: 'root',
 })

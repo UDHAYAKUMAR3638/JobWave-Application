@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { JobApplication } from '../job-apply/job-apply.service';
-import { Page } from '../../service/data.service';
 import { Post } from '../post-page/post-page.service';
 
 

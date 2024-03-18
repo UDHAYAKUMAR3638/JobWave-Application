@@ -4,7 +4,6 @@ import { environment } from 'src/environments/environment.development';
 import { Post } from '../post-page/post-page.service';
 import { Observable } from 'rxjs';
 import { Recruiter } from '../recruiter-profile-completion/recruiter-profile-completion.service';
-import { Page } from '../../service/data.service';
 
 export interface Bill {
 

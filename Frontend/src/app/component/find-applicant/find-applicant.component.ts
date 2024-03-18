@@ -1,6 +1,4 @@
 import { Component, HostListener } from '@angular/core';
-import { Post } from '../post-page/post-page.service';
-import { DataService, Page } from '../../service/data.service';
 import { Router } from '@angular/router';
 import { FindApplicantService, Jobseeker } from './find-applicant.service';
 import { Subject, Subscription, debounceTime, switchMap } from 'rxjs';
@@ -11,6 +9,7 @@ import { PageEvent } from '@angular/material/paginator';
   templateUrl: './find-applicant.component.html',
   styleUrls: ['./find-applicant.component.scss']
 })
+
 export class FindApplicantComponent {
 
   constructor(private findApplicantService: FindApplicantService, private router: Router) { }
@@ -51,7 +50,8 @@ export class FindApplicantComponent {
     this.searchApi = this.searchText$.pipe(debounceTime(500), switchMap(() => this.findApplicantService.getAllSeekers(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize))).subscribe({
       next: (data: { content: Jobseeker[]; totalElements: number; }) => {
         this.applicants = data.content;
-        this.selectedApplicant = this.applicants[0];
+        if (this.applicants.length > 0)
+          this.selectedApplicant = this.applicants[0];
         this.length = data.totalElements;
       },
 
@@ -75,7 +75,8 @@ export class FindApplicantComponent {
     this.applicantApi = this.findApplicantService.getAllSeekers(this.inp1, this.inp2, this.inp3, this.pageIndex, this.pageSize).subscribe({
       next: (data: { content: Array<Jobseeker>, totalElements: number }) => {
         this.applicants = data.content;
-        this.selectedApplicant = this.applicants[0];
+        if (this.applicants.length > 0)
+          this.selectedApplicant = this.applicants[0];
         this.length = data.totalElements;
 
       },

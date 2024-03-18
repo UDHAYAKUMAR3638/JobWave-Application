@@ -5,7 +5,6 @@ import { Recruiter } from '../recruiter-profile-completion/recruiter-profile-com
 import { Router } from '@angular/router';
 import { Subject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
-import { Page } from '../../service/data.service';
 
 @Component({
   selector: 'app-company-page',

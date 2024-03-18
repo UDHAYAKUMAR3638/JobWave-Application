@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { Page } from 'src/app/service/data.service';
-import { Post } from '../post-page/post-page.service';
-
 export interface Industry {
     industryName: string,
     role: string,

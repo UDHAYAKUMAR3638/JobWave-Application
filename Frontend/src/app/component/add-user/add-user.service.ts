@@ -27,14 +27,11 @@ export class AddUserService {
     userData.append('password', user.password || '');
     userData.append('role', user.role || '');
     userData.append('image', new Blob([]));
-    userData.append('status', 'active');
 
     if (user.role === 'JOBSEEKER')
       this.path = 'register/jobseeker';
-
     else if (user.role === 'RECRUITER')
       this.path = 'register/recruiter';
-
     else
       this.path = 'register';
 

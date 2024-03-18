@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, finalize } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { Page } from '../../service/data.service';
 import { JobApplication } from '../job-apply/job-apply.service';
 
 @Injectable({

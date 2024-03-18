@@ -1,9 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { List } from 'lodash';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { Page } from '../../service/data.service';
 import { Recruiter } from '../recruiter-profile-completion/recruiter-profile-completion.service';
 
 @Injectable({

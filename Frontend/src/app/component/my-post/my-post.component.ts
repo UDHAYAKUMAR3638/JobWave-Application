@@ -63,7 +63,8 @@ export class MyPostComponent {
       next: (data: { content: Post[]; totalElements: number; }) => {
         this.myPost = data.content;
         this.length = data.totalElements;
-        this.rightBox(this.myPost[0]._id);
+        if (this.myPost.length > 0)
+          this.rightBox(this.myPost[0]._id);
       },
 
     });

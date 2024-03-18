@@ -67,7 +67,8 @@ export class MyJobComponent {
               this.posts.push(value.postId);
             });
             this.length = data.totalElements;
-            this.rightBox(this.posts[0]._id);
+            if (this.posts.length > 0)
+              this.rightBox(this.posts[0]._id);
           },
         });
 
