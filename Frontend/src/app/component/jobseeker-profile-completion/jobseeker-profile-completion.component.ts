@@ -65,7 +65,7 @@ export class JobseekerProfileCompletionComponent {
     formData.append('indusrties', this.registerForm.get('indusrties')?.value || "");
     formData.append('image', this.file || "");
 
-    if (!this.registerForm.invalid) {
+    if (!this.registerForm.invalid && this.file != null) {
       this.registerApi = this.profileService.register(formData).subscribe({
         next: (data: Jobseeker) => {
           this.registerForm.reset();
@@ -73,7 +73,10 @@ export class JobseekerProfileCompletionComponent {
           this.route.navigate(['login']);
         },
         error: (error) => {
-          this.alertService.alertMessage('Details are not valid', 'Please check inputs', 'error');
+          if (error.error === 'Try another email')
+            this.alertService.alertMessage('Email already exists', 'Try another email', 'warning');
+          else
+            this.alertService.alertMessage('Details are not valid', 'Please check inputs', 'error');
         }
       });
     }

@@ -46,7 +46,7 @@ export class RecruiterProfileCompletionComponent {
 
   register(): void {
 
-    if (!this.registerForm.invalid) {
+    if (!this.registerForm.invalid && this.file != null) {
       const formData: FormData = new FormData();
       formData.append('_id', this.registerForm.get('_id')!.value || "");
       formData.append('companyName', this.registerForm.get('companyName')?.value || "");
@@ -67,7 +67,10 @@ export class RecruiterProfileCompletionComponent {
           this.route.navigate(['login']);
         },
         error: (error) => {
-          this.alertService.alertMessage('Details are not valid', 'Please check inputs', 'error');
+          if (error.error === 'Try another email')
+            this.alertService.alertMessage('Email already exists', 'Try another email', 'warning');
+          else
+            this.alertService.alertMessage('Details are not valid', 'Please check inputs', 'error');
         }
       });
     }

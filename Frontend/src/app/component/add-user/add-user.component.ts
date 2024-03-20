@@ -37,8 +37,13 @@ export class UserComponent {
           this.alertService.alertMessage('New User AddedSuccessfully', '', 'success');
           this.addUserForm.reset();
         },
-        error: () => {
-          this.alertService.alertMessage('Enter Valid User Details!', 'Try again', 'error');
+        error: (error) => {
+          console.log(error.error);
+
+          if (error.error === 'Try another email')
+            this.alertService.alertMessage('Email already exists', 'Try another email', 'warning');
+          else
+            this.alertService.alertMessage('Enter Valid User Details!', 'Try again', 'error');
         },
       });
     }

@@ -1,7 +1,6 @@
 package Backend.JobWave.Exception;
 
 import org.apache.catalina.connector.Response;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,6 +27,11 @@ public class RestExceptionHandler {
         return ResponseEntity.status(Response.SC_INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
 
+    @ExceptionHandler(value = { EmailAlreadyExistsException.class })
+    public ResponseEntity<?> emailAlreadyExistsException(EmailAlreadyExistsException e) {
+        return ResponseEntity.status(Response.SC_BAD_REQUEST).body(e.getMessage());
+    }
+
     @ExceptionHandler(value = { IllegalArgumentException.class })
     public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException e) {
         return ResponseEntity.status(Response.SC_BAD_REQUEST).body(e.getMessage());
@@ -51,11 +55,6 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = { AccessDeniedException.class })
     public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException e) {
         return ResponseEntity.status(Response.SC_FORBIDDEN).body(e.getMessage());
-    }
-
-    @ExceptionHandler(value = { IncorrectResultSizeDataAccessException.class })
-    public ResponseEntity<?> handlIncorrectResultSizeDataAccessException(IncorrectResultSizeDataAccessException e) {
-        return ResponseEntity.status(Response.SC_BAD_REQUEST).body(e.getMessage());
     }
 
 }
