@@ -39,8 +39,11 @@ export class JobseekerProfileCompletionComponent {
     indusrties: [[],],
   });
 
-  upload(event: any): void {
-    this.file = event.target.files[0];
+  upload(event: Event): void {
+    const fileEvent = event.target as HTMLInputElement;
+    if (fileEvent.files) {
+      this.file = fileEvent.files[0];
+    }
   }
 
   register(): void {

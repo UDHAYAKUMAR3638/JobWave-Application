@@ -71,8 +71,11 @@ export class ProfileComponent {
     return this.userForm.get('jobseekerIndustries') as FormArray;
   }
 
-  image(event: any): void {
-    this.file = event.target.files[0];
+  image(event: Event): void {
+    const fileEvent = event.target as HTMLInputElement;
+    if (fileEvent.files) {
+      this.file = fileEvent.files[0];
+    }
   }
 
   getUser(): void {
