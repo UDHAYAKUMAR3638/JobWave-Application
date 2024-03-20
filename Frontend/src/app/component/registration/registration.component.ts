@@ -55,7 +55,7 @@ export class RegistrationComponent {
               {
                 label: "Registrations",
                 data: Object.values(this.registrations),
-                backgroundColor: 'blue'
+                backgroundColor: '#2557A7'
               },
             ]
           },

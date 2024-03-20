@@ -130,6 +130,7 @@ export class PostPageComponent {
       next: (data: { _id: string; }) => {
         this.postService.savePayment(data._id, this.paymentDetails, this.userDetails, this.perPostCost).subscribe({
           next: (data: Bill) => {
+            this.postForm.reset();
           }
         })
         this.alertService.alertMessage('Post added Successfully', 'redirected to your posts', 'success');

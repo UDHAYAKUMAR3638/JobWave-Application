@@ -23,7 +23,7 @@ export class ApplicantService {
         const body = {
             toEmail: user.email,
             subject: `${postDetails.role} application response`,
-            body: val ? `Mr.${user.name},\nyour application is selected for role ${postDetails.role} in ${postDetails.recruiterId.companyName},${postDetails.location}\nFurther process will be intimated by company recruitment team.\nThanks you`
+            body: val ? `Mr.${user.name},\nyour application is selected for role ${postDetails.role} in ${postDetails.recruiterId.companyName},${postDetails.location}\nFurther process will be intimated by company recruitment team.\nThank you`
                 : `Mr.${user.name},\nyour application is rejected for role ${postDetails.role} in ${postDetails.recruiterId.companyName},${postDetails.location}.\nKeep applying for jobs in our website.\nHope find your suitable job soon.\nThank you`
         };
         return this.http.post<Boolean>(environment.emailUrl, body);

@@ -35,12 +35,7 @@ export class UserComponent {
       this.userApi = this.addUserService.addUser(<AddUser>this.addUserForm.value).subscribe({
         next: () => {
           this.alertService.alertMessage('New User AddedSuccessfully', '', 'success');
-          this.addUserForm = this.formBuilder.group({
-            name: ['', Validators.required],
-            email: ['', [Validators.email, Validators.required]],
-            password: ['', Validators.required],
-            role: ['', Validators.required],
-          });
+          this.addUserForm.reset();
         },
         error: () => {
           this.alertService.alertMessage('Enter Valid User Details!', 'Try again', 'error');

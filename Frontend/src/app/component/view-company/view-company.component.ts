@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ViewCompanyService } from './view-company.service';
+import { Rating, ViewCompanyService } from './view-company.service';
 import { Recruiter } from '../recruiter-profile-completion/recruiter-profile-completion.service';
 import { Post } from '../post-page/post-page.service';
 import { JobPageService } from '../job-page/job-page.service';
@@ -56,6 +56,9 @@ export class ViewCompanyComponent {
   companyApi: Subscription = new Subscription();
   postApi: Subscription = new Subscription();
   updateApi: Subscription = new Subscription();
+  ratingApi: Subscription = new Subscription();
+  @ViewChild("submit", { read: ElementRef })
+  submitButton!: ElementRef;
 
   handlePageEvent(event: PageEvent): void {
     this.length = event.length;
@@ -65,7 +68,11 @@ export class ViewCompanyComponent {
   }
 
   ngOnInit(): void {
+    this.getCompanyDetails();
 
+  }
+
+  getCompanyDetails() {
     this.companyApi = this.companyService.getCompany(this.route.snapshot.paramMap.get('id') || '').subscribe({
       next: (response: Recruiter) => {
         this.company = response;
@@ -73,7 +80,21 @@ export class ViewCompanyComponent {
         this.getCompanyPost();
       }
     });
+  }
 
+  ngAfterViewInit() {
+    this.checkRating()
+  }
+
+  checkRating() {
+    this.ratingApi = this.companyService.getRating(this.route.snapshot.paramMap.get('id') || '').subscribe({
+      next: (data: Rating) => {
+        this.submitButton.nativeElement.disabled = (data !== null);
+
+        if (data)
+          this.rating = data.rating;
+      }
+    });
   }
 
   applicationStatus(id: string): boolean {
@@ -115,7 +136,9 @@ export class ViewCompanyComponent {
 
     this.updateApi = this.companyService.updateCompany(this.company._id, sessionStorage.getItem('email') || '', this.rating).subscribe({
       next: () => {
-        this.alertService.alertMessage('Rating submitted', '', 'success')
+        this.alertService.alertMessage('Rating submitted', '', 'success');
+        this.getCompanyDetails();
+        this.checkRating();
       }
     })
 
@@ -125,6 +148,7 @@ export class ViewCompanyComponent {
     this.companyApi.unsubscribe();
     this.postApi.unsubscribe();
     this.updateApi.unsubscribe();
+    this.ratingApi.unsubscribe();
   }
 
 }

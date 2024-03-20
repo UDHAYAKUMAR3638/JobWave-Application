@@ -7,7 +7,7 @@
         <form class="form" [formGroup]="postForm">
 
             <label class="labels">Job role</label>
-            <input class="inputs" placeholder="Enter jo role" formControlName="role">
+            <input class="inputs" placeholder="Enter job role" formControlName="role">
             <mat-error *ngIf="postForm.get('role')?.invalid &&
     (postForm.get('role')?.dirty ||
     postForm.get('role')?.touched)">
@@ -64,14 +64,14 @@
             <mat-error *ngIf="postForm.get('content')?.invalid &&
     (postForm.get('content')?.dirty ||
      postForm.get('content')?.touched)">
-                password is required!</mat-error>
+                Job description is required!</mat-error>
 
             <label class="labels">Education requirement</label>
             <input matInput class="inputs" placeholder="Enter education" formControlName="education">
             <mat-error *ngIf="postForm.get('education')?.invalid &&
     (postForm.get('education')?.dirty ||
      postForm.get('education')?.touched)">
-                education is required!</mat-error>
+                Education is required!</mat-error>
 
             <label class="labels">Job benifits</label>
             <input type="text" class="inputs" placeholder="Enter benifits" formControlName="benifits">

@@ -77,7 +77,7 @@ export class JobApplyComponent {
     formData.append('status', 'Pending');
     formData.append('resume', this.file || '');
 
-    if (!this.jobApplicationForm.invalid) {
+    if (!this.jobApplicationForm.invalid && this.file) {
       this.jobApi = this.jobService.apply(formData).subscribe({
         next: (data: JobApplication) => {
           this.alertService.alertMessage('Application sent successfully', ``, 'success');
@@ -86,6 +86,8 @@ export class JobApplyComponent {
 
       });
     }
+    else
+      this.alertService.alertMessage('Complete all fields', ``, 'warning');
   }
 
   ngOnDestroy() {

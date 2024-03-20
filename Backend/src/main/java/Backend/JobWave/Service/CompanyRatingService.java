@@ -13,4 +13,6 @@ public interface CompanyRatingService {
     public CompanyRating addRating(CompanyRating rating);
 
     public UpdateResult avgRating(Recruiter recruiter);
+
+    public CompanyRating getRating(String companyId, String email);
 }

@@ -2,6 +2,7 @@ package Backend.JobWave.Service.Implementation;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,11 @@ public class CompanyRatingServiceImp implements CompanyRatingService {
         double avg = (sum / rating.size());
         return recruiterDao.updateRecruiter(recruiter.get_id(), avg);
     }
+
+    @Override
+    public CompanyRating getRating(String companyId, String email){
+        return companyRatingRepository.findByCompanyIdAndJobseekerEmail(new ObjectId(companyId),email);
+    }
+
 
 }

@@ -21,13 +21,9 @@ export class LoginComponent {
     private alertService: AlertService
   ) { }
 
-  onSubmit() {
-    // console.log(this.loginForm.value);
-  }
-
   loginForm = this.formBuilder.group({
-    email: ['admin@gmail.com', [Validators.email, Validators.required]],
-    password: ['admin', Validators.required]
+    email: ['', [Validators.email, Validators.required]],
+    password: ['', Validators.required]
 
   });
 

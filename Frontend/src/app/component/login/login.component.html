@@ -9,10 +9,10 @@
 
 <div class="loginBox">
 
-  <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <form class="form" [formGroup]="loginForm">
 
     <label class="labels">Enter Email :</label>
-    <input type="text" class="inputs" formControlName="email">
+    <input type="text" class="inputs" formControlName="email" placeholder="Enter email">
     <mat-error *ngIf="loginForm.get('email')?.invalid &&
   (loginForm.get('email')?.dirty ||
    loginForm.get('email')?.touched)">
@@ -21,7 +21,7 @@
     <br />
 
     <label class="labels">Enter Password: </label>
-    <input type="password" class="inputs" formControlName="password" />
+    <input type="password" class="inputs" formControlName="password" placeholder="Enter password" />
     <mat-error *ngIf="loginForm.get('password')?.invalid &&
   (loginForm.get('password')?.dirty ||
    loginForm.get('password')?.touched)">

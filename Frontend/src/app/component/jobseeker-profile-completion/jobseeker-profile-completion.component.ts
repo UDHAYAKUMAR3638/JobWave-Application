@@ -65,6 +65,7 @@ export class JobseekerProfileCompletionComponent {
     if (!this.registerForm.invalid) {
       this.registerApi = this.profileService.register(formData).subscribe({
         next: (data: Jobseeker) => {
+          this.registerForm.reset();
           this.alertService.alertMessage('Registeration Successful!', `redirected to login`, 'success');
           this.route.navigate(['login']);
         },

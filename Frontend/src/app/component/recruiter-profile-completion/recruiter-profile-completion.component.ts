@@ -59,6 +59,7 @@ export class RecruiterProfileCompletionComponent {
 
       this.registerApi = this.profileService.register(formData).subscribe({
         next: (data: Recruiter) => {
+          this.registerForm.reset();
           this.alertService.alertMessage('Registeration Successful', 'redirected to login', 'success');
           this.route.navigate(['login']);
         },

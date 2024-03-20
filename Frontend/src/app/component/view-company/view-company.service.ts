@@ -32,4 +32,11 @@ export class ViewCompanyService {
   updateCompany(companyId: string, jobseekerEmail: string, rating: number): Observable<Rating> {
     return this.http.post<Rating>(`${environment.ratingUrl}post`, { companyId: { _id: companyId }, jobseekerEmail, rating });
   }
+
+  getRating(companyId: string): Observable<Rating> {
+    const params = new HttpParams()
+      .set("companyId", companyId)
+      .set('email', sessionStorage.getItem('email') || '');
+    return this.http.get<Rating>(`${environment.ratingUrl}get-rating`, { params });
+  }
 }
